@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>低质量随笔</title>
+    <link>https://kyzy540.github.io/</link>
+    <description>Recent content on 低质量随笔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Dec 2021 17:44:34 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GT Sports is the best (so far)</title>
+      <link>https://kyzy540.github.io/post/gt_sports/</link>
+      <pubDate>Thu, 30 Dec 2021 17:44:34 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/gt_sports/</guid>
+      <description>Even better than Horizon</description>
+    </item>
+    
+    <item>
+      <title>《死亡搁浅: 导演剪辑版》心得分享</title>
+      <link>https://kyzy540.github.io/post/death_stranding/</link>
+      <pubDate>Tue, 28 Dec 2021 20:40:49 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/death_stranding/</guid>
+      <description>我的2021年度游戏</description>
+    </item>
+    
+  </channel>
+</rss>
