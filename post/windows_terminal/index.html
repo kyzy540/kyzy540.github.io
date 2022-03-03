@@ -14,16 +14,16 @@
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
 PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
+PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE  PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
 另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
 可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
 choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
 choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.">
+ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/windows_terminal/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
@@ -32,7 +32,7 @@ ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用�
 <link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.93.1" />
 <noscript>
     <style>
         #theme-toggle,
@@ -77,12 +77,12 @@ ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用�
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
 PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
+PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE  PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
 另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
 可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
 choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
 choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (." />
+ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 ." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kyzy540.github.io/post/windows_terminal/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-18T19:05:59&#43;08:00" />
@@ -97,12 +97,12 @@ ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用�
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
 PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
+PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE  PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
 另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
 可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
 choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
 choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (."/>
+ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 ."/>
 
 
 <script type="application/ld+json">
@@ -131,11 +131,11 @@ ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用�
   "@type": "BlogPosting",
   "headline": "微软好终端",
   "name": "微软好终端",
-  "description": "Windows发展到今日，已非复吴下阿蒙。被诟病多年的\u0026quot;终端难用\u0026quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具\n在介绍工具前，读者应了解几点知识:\n 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别   Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如\n 只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows  Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解\nGOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中\n想找出java文件中包含Log关键字最多的前3名？\nPS C:\\Users\u0026gt; grep -c Log *.java | sort {[int]$_.split(\u0026#34;:\u0026#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？\nPS C:\\Users\u0026gt; which head C: \\Program Files (x86)\\Gow\\bin\\grep.EXE PS C:\\Users\u0026gt; which head C: \\WINDOWS\\system32\\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务\n另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的\n可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨\nchoco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例\nchoco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳\nripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.",
+  "description": "Windows发展到今日，已非复吴下阿蒙。被诟病多年的\u0026quot;终端难用\u0026quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具\n在介绍工具前，读者应了解几点知识:\n 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别   Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如\n 只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows  Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解\nGOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中\n想找出java文件中包含Log关键字最多的前3名？\nPS C:\\Users\u0026gt; grep -c Log *.java | sort {[int]$_.split(\u0026#34;:\u0026#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？\nPS C:\\Users\u0026gt; which head C: \\Program Files (x86)\\Gow\\bin\\grep.EXE  PS C:\\Users\u0026gt; which head C: \\WINDOWS\\system32\\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务\n另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的\n可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨\nchoco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例\nchoco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳\nripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .",
   "keywords": [
     "windows", "terminal", "wsl", "gow"
   ],
-  "articleBody": "Windows发展到今日，已非复吴下阿蒙。被诟病多年的\"终端难用\"问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具\n在介绍工具前，读者应了解几点知识:\n 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别   Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如\n 只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows  Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解\nGOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中\n想找出java文件中包含Log关键字最多的前3名？\nPS C:\\Users grep -c Log *.java | sort {[int]$_.split(\":\")[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？\nPS C:\\Users which head C: \\Program Files (x86)\\Gow\\bin\\grep.EXE PS C:\\Users which head C: \\WINDOWS\\system32\\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务\n另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的\n可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨\nchoco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例\nchoco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳\nripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高\nrg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助\n至此，如果读者还在用Powershell默认的蓝底白字配色做开发，估计已经快瞎了。试试Dracula Theme，个人感觉还不错。Powershell的美化方子还有很多，例如oh-my-posh，这里不展开介绍\nWSL WSL全称Windows Subsystem for Linux，介绍请戳官方文档。简单点说，它是个自下而上完整的Linux系统。比虚拟机更轻、更快、更强（可以访问Windows文件系统，运行EXE）。再简单点说，它同时具备Linux和Windows的优点，好用得不讲理\n使用WSL需要Windows10和Administrator权限，详细请参考安装指南\n完整的Linux终端下，能玩的花活不计其数。这里只提几点心得\nProperties-Options 可以开启复制/粘体快捷键。如果看不到如图选项，说明系统版本过低，请升级。系统版本可以用winver命令查看\nexpect可以方便地实现自动化登录功能。zssh可以实现rz/sz 上传/下载远端数据。用惯XShell刚转投WSL的朋友可以试试这2个工具\nalias 可以让调用EXE更方便，我的.bashrc有如下配置\nalias java='java.exe' alias jar='jar.exe' alias subl='subl.exe' alias ii='explorer.exe' 为什么把explorer.exe设成ii？因为Powershell中打开资源管理器命令是ii。例如，ii .会在当前目录下打开资源管理器。WSL2支持explorer.exe浏览WSL文件系统，WSL1不行\nLinux下调用EXE有什么好处？举个例子: 在sublime text中打开包含Log关键词的java文件，命令如下\nfor i in $(grep -l Log *.java); do subl $i; done Windows Terminal Windows Terminal 是我用过最好的终端工具之一。支持pane、tab、高度可定制等，优点不一而足。官方文档也非常详实\n再次提醒，Windows Terminal(wt)不是SHELL。安装wt不会自带WSL，后者必须另外装。如果读者不了解terminal和SHELL的区别，也不爱看博文，那以一个不恰当的比喻解释就是: SHELL好比MOBA游戏中的英雄，terminal好比皮肤。没解锁英雄，皮肤是用不上的\nwt可自定义的配置很多，稍加调教就能得心应手。下面贴出部分我的配置供参考\n{ // 默认启动WSL而非Powershell  \"defaultProfile\": \"{2c4de342-38b7-51cf-b940-2309a097f518}\", // 选中字符自动拷贝到剪切板  \"copyOnSelect\": true, // 分隔符不包含\".\"(dot)，方便双击选中IP和完整的文件名  \"wordDelimiters\": \"/\\\\()\\\"'-:,;\u0026lt;\u0026gt;~!@#$%^\u0026amp;*|+=[]{}~?│\", \"profiles\": { \"defaults\": { // 光标形状  \"cursorShape\": \"filledBox\", // 退出时关闭tab。若不设always，退出时遇到\"process exited with code xxx\" tab不会关闭  \"closeOnExit\": \"always\" }, \"list\": [ { \"guid\": \"{2c4de342-38b7-51cf-b940-2309a097f518}\", \"hidden\": false, \"name\": \"Ubuntu\", \"source\": \"Windows.Terminal.Wsl\", // 启动目录为WSL中的$HOME  \"startingDirectory\": \"\\\\\\\\wsl$\\\\Ubuntu\\\\home\\\\xxx\" } ] } } 截至到2020年6月，wt最新版本为1.0。功能和性能都比较稳定，但问题还是有的\n 亚克力效果 (“acrylic”: true)对性能有损耗 暂不支持传统的\"透明度\"调整 wt性能低于native console (直接启动WSL活Powershell)  目前想到的就这些，往后有新货再补充。最后，win键，wt，enter，enjoy!\n",
+  "articleBody": "Windows发展到今日，已非复吴下阿蒙。被诟病多年的\"终端难用\"问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具\n在介绍工具前，读者应了解几点知识:\n 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别   Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如\n 只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows  Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解\nGOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中\n想找出java文件中包含Log关键字最多的前3名？\nPS C:\\Users grep -c Log *.java | sort {[int]$_.split(\":\")[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？\nPS C:\\Users which head C: \\Program Files (x86)\\Gow\\bin\\grep.EXE  PS C:\\Users which head C: \\WINDOWS\\system32\\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务\n另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的\n可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨\nchoco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例\nchoco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳\nripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高\nrg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助\n至此，如果读者还在用Powershell默认的蓝底白字配色做开发，估计已经快瞎了。试试Dracula Theme，个人感觉还不错。Powershell的美化方子还有很多，例如oh-my-posh，这里不展开介绍\nWSL WSL全称Windows Subsystem for Linux，介绍请戳官方文档。简单点说，它是个自下而上完整的Linux系统。比虚拟机更轻、更快、更强（可以访问Windows文件系统，运行EXE）。再简单点说，它同时具备Linux和Windows的优点，好用得不讲理\n使用WSL需要Windows10和Administrator权限，详细请参考安装指南\n完整的Linux终端下，能玩的花活不计其数。这里只提几点心得\nProperties-Options 可以开启复制/粘体快捷键。如果看不到如图选项，说明系统版本过低，请升级。系统版本可以用winver命令查看\nexpect可以方便地实现自动化登录功能。zssh可以实现rz/sz 上传/下载远端数据。用惯XShell刚转投WSL的朋友可以试试这2个工具\nalias 可以让调用EXE更方便，我的.bashrc有如下配置\nalias java='java.exe' alias jar='jar.exe' alias subl='subl.exe' alias ii='explorer.exe' 为什么把explorer.exe设成ii？因为Powershell中打开资源管理器命令是ii。例如，ii .会在当前目录下打开资源管理器。WSL2支持explorer.exe浏览WSL文件系统，WSL1不行\nLinux下调用EXE有什么好处？举个例子: 在sublime text中打开包含Log关键词的java文件，命令如下\nfor i in $(grep -l Log *.java); do subl $i; done Windows Terminal Windows Terminal 是我用过最好的终端工具之一。支持pane、tab、高度可定制等，优点不一而足。官方文档也非常详实\n再次提醒，Windows Terminal(wt)不是SHELL。安装wt不会自带WSL，后者必须另外装。如果读者不了解terminal和SHELL的区别，也不爱看博文，那以一个不恰当的比喻解释就是: SHELL好比MOBA游戏中的英雄，terminal好比皮肤。没解锁英雄，皮肤是用不上的\nwt可自定义的配置很多，稍加调教就能得心应手。下面贴出部分我的配置供参考\n{  // 默认启动WSL而非Powershell  \"defaultProfile\": \"{2c4de342-38b7-51cf-b940-2309a097f518}\",   // 选中字符自动拷贝到剪切板  \"copyOnSelect\": true,   // 分隔符不包含\".\"(dot)，方便双击选中IP和完整的文件名  \"wordDelimiters\": \"/\\\\()\\\"'-:,;\u0026lt;\u0026gt;~!@#$%^\u0026amp;*|+=[]{}~?│\",   \"profiles\":  {  \"defaults\":  {  // 光标形状  \"cursorShape\": \"filledBox\",  // 退出时关闭tab。若不设always，退出时遇到\"process exited with code xxx\" tab不会关闭  \"closeOnExit\": \"always\"  },  \"list\":  [  {  \"guid\": \"{2c4de342-38b7-51cf-b940-2309a097f518}\",  \"hidden\": false,  \"name\": \"Ubuntu\",  \"source\": \"Windows.Terminal.Wsl\",  // 启动目录为WSL中的$HOME  \"startingDirectory\": \"\\\\\\\\wsl$\\\\Ubuntu\\\\home\\\\xxx\"  }  ]  } } 截至到2020年6月，wt最新版本为1.0。功能和性能都比较稳定，但问题还是有的\n 亚克力效果 (“acrylic”: true)对性能有损耗 暂不支持传统的\"透明度\"调整 wt性能低于native console (直接启动WSL活Powershell)  目前想到的就这些，往后有新货再补充。最后，win键，wt，enter，enjoy!\n",
   "wordCount" : "181",
   "inLanguage": "en",
   "datePublished": "2020-06-18T19:05:59+08:00",
@@ -236,26 +236,26 @@ ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用�
 <p>Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解</p>
 <p><a href="https://github.com/bmatzelle/gow/wiki">GOW</a> (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中</p>
 <p>想找出java文件中包含Log关键字最多的前3名？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS C:\Users&gt; grep -c Log *.java | sort {<span style="color:#66d9ef">[int]</span>$_.split(<span style="color:#e6db74">&#34;:&#34;</span>)[1]} -D | head -n 3
-A.java<span style="color:#960050;background-color:#1e0010">:</span>20
-B.java<span style="color:#960050;background-color:#1e0010">:</span>13
-C.java<span style="color:#960050;background-color:#1e0010">:</span>7
-</code></pre></div><p>其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS C:\Users&gt; which head
-C: \Program Files (x86)\Gow\bin\grep.EXE
-
-PS C:\Users&gt; which head
-C: \WINDOWS\system32\sort.EXE
-</code></pre></div><p>有了GOW，Powershell已经能应付简单的终端任务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\Users&gt; grep -c Log *.java | sort {<span style="color:#66d9ef">[int]</span>$_.split(<span style="color:#e6db74">&#34;:&#34;</span>)[1]} -D | head -n 3
+</span></span><span style="display:flex;"><span>A.java<span style="color:#960050;background-color:#1e0010">:</span>20
+</span></span><span style="display:flex;"><span>B.java<span style="color:#960050;background-color:#1e0010">:</span>13
+</span></span><span style="display:flex;"><span>C.java<span style="color:#960050;background-color:#1e0010">:</span>7
+</span></span></code></pre></div><p>其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\Users&gt; which head
+</span></span><span style="display:flex;"><span>C: \Program Files (x86)\Gow\bin\grep.EXE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PS C:\Users&gt; which head
+</span></span><span style="display:flex;"><span>C: \WINDOWS\system32\sort.EXE
+</span></span></code></pre></div><p>有了GOW，Powershell已经能应付简单的终端任务</p>
 <p>另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的</p>
 <h3 id="可选工具">可选工具<a hidden class="anchor" aria-hidden="true" href="#可选工具">#</a></h3>
 <p>下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨</p>
 <p><a href="https://chocolatey.org/">choco</a> 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">choco install gow
-</code></pre></div><p><a href="https://github.com/vors/ZLocation">ZLocation</a> 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>choco install gow
+</span></span></code></pre></div><p><a href="https://github.com/vors/ZLocation">ZLocation</a> 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳</p>
 <p><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">rg -tjava Log
-</code></pre></div><p><a href="https://github.com/stedolan/jq">jq</a> 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>rg -tjava Log
+</span></span></code></pre></div><p><a href="https://github.com/stedolan/jq">jq</a> 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助</p>
 <p>至此，如果读者还在用Powershell默认的蓝底白字配色做开发，估计已经快瞎了。试试<a href="https://draculatheme.com/powershell/">Dracula Theme</a>，个人感觉还不错。Powershell的美化方子还有很多，例如<a href="https://github.com/JanDeDobbeleer/oh-my-posh">oh-my-posh</a>，这里不展开介绍</p>
 <h2 id="wsl">WSL<a hidden class="anchor" aria-hidden="true" href="#wsl">#</a></h2>
 <p>WSL全称Windows Subsystem for Linux，介绍请戳<a href="https://docs.microsoft.com/zh-cn/windows/wsl/">官方文档</a>。简单点说，它是个自下而上完整的Linux系统。比虚拟机更轻、更快、更强（可以访问Windows文件系统，运行EXE）。再简单点说，它同时具备Linux和Windows的优点，好用得不讲理</p>
@@ -266,52 +266,52 @@ C: \WINDOWS\system32\sort.EXE
 <p>Properties-&gt;Options 可以开启复制/粘体快捷键。如果看不到如图选项，说明系统版本过低，请升级。系统版本可以用winver命令查看</p>
 <p>expect可以方便地实现自动化登录功能。zssh可以实现rz/sz 上传/下载远端数据。用惯XShell刚转投WSL的朋友可以试试这2个工具</p>
 <p>alias 可以让调用EXE更方便，我的.bashrc有如下配置</p>
-<pre tabindex="0"><code>alias java='java.exe'
-alias jar='jar.exe'
-alias subl='subl.exe'
-alias ii='explorer.exe'
+<pre tabindex="0"><code>alias java=&#39;java.exe&#39;
+alias jar=&#39;jar.exe&#39;
+alias subl=&#39;subl.exe&#39;
+alias ii=&#39;explorer.exe&#39;
 </code></pre><p>为什么把explorer.exe设成ii？因为Powershell中打开资源管理器命令是ii。例如，<code>ii .</code>会在当前目录下打开资源管理器。WSL2支持explorer.exe浏览WSL文件系统，WSL1不行</p>
 <p>Linux下调用EXE有什么好处？举个例子: 在sublime text中打开包含Log关键词的java文件，命令如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>grep -l Log *.java<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> subl $i; <span style="color:#66d9ef">done</span>
-</code></pre></div><h2 id="windows-terminal">Windows Terminal<a hidden class="anchor" aria-hidden="true" href="#windows-terminal">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>grep -l Log *.java<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> subl $i; <span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><h2 id="windows-terminal">Windows Terminal<a hidden class="anchor" aria-hidden="true" href="#windows-terminal">#</a></h2>
 <p><img loading="lazy" src="/img/windows_terminal/p73572542.jpg" alt="img"  />
 </p>
 <p><a href="https://en.wikipedia.org/wiki/Windows_Terminal">Windows Terminal</a> 是我用过最好的终端工具之一。支持pane、tab、高度可定制等，优点不一而足。<a href="https://docs.microsoft.com/zh-cn/windows/terminal/">官方文档</a>也非常详实</p>
 <p>再次提醒，Windows Terminal(wt)不是SHELL。安装wt不会自带WSL，后者必须另外装。如果读者不了解terminal和SHELL的区别，也不爱看博文，那以一个不恰当的比喻解释就是: SHELL好比MOBA游戏中的英雄，terminal好比皮肤。没解锁英雄，皮肤是用不上的</p>
 <p>wt可自定义的配置很多，稍加调教就能得心应手。下面贴出部分我的配置供参考</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-    <span style="color:#75715e">// 默认启动WSL而非Powershell
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;defaultProfile&#34;</span>: <span style="color:#e6db74">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span>,
-
-    <span style="color:#75715e">// 选中字符自动拷贝到剪切板
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;copyOnSelect&#34;</span>: <span style="color:#66d9ef">true</span>,
-
-    <span style="color:#75715e">// 分隔符不包含&#34;.&#34;(dot)，方便双击选中IP和完整的文件名
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;wordDelimiters&#34;</span>: <span style="color:#e6db74">&#34;/\\()\&#34;&#39;-:,;&amp;lt;&amp;gt;~!@#$%^&amp;amp;*|+=[]{}~?│&#34;</span>,
-
-    <span style="color:#f92672">&#34;profiles&#34;</span>:
-    {
-        <span style="color:#f92672">&#34;defaults&#34;</span>:
-        {
-            <span style="color:#75715e">// 光标形状
-</span><span style="color:#75715e"></span>            <span style="color:#f92672">&#34;cursorShape&#34;</span>: <span style="color:#e6db74">&#34;filledBox&#34;</span>,
-            <span style="color:#75715e">// 退出时关闭tab。若不设always，退出时遇到&#34;process exited with code xxx&#34; tab不会关闭
-</span><span style="color:#75715e"></span>            <span style="color:#f92672">&#34;closeOnExit&#34;</span>: <span style="color:#e6db74">&#34;always&#34;</span>
-        },
-        <span style="color:#f92672">&#34;list&#34;</span>:
-        [
-            {
-                <span style="color:#f92672">&#34;guid&#34;</span>: <span style="color:#e6db74">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span>,
-                <span style="color:#f92672">&#34;hidden&#34;</span>: <span style="color:#66d9ef">false</span>,
-                <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Ubuntu&#34;</span>,
-                <span style="color:#f92672">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;Windows.Terminal.Wsl&#34;</span>,
-                <span style="color:#75715e">// 启动目录为WSL中的$HOME
-</span><span style="color:#75715e"></span>                <span style="color:#f92672">&#34;startingDirectory&#34;</span>: <span style="color:#e6db74">&#34;\\\\wsl$\\Ubuntu\\home\\xxx&#34;</span>
-            }
-        ]
-    }
-}
-</code></pre></div><p>截至到2020年6月，wt最新版本为1.0。功能和性能都比较稳定，但问题还是有的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 默认启动WSL而非Powershell
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;defaultProfile&#34;</span>: <span style="color:#e6db74">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 选中字符自动拷贝到剪切板
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;copyOnSelect&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 分隔符不包含&#34;.&#34;(dot)，方便双击选中IP和完整的文件名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;wordDelimiters&#34;</span>: <span style="color:#e6db74">&#34;/\\()\&#34;&#39;-:,;&amp;lt;&amp;gt;~!@#$%^&amp;amp;*|+=[]{}~?│&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;profiles&#34;</span>:
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;defaults&#34;</span>:
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 光标形状
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#f92672">&#34;cursorShape&#34;</span>: <span style="color:#e6db74">&#34;filledBox&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 退出时关闭tab。若不设always，退出时遇到&#34;process exited with code xxx&#34; tab不会关闭
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#f92672">&#34;closeOnExit&#34;</span>: <span style="color:#e6db74">&#34;always&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;list&#34;</span>:
+</span></span><span style="display:flex;"><span>        [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;guid&#34;</span>: <span style="color:#e6db74">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;hidden&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Ubuntu&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;Windows.Terminal.Wsl&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 启动目录为WSL中的$HOME
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#f92672">&#34;startingDirectory&#34;</span>: <span style="color:#e6db74">&#34;\\\\wsl$\\Ubuntu\\home\\xxx&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>截至到2020年6月，wt最新版本为1.0。功能和性能都比较稳定，但问题还是有的</p>
 <ul>
 <li>亚克力效果 (&ldquo;acrylic&rdquo;: true)对性能有损耗</li>
 <li>暂不支持传统的&quot;透明度&quot;调整</li>

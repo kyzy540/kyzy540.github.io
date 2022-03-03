@@ -177,12 +177,12 @@ Horizon (地平线)在游戏中代表着一个汽车嘉年华活动，而&amp;qu
 GOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
 PS C:\Users&amp;gt; grep -c Log *.java | sort {[int]$_.split(&amp;#34;:&amp;#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&amp;gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&amp;gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
+PS C:\Users&amp;gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE  PS C:\Users&amp;gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
 另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的
 可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
 choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
 choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.</description>
+ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .</description>
     </item>
     
     <item>
