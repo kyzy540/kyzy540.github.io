@@ -261,7 +261,7 @@ ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用�
 <p>WSL全称Windows Subsystem for Linux，介绍请戳<a href="https://docs.microsoft.com/zh-cn/windows/wsl/">官方文档</a>。简单点说，它是个自下而上完整的Linux系统。比虚拟机更轻、更快、更强（可以访问Windows文件系统，运行EXE）。再简单点说，它同时具备Linux和Windows的优点，好用得不讲理</p>
 <p>使用WSL需要Windows10和Administrator权限，详细请参考<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10">安装指南</a></p>
 <p>完整的Linux终端下，能玩的花活不计其数。这里只提几点心得</p>
-<p><img loading="lazy" src="/img/windows_terminal/p73572541.jpg" alt="img"  />
+<p><img loading="lazy" src="/img/windows/p73572541.jpg" alt="img"  />
 </p>
 <p>Properties-&gt;Options 可以开启复制/粘体快捷键。如果看不到如图选项，说明系统版本过低，请升级。系统版本可以用winver命令查看</p>
 <p>expect可以方便地实现自动化登录功能。zssh可以实现rz/sz 上传/下载远端数据。用惯XShell刚转投WSL的朋友可以试试这2个工具</p>
@@ -274,7 +274,7 @@ alias ii=&#39;explorer.exe&#39;
 <p>Linux下调用EXE有什么好处？举个例子: 在sublime text中打开包含Log关键词的java文件，命令如下</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in <span style="color:#66d9ef">$(</span>grep -l Log *.java<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span> subl $i; <span style="color:#66d9ef">done</span>
 </span></span></code></pre></div><h2 id="windows-terminal">Windows Terminal<a hidden class="anchor" aria-hidden="true" href="#windows-terminal">#</a></h2>
-<p><img loading="lazy" src="/img/windows_terminal/p73572542.jpg" alt="img"  />
+<p><img loading="lazy" src="/img/windows/p73572542.jpg" alt="img"  />
 </p>
 <p><a href="https://en.wikipedia.org/wiki/Windows_Terminal">Windows Terminal</a> 是我用过最好的终端工具之一。支持pane、tab、高度可定制等，优点不一而足。<a href="https://docs.microsoft.com/zh-cn/windows/terminal/">官方文档</a>也非常详实</p>
 <p>再次提醒，Windows Terminal(wt)不是SHELL。安装wt不会自带WSL，后者必须另外装。如果读者不了解terminal和SHELL的区别，也不爱看博文，那以一个不恰当的比喻解释就是: SHELL好比MOBA游戏中的英雄，terminal好比皮肤。没解锁英雄，皮肤是用不上的</p>

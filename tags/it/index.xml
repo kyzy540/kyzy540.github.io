@@ -6,7 +6,19 @@
     <description>Recent content in it on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Jun 2020 19:05:59 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Apr 2022 09:43:39 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows_bridge_server_error</title>
+      <link>https://kyzy540.github.io/post/windows_bridge_server_error/</link>
+      <pubDate>Thu, 28 Apr 2022 09:43:39 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
+      <description>某次系统升级后一登录就报错
+ Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.
+ 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
+参考链接</description>
+    </item>
+    
     <item>
       <title>微软好终端</title>
       <link>https://kyzy540.github.io/post/windows_terminal/</link>
