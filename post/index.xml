@@ -6,7 +6,26 @@
     <description>Recent content in Posts on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 May 2022 08:57:29 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 16:17:24 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PS5待机模式崩溃</title>
+      <link>https://kyzy540.github.io/post/ps5_rest_crash/</link>
+      <pubDate>Mon, 23 May 2022 16:17:24 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/ps5_rest_crash/</guid>
+      <description>玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&amp;quot;How to fix&amp;quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
+Is there a fix for the &amp;ldquo;Rest Mode Crashing&amp;rdquo; yet?
+PS5 Rest mode crashing Issue Fix (Updated March 2022)
+How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
+这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了
+我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？
+在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力
+据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃
+ 死亡循环 - PS5数字版 死亡搁浅导演剪辑版 - PS5光盘版 对马岛之魂导演剪辑版 - PS5光盘版 地平线2西之绝境 - PS5光盘版 乐高DC超级坏蛋联盟 - PS4数字版  其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩
+当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题
+根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC</description>
+    </item>
+    
     <item>
       <title>牛肉汉堡制作小记</title>
       <link>https://kyzy540.github.io/post/burger_cooknote/</link>

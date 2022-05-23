@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>PS5待机模式崩溃 | 低质量随笔</title>
+<meta name="keywords" content="游戏, PS5" />
+<meta name="description" content="玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&quot;How to fix&quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
+Is there a fix for the &ldquo;Rest Mode Crashing&rdquo; yet?
+PS5 Rest mode crashing Issue Fix (Updated March 2022)
+How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
+这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了
+我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？
+在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力
+据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃
+ 死亡循环 - PS5数字版 死亡搁浅导演剪辑版 - PS5光盘版 对马岛之魂导演剪辑版 - PS5光盘版 地平线2西之绝境 - PS5光盘版 乐高DC超级坏蛋联盟 - PS4数字版  其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩
+当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题
+根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC">
+<meta name="author" content="">
+<link rel="canonical" href="https://kyzy540.github.io/post/ps5_rest_crash/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.2840b7fccd34145847db71a290569594bdbdb00047097f75d6495d162f5d7dff.js" integrity="sha256-KEC3/M00FFhH23GikFaVlL29sABHCX911kldFi9dff8="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kyzy540.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://kyzy540.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.99.1" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="PS5待机模式崩溃" />
+<meta property="og:description" content="玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&quot;How to fix&quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
+Is there a fix for the &ldquo;Rest Mode Crashing&rdquo; yet?
+PS5 Rest mode crashing Issue Fix (Updated March 2022)
+How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
+这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了
+我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？
+在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力
+据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃
+ 死亡循环 - PS5数字版 死亡搁浅导演剪辑版 - PS5光盘版 对马岛之魂导演剪辑版 - PS5光盘版 地平线2西之绝境 - PS5光盘版 乐高DC超级坏蛋联盟 - PS4数字版  其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩
+当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题
+根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kyzy540.github.io/post/ps5_rest_crash/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-23T16:17:24&#43;08:00" />
+<meta property="article:modified_time" content="2022-05-23T16:17:24&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PS5待机模式崩溃"/>
+<meta name="twitter:description" content="玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&quot;How to fix&quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
+Is there a fix for the &ldquo;Rest Mode Crashing&rdquo; yet?
+PS5 Rest mode crashing Issue Fix (Updated March 2022)
+How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
+这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了
+我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？
+在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力
+据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃
+ 死亡循环 - PS5数字版 死亡搁浅导演剪辑版 - PS5光盘版 对马岛之魂导演剪辑版 - PS5光盘版 地平线2西之绝境 - PS5光盘版 乐高DC超级坏蛋联盟 - PS4数字版  其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩
+当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题
+根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://kyzy540.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "PS5待机模式崩溃",
+      "item": "https://kyzy540.github.io/post/ps5_rest_crash/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PS5待机模式崩溃",
+  "name": "PS5待机模式崩溃",
+  "description": "玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称\u0026quot;How to fix\u0026quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁\nIs there a fix for the \u0026ldquo;Rest Mode Crashing\u0026rdquo; yet?\nPS5 Rest mode crashing Issue Fix (Updated March 2022)\nHow to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]\n这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了\n我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？\n在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力\n据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃\n 死亡循环 - PS5数字版 死亡搁浅导演剪辑版 - PS5光盘版 对马岛之魂导演剪辑版 - PS5光盘版 地平线2西之绝境 - PS5光盘版 乐高DC超级坏蛋联盟 - PS4数字版  其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩\n当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题\n根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC",
+  "keywords": [
+    "游戏", "PS5"
+  ],
+  "articleBody": "玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称\"How to fix\" 的文档最终只落在: 关掉待机模式，等索尼出补丁\nIs there a fix for the “Rest Mode Crashing” yet?\nPS5 Rest mode crashing Issue Fix (Updated March 2022)\nHow to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]\n这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了\n我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？\n在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力\n据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃\n 死亡循环 - PS5数字版 死亡搁浅导演剪辑版 - PS5光盘版 对马岛之魂导演剪辑版 - PS5光盘版 地平线2西之绝境 - PS5光盘版 乐高DC超级坏蛋联盟 - PS4数字版  其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩\n当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题\n根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC\n",
+  "wordCount" : "60",
+  "inLanguage": "en",
+  "datePublished": "2022-05-23T16:17:24+08:00",
+  "dateModified": "2022-05-23T16:17:24+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kyzy540.github.io/post/ps5_rest_crash/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "低质量随笔",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kyzy540.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kyzy540.github.io/" accesskey="h" title="低质量随笔 (Alt + H)">低质量随笔</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kyzy540.github.io/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      PS5待机模式崩溃
+    </h1>
+    <div class="post-meta"><span title='2022-05-23 16:17:24 +0800 CST'>May 23, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>玩PS5一年多了，总体而言比较失望。<strong>待机崩溃问题</strong> 已经存在了一年以上，但迟迟等不到补丁修复。截止2022年5月23日，我没有找到可靠的解决办法。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&quot;How to fix&quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁</p>
+<p><a href="https://gamefaqs.gamespot.com/boards/264562-playstation-5/79897102">Is there a fix for the &ldquo;Rest Mode Crashing&rdquo; yet?</a></p>
+<p><a href="https://brokenanalog.com/fix-ps5-rest-mode-crashing-issue/">PS5 Rest mode crashing Issue Fix (Updated March 2022)</a></p>
+<p><a href="https://omggamer.com/how-to-fix-sony-ps5-crashing/">How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]</a></p>
+<p>这问题让我失望的原因有二。首先，索尼显然没有投入足够的精力排查，而且是将精力投入新的PS Plus订阅服务。这种管新不管老，类似国内通讯运营商的商法很不地道。其次，“待机模式”是我使用游戏机而非PC的一大原因。待机没法用让我连开机的欲望都没有了</p>
+<p>我每天只有不到1小时甚至20分钟的时间玩游戏，所以很需要“待机模式”让我能拿得起，放得下。如果每次进游戏要耗费数分钟，又怕丢存档不能随时退出，那游戏机和PC又有什么分别呢？</p>
+<p>在被折磨一段时间后，我做了几个测试，总结了几点经验供参考。上面文章里写的tips都没用，包括但不限于“关闭HDMI”，“待机时长设为Always”，“进安全模式重建数据库”。还是强调，除了等索尼的补丁，玩家无能为力</p>
+<p>据我观察待机崩溃问题跟安装的游戏有关。已确定下面几款游戏游玩过程中待机可能崩溃</p>
+<ul>
+<li>死亡循环 - PS5数字版</li>
+<li>死亡搁浅导演剪辑版 - PS5光盘版</li>
+<li>对马岛之魂导演剪辑版 - PS5光盘版</li>
+<li>地平线2西之绝境 - PS5光盘版</li>
+<li>乐高DC超级坏蛋联盟 - PS4数字版</li>
+</ul>
+<p>其中大部分游戏在待机2-3天后会导致系统崩溃。《死亡循环》效果最显著，待机几小时就会崩溃。《死亡搁浅》比较特别，光盘版崩但PS5数字版不崩</p>
+<p>当然并非所有大作都崩溃。战神、神海、GT Sports、最后生还者、FF7重置、咖啡漫谈等都没问题</p>
+<p>根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。对照两家公司的订阅服务后，我在考虑要不要更换阵营。如果今年顽皮狗不画饼的话，我想等打通战神2就把PS5卖了，换台XSX。或者索性连战神2都不等直接倒戈，反正以后也会上PC</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/">游戏</a></li>
+      <li><a href="https://kyzy540.github.io/tags/ps5/">PS5</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
