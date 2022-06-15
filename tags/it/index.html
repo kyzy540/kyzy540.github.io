@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.99.1" />
+<meta name="generator" content="Hugo 0.100.2" />
 <link rel="alternate" type="application/rss+xml" href="https://kyzy540.github.io/tags/it/index.xml">
 <noscript>
     <style>
@@ -127,8 +127,8 @@
   </header>
   <section class="entry-content">
     <p>某次系统升级后一登录就报错
- Windows cannot find ‘C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64…\Win32Bridge.Server.exe’. Make sure you typed the name correctly, and the try again.
- 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
+Windows cannot find ‘C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64…\Win32Bridge.Server.exe’. Make sure you typed the name correctly, and the try again.
+简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
 参考链接</p>
   </section>
   <footer class="entry-footer"><span title='2022-04-28 09:43:39 +0800 CST'>April 28, 2022</span></footer>
@@ -143,17 +143,18 @@
   <section class="entry-content">
     <p>Windows发展到今日，已非复吴下阿蒙。被诟病多年的&#34;终端难用&#34;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
- 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别   Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
- 只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows  Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
+掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
+只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
 PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE  PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
+PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
 另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
 可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
 choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
 choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 ....</p>
+ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
+rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助...</p>
   </section>
   <footer class="entry-footer"><span title='2020-06-18 19:05:59 +0800 CST'>June 18, 2020</span></footer>
   <a class="entry-link" aria-label="post link to 微软好终端" href="https://kyzy540.github.io/post/windows_terminal/"></a>
