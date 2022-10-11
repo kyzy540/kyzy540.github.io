@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.101.0" />
+<meta name="generator" content="Hugo 0.104.3" />
 <link rel="alternate" type="application/rss+xml" href="https://kyzy540.github.io/post/index.xml">
 <noscript>
     <style>
@@ -134,6 +134,27 @@
 <header class="page-header">
   <h1>Posts</h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>蝙蝠侠漫画
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>前些日子看《新蝙蝠侠》电影的时候，联想起几部过往蝙蝠侠漫画作品。这种在原创故事中致敬经典作品的手法我很受用，因此对电影评价颇高
+我看过的蝙蝠侠漫画不多不少，总体感觉质量参差不齐。总的来说有一特点: 差的不必多言，好的小心提防。为啥呢？蝙蝠侠声名远播，作品繁杂，受众又够广。一旦形成吹捧效应，很多作品会被“以次充好”地抬上神坛
+在我看来，一个好故事的最基本要做到 自圆其说，或者说作者不能直接否定写过的情节。举个例子，蝙蝠侠漫画大多是期刊连载，一期的结尾往往要留个扣子，勾着读者买下期。很多“被捧高”的作品留扣子往往是蝙蝠侠濒死。或手持一个计时器剩3秒的炸弹，或被人白刀子进红刀子出。这结尾特扣人心弦，读者我知道蝙蝠侠是凡人，遇到这种情况没法生还。又意识到故事没结束，作者不应把蝙蝠侠写死，于是特好奇作者会如何妙笔生花，完成“不可能”的转折。而当我读到下一期时，却发现作者虽然完成了转折，但却用了直接否认情节的手法，例如炸弹不在蝙蝠侠手中而且时间还充裕，他及时跳进了原本不存在的防空洞里；又或者原本被捅穿的致命伤变成小擦伤，完全不影响蝙蝠侠上天入地
+遇到这种编都编不圆的桥段，我很难给作品高评价
+好了，废话连篇后列几本我喜欢的蝙蝠侠漫画，至少故事上都能自圆其说，读完挺开心的
+一号地球
+黑骑士归来
+黑与白
+疯狂的爱
+第一年</p>
+  </section>
+  <footer class="entry-footer"><span title='2022-05-07 08:46:57 +0800 CST'>May 7, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to 蝙蝠侠漫画" href="https://kyzy540.github.io/post/batman_comic/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -287,24 +308,6 @@ Nora Valiant: 收集完3个盖亚组建后在基地左边的商人处买。数�
   </section>
   <footer class="entry-footer"><span title='2022-03-18 09:10:51 +0800 CST'>March 18, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《Spider-Man: No Way Home》" href="https://kyzy540.github.io/post/spiderman_nowayhome/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Android http-server
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
-办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
-第一步，安装 Termux。进入终端，启用并授权访问存储设备
-termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
-pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
-第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
-http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-03-17 18:36:21 +0800 CST'>March 17, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to Android http-server" href="https://kyzy540.github.io/post/android_httpserver/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
