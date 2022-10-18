@@ -122,6 +122,20 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2>VPN Setup
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>一键部署脚本和文档: https://github.com/hwdsl2/setup-ipsec-vpn 。核心代码就一段
+# All values MUST be placed inside &#39;single quotes&#39; # DO NOT use these special characters within values: \ &#34; &#39; wget https://get.vpnsetup.net -O vpn.sh sudo VPN_IPSEC_PSK=&#39;your_ipsec_pre_shared_key&#39; \ VPN_USER=&#39;your_vpn_username&#39; \ VPN_PASSWORD=&#39;your_vpn_password&#39; \ sh vpn.sh os选ubuntu。不选centos是因其没带 wget ，懒得装。防火墙放行 UDP 500 和 4500 端口。ios的VPN配置类型选 L2TP
+另外建议防火墙屏蔽包括 SSH 在内所有其他链接，避免不必要的安全问题</p>
+  </section>
+  <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to VPN Setup" href="https://kyzy540.github.io/post/vpnsetup/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2>ERROR: Win32Bridge.Server.exe
     </h2>
   </header>
