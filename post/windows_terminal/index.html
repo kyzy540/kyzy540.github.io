@@ -33,7 +33,7 @@ rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据�
 <link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.105.0">
+<meta name="generator" content="Hugo 0.109.0">
 <noscript>
     <style>
         #theme-toggle,
@@ -239,10 +239,10 @@ rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据�
 <p>Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解</p>
 <p><a href="https://github.com/bmatzelle/gow/wiki">GOW</a> (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中</p>
 <p>想找出java文件中包含Log关键字最多的前3名？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\Users&gt; grep -c Log *.java | sort {<span style="color:#66d9ef">[int]</span>$_.split(<span style="color:#e6db74">&#34;:&#34;</span>)[1]} -D | head -n 3
-</span></span><span style="display:flex;"><span>A.java<span style="color:#960050;background-color:#1e0010">:</span>20
-</span></span><span style="display:flex;"><span>B.java<span style="color:#960050;background-color:#1e0010">:</span>13
-</span></span><span style="display:flex;"><span>C.java<span style="color:#960050;background-color:#1e0010">:</span>7
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\Users&gt; grep -c Log *.java | sort {[<span style="color:#66d9ef">int</span>]$_.split(<span style="color:#e6db74">&#34;:&#34;</span>)[<span style="color:#ae81ff">1</span>]} -D | head -n <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>A.java<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>B.java<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>C.java<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">7</span>
 </span></span></code></pre></div><p>其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\Users&gt; which head
 </span></span><span style="display:flex;"><span>C: \Program Files (x86)\Gow\bin\grep.EXE
@@ -335,7 +335,7 @@ alias ii=&#39;explorer.exe&#39;
     </main>
     
 <footer class="footer">
-    <span>&copy; 2022 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+    <span>&copy; 2023 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
