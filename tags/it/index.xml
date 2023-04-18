@@ -6,7 +6,29 @@
     <description>Recent content in it on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Oct 2022 09:16:11 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Mar 2023 20:26:29 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>扩展插件SwitchyOmega</title>
+      <link>https://kyzy540.github.io/post/extend_switchyomega/</link>
+      <pubDate>Thu, 30 Mar 2023 20:26:29 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/extend_switchyomega/</guid>
+      <description>背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
+它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
+所以当我想对它做改动，只能直接修改源代码，自己制作crx了
+需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口
+&amp;lt;span id=&amp;#34;proxy&amp;#34; data-profileName=&amp;#39;demo&amp;#39; data-patterns=&amp;#39;[&amp;#34;192.168.*&amp;#34;]&amp;#39;&amp;gt; HTTP://172.168.1.1:8080 &amp;lt;/span&amp;gt; 工作可以拆分成几步
+学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了
+对了，我没前端经验，也没开发过Chrome插件
+基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点
+插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 &amp;ldquo;情景模式&amp;rdquo; (代理配置) 是如何生效的
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &amp;ldquo;git ls-remote &amp;ndash;tags &amp;ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&amp;quot;, exit code of #128 remote: Repository not found.</description>
+    </item>
+    
     <item>
       <title>VPN Setup</title>
       <link>https://kyzy540.github.io/post/vpnsetup/</link>

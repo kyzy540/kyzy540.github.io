@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>扩展插件SwitchyOmega | 低质量随笔</title>
+<meta name="keywords" content="it" />
+<meta name="description" content="背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
+它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
+所以当我想对它做改动，只能直接修改源代码，自己制作crx了
+需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口
+&lt;span id=&#34;proxy&#34; data-profileName=&#39;demo&#39; data-patterns=&#39;[&#34;192.168.*&#34;]&#39;&gt; HTTP://172.168.1.1:8080 &lt;/span&gt; 工作可以拆分成几步
+学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了
+对了，我没前端经验，也没开发过Chrome插件
+基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点
+插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;, exit code of #128 remote: Repository not found.">
+<meta name="author" content="">
+<link rel="canonical" href="https://kyzy540.github.io/post/extend_switchyomega/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.fffc863bbbcd759d9d371faf07e54928d5f5b9150ad52179784a503dd91077ce.css" integrity="sha256-//yGO7vNdZ2dNx&#43;vB&#43;VJKNX1uRUK1SF5eEpQPdkQd84=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.b95bacdc39e37a332a9f883b1e78be4abc1fdca2bc1f2641f55e3cd3dabd4d61.js" integrity="sha256-uVus3DnjejMqn4g7Hni&#43;Srwf3KK8HyZB9V4809q9TWE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kyzy540.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://kyzy540.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.111.3">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="扩展插件SwitchyOmega" />
+<meta property="og:description" content="背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
+它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
+所以当我想对它做改动，只能直接修改源代码，自己制作crx了
+需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口
+&lt;span id=&#34;proxy&#34; data-profileName=&#39;demo&#39; data-patterns=&#39;[&#34;192.168.*&#34;]&#39;&gt; HTTP://172.168.1.1:8080 &lt;/span&gt; 工作可以拆分成几步
+学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了
+对了，我没前端经验，也没开发过Chrome插件
+基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点
+插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;, exit code of #128 remote: Repository not found." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kyzy540.github.io/post/extend_switchyomega/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-03-30T20:26:29&#43;08:00" />
+<meta property="article:modified_time" content="2023-03-30T20:26:29&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="扩展插件SwitchyOmega"/>
+<meta name="twitter:description" content="背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
+它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
+所以当我想对它做改动，只能直接修改源代码，自己制作crx了
+需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口
+&lt;span id=&#34;proxy&#34; data-profileName=&#39;demo&#39; data-patterns=&#39;[&#34;192.168.*&#34;]&#39;&gt; HTTP://172.168.1.1:8080 &lt;/span&gt; 工作可以拆分成几步
+学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了
+对了，我没前端经验，也没开发过Chrome插件
+基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点
+插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;, exit code of #128 remote: Repository not found."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://kyzy540.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "扩展插件SwitchyOmega",
+      "item": "https://kyzy540.github.io/post/extend_switchyomega/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "扩展插件SwitchyOmega",
+  "name": "扩展插件SwitchyOmega",
+  "description": "背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月\n它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯\n所以当我想对它做改动，只能直接修改源代码，自己制作crx了\n需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口\n\u0026lt;span id=\u0026#34;proxy\u0026#34; data-profileName=\u0026#39;demo\u0026#39; data-patterns=\u0026#39;[\u0026#34;192.168.*\u0026#34;]\u0026#39;\u0026gt; HTTP://172.168.1.1:8080 \u0026lt;/span\u0026gt; 工作可以拆分成几步\n学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了\n对了，我没前端经验，也没开发过Chrome插件\n基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点\n插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)\nSwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 \u0026ldquo;情景模式\u0026rdquo; (代理配置) 是如何生效的\n首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现\n其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options\n本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错\nbower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute \u0026ldquo;git ls-remote \u0026ndash;tags \u0026ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git\u0026quot;, exit code of #128 remote: Repository not found.",
+  "keywords": [
+    "it"
+  ],
+  "articleBody": "背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月\n它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯\n所以当我想对它做改动，只能直接修改源代码，自己制作crx了\n需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口\n\u003cspan id=\"proxy\" data-profileName='demo' data-patterns='[\"192.168.*\"]'\u003e HTTP://172.168.1.1:8080 \u003c/span\u003e 工作可以拆分成几步\n学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了\n对了，我没前端经验，也没开发过Chrome插件\n基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点\n插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)\nSwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 “情景模式” (代理配置) 是如何生效的\n首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现\n其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options\n本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错\nbower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-remote –tags –heads https://github.com/Jimdo/angular-spectrum-colorpicker.git\", exit code of #128 remote: Repository not found. fatal: Authentication failed for ‘https://github.com/Jimdo/angular-spectrum-colorpicker.git/'\n报错原因是 angular-spectrum-colorpicker GitHub 已经被删除了，bower校验失败。我试过用其他fork仓库替代，但后续还会遇到其他麻烦事儿。最简单的办法是拿现成的js库塞入代码库，删除bower依赖配置\n先从Chrome应用商店安装发布版SwitchyOmega，从中提取 angular-spectrum-colorpicker.min.js，保存到 omega-web/lib/angular-spectrum-colorpicker/angular-spectrum-colorpicker.min.js\n修改 https://github.com/FelisCatus/SwitchyOmega/blob/master/omega-web/bower.json，把其中 angular-spectrum-colorpicker相关的2个健值对删除\n这样构建过程就能跳过被废弃的依赖库，直接使用代码库中的 angular-spectrum-colorpicker.min.js\n开发过程中为了让模改插件和发布版共存，方便对照，需修改 manifest.json 中key。它是一个public key，是插件的唯一标识，如不修改，模改插件会覆盖发布版。对于不发布的情况可以自己生成\nopenssl genrsa 2048 | openssl pkcs8 -topk8 -nocrypt -out key.pem openssl rsa -in key.pem -pubout -outform DER | openssl base64 -A 对于操作系统语言是中文的，建议修改omega-web.po，给模改插件换个名字，方便识别\n顺利的话，完成以上修改后插件就能构建并在Chrome中工作了。构建完成后的unpacked插件目录在omega-target-chromium-extension/build ，而非文档中提到的 omega-chromium-extension/build/\n设计 回到目标，要想让网页里的代理配置保存到插件里，得用到 Content scripts。其既可以往网页注入javascript代码，又能调用chrome.runtime访问插件内部数据，正好切合需求\n代码 代码包含content-script.coffee 、 background.coffee 和manifest.json。主要逻辑在content-script.coffee里\n脚本向页面中的id=proxy元素注册click event listner，以触发添加配置代码 click发生时解析页面内proxy配置 调用chrome.runtime接口将options patch发送到后端 代码如下\nconsole.log(\"\u003c----- Content script started -----\u003e\") autoSwitchKey = \"+auto switch\" HostWildcardCondition = \"HostWildcardCondition\" profileColors = [ \"#9ce\", \"#9d9\", \"#fa8\", \"#fe9\", \"#d497ee\", \"#47b\", \"#5b5\", \"#d63\", \"#ca0\" ] class Log log: (content) -\u003e console.log(content) @_logBackground(\"log.log\", \"content-script: \" + content) error: (content) -\u003e console.error(content) @_logBackground(\"log.error\", \"content-script ERROR: \" + content) _logBackground: (method, content) -\u003e chrome.runtime.sendMessage({ method: method args: [content] noReply: true }) logger = new Log isObjectEmpty = (obj) -\u003e for own key, val of obj return false return true nameToKey = (name) -\u003e \"+#{name}\" generateRevision = -\u003e (new Date()).getTime().toString(16) diffProfile = (profile, scheme, host, port) -\u003e pf = profile.fallbackProxy if pf fallbackProxy = {} if pf.scheme != scheme fallbackProxy.scheme = [pf.scheme, scheme] if pf.host != host fallbackProxy.host = [pf.host, host] if pf.port != port fallbackProxy.port = [pf.port, port] if isObjectEmpty(fallbackProxy) return {} else # 直接连接 fallbackProxy = [{ \"scheme\": scheme, \"port\": port, \"host\": host }] patch = {} patch[nameToKey(profile.name)] = { \"fallbackProxy\": fallbackProxy \"revision\": [\"oldRevision\", generateRevision()] } return patch newProfilePatch = (name, scheme, host, port) -\u003e choice = Math.floor(Math.random() * profileColors.length) patch = {} patch[nameToKey(name)] = [{ \"profileType\": \"FixedProfile\", \"name\": name, \"bypassList\": [ { \"conditionType\": \"BypassCondition\", \"pattern\": \"127.0.0.1\" }, { \"conditionType\": \"BypassCondition\", \"pattern\": \"[::1]\" }, { \"conditionType\": \"BypassCondition\", \"pattern\": \"localhost\" } ], \"color\": profileColors[choice], \"revision\": generateRevision(), \"fallbackProxy\": { \"scheme\": scheme, # http \"port\": port, # int \"host\": host } }] return patch patchAutoSwitch = (switchProfile, profileName, patterns) -\u003e rules = {} lastIndex = switchProfile.rules.length existsPatterns = ( rule.condition.pattern for rule in switchProfile.rules when \\ rule.profileName == profileName and rule.condition.conditionType == HostWildcardCondition ) for pattern in patterns when pattern not in existsPatterns rules[lastIndex] = [{ \"condition\": { conditionType: HostWildcardCondition pattern: pattern } \"profileName\": profileName }] lastIndex++ if isObjectEmpty(rules) return {} else # 增/删/改 auto switch都要加 _t: \"a\" rules[\"_t\"] = \"a\" switchPatch = { \"rules\": rules \"revision\": [\"oldRevision\", generateRevision()] } return switchPatch showAlert = (message, error) -\u003e if error bgColor = \"rgba(231, 76, 60, 0.8)\"; # 半透明红色 else bgColor = \"rgba(39, 174, 96, 0.8)\" # 绿色半透明 div = document.createElement(\"div\") div.style.position = \"fixed\" div.style.top = \"50%\" div.style.left = \"50%\" div.style.transform = \"translate(-50%, -50%)\" div.style.padding = \"20px\" div.style.backgroundColor = bgColor div.style.color = \"#fff\" div.style.textAlign = \"center\" div.innerHTML = message parentNode = document.getElementsByClassName(\"goback\")[0].parentElement parentNode.appendChild(div) setTimeout (-\u003e parentNode.removeChild(div)), 3000 proxyUrlElement = document.getElementById(\"proxy\") # click发起代理配置 proxyUrlElement?.addEventListener \"click\", (event) -\u003e proxyUrlElement = event?.target || event.srcElement if not proxyUrlElement? logger.error(\"fail to get element in click event\") logger.error(JSON.stringify(event)) return profileName = proxyUrlElement.dataset.profileName? if no profileName logger.log(\"no profileName\") return # 从 data-patterns读auto switch规则 patterns = JSON.parse(proxyUrlElement.dataset.patterns) # 读现有配置 chrome.runtime.sendMessage({ method: \"getAll\" args: [] }, (response) -\u003e try options = response.result logger.log(\"getAll from background: #{options}\") proxyUrl = event.target.textContent logger.log(\"proxyUrl: #{proxyUrl} from #{document.URL}\") [protocal, rawIp, proxyPort] = proxyUrl.split(\":\") #TODO 检查合法性 scheme = protocal.toLowerCase() ip = rawIp.replace(\"//\", \"\").trim() port = parseInt(proxyPort) # 增/改profile patch profileKey = nameToKey(profileName) if profileKey of options logger.log(\"existing profile #{profileName}\") patch = diffProfile(options[profileKey], scheme, ip, port) if not patch? logger.log(\"#{profileName} does not update\") else logger.log(\"create new profile #{profileName}\") patch = newProfilePatch(profileName, scheme, ip, port) if patterns.length \u003e 0 switchPatch = patchAutoSwitch( options[autoSwitchKey], profileName, patterns ) if isObjectEmpty(switchPatch) logger.log(\"#{patterns.length} switch patterns already exists\") else logger.log(\"switchPatch: #{JSON.stringify(switchPatch)}\") patch[autoSwitchKey] = switchPatch else logger.log(\"empty patterns for #{profileName}\") if not isObjectEmpty(patch) chrome.runtime.sendMessage({ method: \"patch\" args: [patch] }, (response) -\u003e if chrome.runtime.lastError? or response?.error logger.error(\"unknown patch error: \" + JSON.stringify(response)) showAlert(\"代理设置失败\", 1) ) showAlert(\"代理配置成功\") else showAlert(\"代理配置已存在\") catch e logger.error(\"unknown proxy config error: \" + e.stack) ) logger.log(\"injected #{proxyUrlElement.tagName} click\") if proxyUrlElement 这段代码并不周全，例如缺少配置合法性检查。如果发生异常要排错怎么办？此时日志收集很关键。SwitchyOmega后端有日志导出功能，因此content-script里要把关键日志发送到后端\nbackground.coffee 在chrome.runtime.onMessage.addListener里加入如下代码\nelse if request.method == 'log.log' or request.method == 'log.error' target = options.log method = target[request.method.split(\".\")[1]] manifest.json 加入content_scripts配置\n\"content_scripts\": [{ \"matches\": [\"*://example.com/*\"], \"js\": [\"js/content-script.js\"] }], 至此，核心代码就齐备了。构建，导入浏览器插件，祝开发顺利\n其他参考 前端科普系列\nChrome Extension Tutorial: How to Pass Messages from a Page’s Context\nHow to make your chrome extension access webpage?\n",
+  "wordCount" : "741",
+  "inLanguage": "en",
+  "datePublished": "2023-03-30T20:26:29+08:00",
+  "dateModified": "2023-03-30T20:26:29+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kyzy540.github.io/post/extend_switchyomega/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "低质量随笔",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kyzy540.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kyzy540.github.io/" accesskey="h" title="低质量随笔 (Alt + H)">低质量随笔</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kyzy540.github.io/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      扩展插件SwitchyOmega
+    </h1>
+    <div class="post-meta"><span title='2023-03-30 20:26:29 +0800 CST'>March 30, 2023</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="背景">背景<a hidden class="anchor" aria-hidden="true" href="#背景">#</a></h2>
+<p>SwitchyOmega是著名Chrome代理插件，<a href="https://github.com/FelisCatus/SwitchyOmega">源代码</a>开源在GitHub，最近release是2018年8月</p>
+<p>它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯</p>
+<p>所以当我想对它做改动，只能直接修改源代码，自己制作crx了</p>
+<p>需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;proxy&#34;</span> <span style="color:#a6e22e">data-profileName</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;demo&#39;</span> <span style="color:#a6e22e">data-patterns</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[&#34;192.168.*&#34;]&#39;</span>&gt;
+</span></span><span style="display:flex;"><span>  HTTP://172.168.1.1:8080
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span></code></pre></div><p>工作可以拆分成几步</p>
+<ol>
+<li>学习Chrome插件基本原理</li>
+<li>了解SwitchyOmega如何实现代理功能</li>
+<li>确认需求可否实现</li>
+<li>学习本地开发和调试</li>
+<li>着手实现</li>
+</ol>
+<p>我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了</p>
+<p>对了，我没前端经验，也没开发过Chrome插件</p>
+<h2 id="基础知识">基础知识<a hidden class="anchor" aria-hidden="true" href="#基础知识">#</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/">Chrome Extension development basics</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/proxy/">chrome.proxy</a></li>
+<li><a href="https://www.runoob.com/angularjs/angularjs-scopes.html">AngularJS</a></li>
+<li><a href="https://coffeescript.org/">CoffeeScript</a></li>
+<li><a href="https://github.com/FelisCatus/SwitchyOmega/blob/master/README.md#building-the-project">Building the project</a></li>
+</ul>
+<p>在Chrome插件开发基础中主要了解4个点</p>
+<ol>
+<li>插件的主要构成。包含前端、后端、manifest、options</li>
+<li>插件前后端通信机制</li>
+<li>Chrome代理相关API</li>
+<li>SwitchyOmega如何基于配置调用Chrome API实现代理</li>
+</ol>
+<p>SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)</p>
+<h2 id="switchyomega配置代理流程">SwitchyOmega配置代理流程<a hidden class="anchor" aria-hidden="true" href="#switchyomega配置代理流程">#</a></h2>
+<p>下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的</p>
+<p><img loading="lazy" src="/img/extend_switchyomega/switchy_omega_save_profile.png" alt=""  />
+</p>
+<p>首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现</p>
+<p>其次，SwitchyOmega在后台保存了一份核心数据结构<code>options</code>，其会被转译并导入<code>chrome.proxy.settings</code>。SwitchyOmega的前后端设计都围绕着维护<code>options</code>数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入<code>options</code></p>
+<h2 id="本地开发和调试">本地开发和调试<a hidden class="anchor" aria-hidden="true" href="#本地开发和调试">#</a></h2>
+<h3 id="构建">构建<a hidden class="anchor" aria-hidden="true" href="#构建">#</a></h3>
+<p>开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 <code>npm run deps</code> 阶段遇到如下报错</p>
+<blockquote>
+<p>bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads <a href="https://github.com/Jimdo/angular-spectrum-colorpicker.git%22">https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;</a>, exit code of #128 remote: Repository not found. fatal: Authentication failed for &lsquo;<a href="https://github.com/Jimdo/angular-spectrum-colorpicker.git/'">https://github.com/Jimdo/angular-spectrum-colorpicker.git/'</a></p>
+</blockquote>
+<p>报错原因是 <a href="https://www.npmjs.com/package/angular-spectrum-colorpicker">angular-spectrum-colorpicker</a> GitHub 已经被删除了，bower校验失败。我试过用其他fork仓库替代，但后续还会遇到其他麻烦事儿。最简单的办法是拿现成的js库塞入代码库，删除bower依赖配置</p>
+<p>先从Chrome应用商店安装发布版SwitchyOmega，从中提取 <code>angular-spectrum-colorpicker.min.js</code>，保存到 <code>omega-web/lib/angular-spectrum-colorpicker/angular-spectrum-colorpicker.min.js</code></p>
+<p><img loading="lazy" src="/img/extend_switchyomega/angular-spectrum-colorpicker.png" alt=""  />
+</p>
+<p>修改 <code>https://github.com/FelisCatus/SwitchyOmega/blob/master/omega-web/bower.json</code>，把其中 <code>angular-spectrum-colorpicker</code>相关的2个健值对删除</p>
+<p>这样构建过程就能跳过被废弃的依赖库，直接使用代码库中的 <code>angular-spectrum-colorpicker.min.js</code></p>
+<p>开发过程中为了让模改插件和发布版共存，方便对照，需修改 <a href="https://github.com/FelisCatus/SwitchyOmega/blob/master/omega-target-chromium-extension/overlay/manifest.json#L6">manifest.json</a> 中<code>key</code>。它是一个public key，是插件的唯一标识，如不修改，模改插件会覆盖发布版。对于不发布的情况可以自己生成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl genrsa <span style="color:#ae81ff">2048</span> | openssl pkcs8 -topk8 -nocrypt -out key.pem
+</span></span><span style="display:flex;"><span>openssl rsa -in key.pem -pubout -outform DER | openssl base64 -A
+</span></span></code></pre></div><p>对于操作系统语言是中文的，建议修改<a href="https://github.com/FelisCatus/SwitchyOmega/blob/master/omega-locales/zh_CN/LC_MESSAGES/omega-web.po">omega-web.po</a>，给模改插件换个名字，方便识别</p>
+<p>顺利的话，完成以上修改后插件就能构建并在Chrome中工作了。构建完成后的unpacked插件目录在<code>omega-target-chromium-extension/build</code> ，而非文档中提到的 <code>omega-chromium-extension/build/</code></p>
+<h3 id="设计">设计<a hidden class="anchor" aria-hidden="true" href="#设计">#</a></h3>
+<p>回到目标，要想让网页里的代理配置保存到插件里，得用到 <a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/">Content scripts</a>。其既可以往网页注入javascript代码，又能调用chrome.runtime访问插件内部数据，正好切合需求</p>
+<p><img loading="lazy" src="https://waitingphoenix.com/content/images/2017/04/Blank-Flowchart---Page-2.png" alt=""  />
+</p>
+<p><img loading="lazy" src="/img/extend_switchyomega/content_script_sandbox.png" alt=""  />
+</p>
+<h3 id="代码">代码<a hidden class="anchor" aria-hidden="true" href="#代码">#</a></h3>
+<p>代码包含<code>content-script.coffee</code> 、 <code>background.coffee</code> 和<code>manifest.json</code>。主要逻辑在<code>content-script.coffee</code>里</p>
+<p><img loading="lazy" src="/img/extend_switchyomega/content_script_workflow.png" alt=""  />
+</p>
+<ol>
+<li>脚本向页面中的<code>id=proxy</code>元素注册click event listner，以触发添加配置代码</li>
+<li>click发生时解析页面内proxy配置</li>
+<li>调用chrome.runtime接口将options patch发送到后端</li>
+</ol>
+<p>代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coffee" data-lang="coffee"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;&lt;----- Content script started -----&gt;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>autoSwitchKey = <span style="color:#e6db74">&#34;+auto switch&#34;</span>
+</span></span><span style="display:flex;"><span>HostWildcardCondition = <span style="color:#e6db74">&#34;HostWildcardCondition&#34;</span>
+</span></span><span style="display:flex;"><span>profileColors = [
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;#9ce&#34;</span>, <span style="color:#e6db74">&#34;#9d9&#34;</span>, <span style="color:#e6db74">&#34;#fa8&#34;</span>, <span style="color:#e6db74">&#34;#fe9&#34;</span>, <span style="color:#e6db74">&#34;#d497ee&#34;</span>, <span style="color:#e6db74">&#34;#47b&#34;</span>, <span style="color:#e6db74">&#34;#5b5&#34;</span>, <span style="color:#e6db74">&#34;#d63&#34;</span>, <span style="color:#e6db74">&#34;#ca0&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Log</span>
+</span></span><span style="display:flex;"><span>  log: <span style="color:#a6e22e">(content) -&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">content</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@_logBackground</span>(<span style="color:#e6db74">&#34;log.log&#34;</span>, <span style="color:#e6db74">&#34;content-script: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">content</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  error: <span style="color:#a6e22e">(content) -&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">content</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@_logBackground</span>(<span style="color:#e6db74">&#34;log.error&#34;</span>, <span style="color:#e6db74">&#34;content-script ERROR: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">content</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  _logBackground: <span style="color:#a6e22e">(method, content) -&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">sendMessage</span>({
+</span></span><span style="display:flex;"><span>      method: <span style="color:#a6e22e">method</span>
+</span></span><span style="display:flex;"><span>      args: [<span style="color:#a6e22e">content</span>]
+</span></span><span style="display:flex;"><span>      noReply: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>logger = <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Log</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>isObjectEmpty = <span style="color:#a6e22e">(obj) -&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">own</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">obj</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nameToKey = <span style="color:#a6e22e">(name) -&gt;</span> <span style="color:#e6db74">&#34;+</span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>generateRevision = <span style="color:#a6e22e">-&gt;</span> (<span style="color:#66d9ef">new</span> Date()).<span style="color:#a6e22e">getTime</span>().<span style="color:#a6e22e">toString</span>(<span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>diffProfile = <span style="color:#a6e22e">(profile, scheme, host, port) -&gt;</span>
+</span></span><span style="display:flex;"><span>  pf = <span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">fallbackProxy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pf</span>
+</span></span><span style="display:flex;"><span>    fallbackProxy = {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pf</span>.<span style="color:#a6e22e">scheme</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">scheme</span>
+</span></span><span style="display:flex;"><span>      fallbackProxy.scheme = [<span style="color:#a6e22e">pf</span>.<span style="color:#a6e22e">scheme</span>, <span style="color:#a6e22e">scheme</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pf</span>.<span style="color:#a6e22e">host</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">host</span>
+</span></span><span style="display:flex;"><span>      fallbackProxy.host = [<span style="color:#a6e22e">pf</span>.<span style="color:#a6e22e">host</span>, <span style="color:#a6e22e">host</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pf</span>.<span style="color:#a6e22e">port</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">port</span>
+</span></span><span style="display:flex;"><span>      fallbackProxy.port = [<span style="color:#a6e22e">pf</span>.<span style="color:#a6e22e">port</span>, <span style="color:#a6e22e">port</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isObjectEmpty</span>(<span style="color:#a6e22e">fallbackProxy</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 直接连接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    fallbackProxy = [{
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;scheme&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">scheme</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">port</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">host</span>
+</span></span><span style="display:flex;"><span>    }]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  patch = {}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">patch</span>[<span style="color:#a6e22e">nameToKey</span>(<span style="color:#a6e22e">profile</span>.<span style="color:#a6e22e">name</span>)] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fallbackProxy&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">fallbackProxy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;revision&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;oldRevision&#34;</span>, <span style="color:#a6e22e">generateRevision</span>()]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">patch</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>newProfilePatch = <span style="color:#a6e22e">(name, scheme, host, port) -&gt;</span>
+</span></span><span style="display:flex;"><span>  choice = Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#a6e22e">profileColors</span>.<span style="color:#a6e22e">length</span>)
+</span></span><span style="display:flex;"><span>  patch = {}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">patch</span>[<span style="color:#a6e22e">nameToKey</span>(<span style="color:#a6e22e">name</span>)] <span style="color:#f92672">=</span> [{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;profileType&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;FixedProfile&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">name</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;bypassList&#34;</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;conditionType&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;BypassCondition&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;pattern&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;conditionType&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;BypassCondition&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;pattern&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[::1]&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;conditionType&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;BypassCondition&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;pattern&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;localhost&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;color&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">profileColors</span>[<span style="color:#a6e22e">choice</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;revision&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">generateRevision</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fallbackProxy&#34;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;scheme&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">scheme</span>, <span style="color:#75715e"># http
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">port</span>, <span style="color:#75715e"># int
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">host</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">patch</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>patchAutoSwitch = <span style="color:#a6e22e">(switchProfile, profileName, patterns) -&gt;</span>
+</span></span><span style="display:flex;"><span>  rules = {}
+</span></span><span style="display:flex;"><span>  lastIndex = <span style="color:#a6e22e">switchProfile</span>.<span style="color:#a6e22e">rules</span>.<span style="color:#a6e22e">length</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  existsPatterns = (
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rule</span>.<span style="color:#a6e22e">condition</span>.<span style="color:#a6e22e">pattern</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">rule</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">switchProfile</span>.<span style="color:#a6e22e">rules</span> <span style="color:#66d9ef">when</span> <span style="color:#f92672">\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rule</span>.<span style="color:#a6e22e">profileName</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">profileName</span> <span style="color:#f92672">and</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rule</span>.<span style="color:#a6e22e">condition</span>.<span style="color:#a6e22e">conditionType</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">HostWildcardCondition</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">pattern</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">patterns</span> <span style="color:#66d9ef">when</span> <span style="color:#a6e22e">pattern</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">existsPatterns</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span>[<span style="color:#a6e22e">lastIndex</span>] <span style="color:#f92672">=</span> [{
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;condition&#34;</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        conditionType: <span style="color:#a6e22e">HostWildcardCondition</span>
+</span></span><span style="display:flex;"><span>        pattern: <span style="color:#a6e22e">pattern</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;profileName&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">profileName</span>
+</span></span><span style="display:flex;"><span>    }]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lastIndex</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isObjectEmpty</span>(<span style="color:#a6e22e">rules</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 增/删/改 auto switch都要加 _t: &#34;a&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rules</span>[<span style="color:#e6db74">&#34;_t&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a&#34;</span>
+</span></span><span style="display:flex;"><span>    switchPatch = {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;rules&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">rules</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;revision&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;oldRevision&#34;</span>, <span style="color:#a6e22e">generateRevision</span>()]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">switchPatch</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>showAlert = <span style="color:#a6e22e">(message, error) -&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">error</span>
+</span></span><span style="display:flex;"><span>      bgColor = <span style="color:#e6db74">&#34;rgba(231, 76, 60, 0.8)&#34;</span>; <span style="color:#75715e"># 半透明红色
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>      bgColor =  <span style="color:#e6db74">&#34;rgba(39, 174, 96, 0.8)&#34;</span> <span style="color:#75715e"># 绿色半透明
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    div = document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>)
+</span></span><span style="display:flex;"><span>    div.style.position = <span style="color:#e6db74">&#34;fixed&#34;</span>
+</span></span><span style="display:flex;"><span>    div.style.top = <span style="color:#e6db74">&#34;50%&#34;</span>
+</span></span><span style="display:flex;"><span>    div.style.left = <span style="color:#e6db74">&#34;50%&#34;</span>
+</span></span><span style="display:flex;"><span>    div.style.transform = <span style="color:#e6db74">&#34;translate(-50%, -50%)&#34;</span>
+</span></span><span style="display:flex;"><span>    div.style.padding = <span style="color:#e6db74">&#34;20px&#34;</span>
+</span></span><span style="display:flex;"><span>    div.style.backgroundColor = <span style="color:#a6e22e">bgColor</span>
+</span></span><span style="display:flex;"><span>    div.style.color = <span style="color:#e6db74">&#34;#fff&#34;</span>
+</span></span><span style="display:flex;"><span>    div.style.textAlign = <span style="color:#e6db74">&#34;center&#34;</span>
+</span></span><span style="display:flex;"><span>    div.innerHTML = <span style="color:#a6e22e">message</span>
+</span></span><span style="display:flex;"><span>    parentNode = document.<span style="color:#a6e22e">getElementsByClassName</span>(<span style="color:#e6db74">&#34;goback&#34;</span>)[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">parentElement</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">div</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setTimeout</span> (<span style="color:#a6e22e">-&gt;</span> <span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#a6e22e">div</span>)), <span style="color:#ae81ff">3000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proxyUrlElement = document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;proxy&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># click发起代理配置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">proxyUrlElement</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addEventListener</span> <span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">(event) -&gt;</span>
+</span></span><span style="display:flex;"><span>  proxyUrlElement = <span style="color:#a6e22e">event</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">target</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">srcElement</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> <span style="color:#a6e22e">proxyUrlElement</span><span style="color:#f92672">?</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;fail to get element in click event&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">event</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  profileName = <span style="color:#a6e22e">proxyUrlElement</span>.<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">profileName</span><span style="color:#f92672">?</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">no</span> <span style="color:#a6e22e">profileName</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;no profileName&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 从 data-patterns读auto switch规则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  patterns = <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">proxyUrlElement</span>.<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">patterns</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 读现有配置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">sendMessage</span>({
+</span></span><span style="display:flex;"><span>    method: <span style="color:#e6db74">&#34;getAll&#34;</span>
+</span></span><span style="display:flex;"><span>    args: []
+</span></span><span style="display:flex;"><span>  }, <span style="color:#a6e22e">(response) -&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>
+</span></span><span style="display:flex;"><span>      options = <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">result</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;getAll from background: </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">options</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      proxyUrl = <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">textContent</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;proxyUrl: </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">proxyUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> from </span><span style="color:#e6db74">#{</span>document.<span style="color:#a6e22e">URL</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>      [<span style="color:#a6e22e">protocal</span>, <span style="color:#a6e22e">rawIp</span>, <span style="color:#a6e22e">proxyPort</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxyUrl</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;:&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">#TODO 检查合法性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      scheme = <span style="color:#a6e22e">protocal</span>.<span style="color:#a6e22e">toLowerCase</span>()
+</span></span><span style="display:flex;"><span>      ip = <span style="color:#a6e22e">rawIp</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;//&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">trim</span>()
+</span></span><span style="display:flex;"><span>      port = parseInt(<span style="color:#a6e22e">proxyPort</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 增/改profile patch
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      profileKey = <span style="color:#a6e22e">nameToKey</span>(<span style="color:#a6e22e">profileName</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">profileKey</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">options</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;existing profile </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">profileName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        patch = <span style="color:#a6e22e">diffProfile</span>(<span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">profileKey</span>], <span style="color:#a6e22e">scheme</span>, <span style="color:#a6e22e">ip</span>, <span style="color:#a6e22e">port</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> <span style="color:#a6e22e">patch</span><span style="color:#f92672">?</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">profileName</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> does not update&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;create new profile </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">profileName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        patch = <span style="color:#a6e22e">newProfilePatch</span>(<span style="color:#a6e22e">profileName</span>, <span style="color:#a6e22e">scheme</span>, <span style="color:#a6e22e">ip</span>, <span style="color:#a6e22e">port</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">patterns</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        switchPatch = <span style="color:#a6e22e">patchAutoSwitch</span>(
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">autoSwitchKey</span>],
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">profileName</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">patterns</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">isObjectEmpty</span>(<span style="color:#a6e22e">switchPatch</span>)
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">patterns</span>.<span style="color:#a6e22e">length</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> switch patterns already exists&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;switchPatch: </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">switchPatch</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">patch</span>[<span style="color:#a6e22e">autoSwitchKey</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">switchPatch</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;empty patterns for </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">profileName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> <span style="color:#a6e22e">isObjectEmpty</span>(<span style="color:#a6e22e">patch</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">sendMessage</span>({
+</span></span><span style="display:flex;"><span>          method: <span style="color:#e6db74">&#34;patch&#34;</span>
+</span></span><span style="display:flex;"><span>          args: [<span style="color:#a6e22e">patch</span>]
+</span></span><span style="display:flex;"><span>        }, <span style="color:#a6e22e">(response) -&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">lastError</span><span style="color:#f92672">?</span> <span style="color:#f92672">or</span> <span style="color:#a6e22e">response</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">error</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;unknown patch error: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">response</span>))
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">showAlert</span>(<span style="color:#e6db74">&#34;代理设置失败&#34;</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">showAlert</span>(<span style="color:#e6db74">&#34;代理配置成功&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">showAlert</span>(<span style="color:#e6db74">&#34;代理配置已存在&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> <span style="color:#a6e22e">e</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;unknown proxy config error: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stack</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;injected </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">proxyUrlElement</span>.<span style="color:#a6e22e">tagName</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> click&#34;</span>) <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">proxyUrlElement</span>
+</span></span></code></pre></div><p>这段代码并不周全，例如缺少配置合法性检查。如果发生异常要排错怎么办？此时日志收集很关键。SwitchyOmega后端有日志导出功能，因此content-script里要把关键日志发送到后端</p>
+<p><code>background.coffee</code> 在<code>chrome.runtime.onMessage.addListener</code>里加入如下代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-coffee" data-lang="coffee"><span style="display:flex;"><span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;log.log&#39;</span> <span style="color:#f92672">or</span> <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;log.error&#39;</span>
+</span></span><span style="display:flex;"><span>  target = <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">log</span>
+</span></span><span style="display:flex;"><span>  method = <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;.&#34;</span>)[<span style="color:#ae81ff">1</span>]]
+</span></span></code></pre></div><p><code>manifest.json</code> 加入content_scripts配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;content_scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;matches&#34;</span>: [<span style="color:#e6db74">&#34;*://example.com/*&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;js&#34;</span>: [<span style="color:#e6db74">&#34;js/content-script.js&#34;</span>]
+</span></span><span style="display:flex;"><span>}]<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span></code></pre></div><p>至此，核心代码就齐备了。构建，导入浏览器插件，祝开发顺利</p>
+<h2 id="其他参考">其他参考<a hidden class="anchor" aria-hidden="true" href="#其他参考">#</a></h2>
+<p><a href="https://zhuanlan.zhihu.com/p/113009496">前端科普系列</a></p>
+<p><a href="https://www.freecodecamp.org/news/chrome-extension-message-passing-essentials/">Chrome Extension Tutorial: How to Pass Messages from a Page&rsquo;s Context</a></p>
+<p><a href="https://waitingphoenix.com/how-to-make-your-chrome-extension-access-webpage/">How to make your chrome extension access webpage?</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kyzy540.github.io/tags/it/">it</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
