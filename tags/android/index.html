@@ -6,11 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>android | 低质量随笔</title>
-<meta name="keywords" content="" />
+<meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://kyzy540.github.io/tags/android/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.fffc863bbbcd759d9d371faf07e54928d5f5b9150ad52179784a503dd91077ce.css" integrity="sha256-//yGO7vNdZ2dNx&#43;vB&#43;VJKNX1uRUK1SF5eEpQPdkQd84=" rel="preload stylesheet" as="style">
+<link rel="canonical" href="https://kyzy540.github.io/tags/android/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a6dfd66fd409c37cc6041a4586663b00122a14afa93d2868364feab8f05ff5dd.css" integrity="sha256-pt/Wb9QJw3zGBBpFhmY7ABIqFK&#43;pPShoNk/quPBf9d0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -18,7 +18,6 @@
 <link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.111.3">
 <link rel="alternate" type="application/rss+xml" href="https://kyzy540.github.io/tags/android/index.xml">
 <noscript>
     <style>
@@ -83,14 +82,14 @@
     <nav class="nav">
         <div class="logo">
             <a href="https://kyzy540.github.io/" accesskey="h" title="低质量随笔 (Alt + H)">低质量随笔</a>
-            <span class="logo-switches">
+            <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -104,7 +103,7 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-            </span>
+            </div>
         </div>
         <ul id="menu">
             <li>
@@ -117,7 +116,9 @@
 </header>
 <main class="main"> 
 <header class="page-header">
-  <h1>android</h1>
+  <h1>
+    android
+  </h1>
 </header>
 
 <article class="post-entry tag-entry"> 
@@ -125,7 +126,7 @@
     <h2>Android http-server
     </h2>
   </header>
-  <section class="entry-content">
+  <div class="entry-content">
     <p>Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
 办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
 第一步，安装 Termux。进入终端，启用并授权访问存储设备
@@ -133,7 +134,7 @@ termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nod
 pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
 http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性</p>
-  </section>
+  </div>
   <footer class="entry-footer"><span title='2022-03-17 18:36:21 +0800 CST'>March 17, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Android http-server" href="https://kyzy540.github.io/post/android_httpserver/"></a>
 </article>
@@ -144,7 +145,7 @@ http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
