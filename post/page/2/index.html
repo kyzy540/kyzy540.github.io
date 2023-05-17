@@ -225,14 +225,14 @@ IMEI全称国际移动设备识别码（International Mobile Equipment Identity�
     </h2>
   </header>
   <div class="entry-content">
-    <p>L2TP L2TP协议是通用VPN协议，包括ios/android/windows/macos等系统原生支持。优点是易搭建易配置，缺点是容易被屏蔽
-一键部署脚本和文档: https://github.com/hwdsl2/setup-ipsec-vpn 。核心代码就一段
-# All values MUST be placed inside &#39;single quotes&#39; # DO NOT use these special characters within values: \ &#34; &#39; wget https://get.vpnsetup.net -O vpn.sh sudo VPN_IPSEC_PSK=&#39;your_ipsec_pre_shared_key&#39; \ VPN_USER=&#39;your_vpn_username&#39; \ VPN_PASSWORD=&#39;your_vpn_password&#39; \ sh vpn.sh os选ubuntu。不选centos是因其没带 wget ，懒得装。防火墙放行 UDP 500 和 4500 端口。ios的VPN配置类型选 L2TP
-建议防火墙屏蔽包括 22(ssh) 在内所有其他端口，避免不必要的安全问题
-V2Ray 关于V2Ray，读 V2Ray简介和搭建教程
-文章写得很好，我仅补充一点: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
+    <p>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
+文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
 wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod &#43;x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下
-删除v2ctl 相关代码，v2ctl 在v2ray v5....</p>
+删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务
+# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk &#39;{print $2}&#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray 注意云实例的防火墙也要放行配置中的端口(TCP协议)
+诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
+safari cannot open the page cannot establish a secure connection
+诊断的关键是在 /etc/v2ray/config....</p>
   </div>
   <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
   <a class="entry-link" aria-label="post link to VPN Setup" href="https://kyzy540.github.io/post/vpnsetup/"></a>
