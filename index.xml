@@ -6,7 +6,20 @@
     <description>Recent content on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 May 2023 08:49:43 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Aug 2023 16:48:08 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分析一个Python MongoEngine的多层装饰器</title>
+      <link>https://kyzy540.github.io/post/python_decorator/</link>
+      <pubDate>Tue, 01 Aug 2023 16:48:08 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/python_decorator/</guid>
+      <description>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
+def handler(event): &amp;#34;&amp;#34;&amp;#34;Signal decorator to allow use of callback functions as class decorators.&amp;#34;&amp;#34;&amp;#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
+signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
+cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
+def decorator(fn): def apply(cls): signals.</description>
+    </item>
+    
     <item>
       <title>《满江红》这电影吧……</title>
       <link>https://kyzy540.github.io/post/manjianghong/</link>
