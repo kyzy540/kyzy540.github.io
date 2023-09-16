@@ -133,6 +133,22 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2>zkcli
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2023-09-16
+一个轻量zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
+原版有个问题: deleteall子命令不能递归删除zookeeper node。原因是 代码 没实现递归删除
+鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了deleteall的递归逻辑。安装命令
+go install github.com/kyzy540/zkcli P.S. 这是本人第一次写go代码，如有问题还请见谅🙏</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-16 21:06:11 +0800 CST'>September 16, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to zkcli" href="https://kyzy540.github.io/post/zkcli/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2>分析一个Python MongoEngine的多层装饰器
     </h2>
   </header>
