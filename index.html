@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.118.2"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.119.0"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -152,6 +152,19 @@
 </div>
 
     </footer>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>macOS Sonoma 关闭光标输入法提示
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-12 11:00:52 +0800 CST'>October 12, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to macOS Sonoma 关闭光标输入法提示" href="https://kyzy540.github.io/post/disable_input_indicator/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -307,43 +320,6 @@ bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-re
   </div>
   <footer class="entry-footer"><span title='2023-03-17 09:42:36 +0800 CST'>March 17, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 《一场很（没）有必要的春晚》——相见恨晚" href="https://kyzy540.github.io/post/a_chunwan/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>小米随手吸尘器清不掉网易云音乐的广告
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>最近有俩东西伤了我的心。一是小米吸尘器，负心汉长这样
-你看他，眉清目秀，清新脱俗，我是一见倾心。但碍于他200多块钱的身价，一时间没舍得下手。这种只看不买的“单相思”状态持续了数月之久，终于在2021年12月我心一横，接着上头的血压，一拍大腿将他抱回了家
-一年保修期过去几天后，他坏了。充电半小时，吸气二十秒。充8小时呢？对不起还是二十秒
-事实证明，冲动是魔鬼。买之前我在淘宝上就看人有提到这问题，但当年选择视而不见
-顺带提一下，此图截于2023年2月，我看到的电池故障评论是两年前的另一条。因此算上我自个儿至少地球上有3个人着了小米的道儿
-但我还是不死心。他实在长得太好看了，于是我硬着头皮带他去了售后店
-我：“师傅，这吸尘器电池坏了，您给看看能修吗？多少钱？”
-师傅摆弄了一下，“不好意思呢亲，这款产品是一体成型，只换不退的哦”
-“那……那……换要多少钱”
-“换电机和电池160元。这边建议您上京东买新的哦，我们家正好搞活动，这款现在只要190”
-（我把涌到嘴里的一口鲜血强咽下去）“假设……假设我花160换了，能质保多久？”
-“最多3个月哦亲”
-“……”
-新机器一年内就用了5次，一过保修期就坏了。换机160暂且不说，换完只保修3个月是啥原理？换个别人用坏的？年抛改季抛？
-（让我心情平复5秒钟…………………………）
-第二位伤我心的是泰勒-斯威夫特，和网易云音乐
-你看她……我就是不想看她……打开app看泰勒5秒，app从后台切前台看泰勒5秒，解锁屏幕看泰勒5秒。I Need To Calm Down
-买黑胶会员就是冲着免广告。截止到去年，会员权益里写一直都写着会员可以免广告。但今年2月，突然间，云音乐拿泰勒糊满了我的手机屏幕。起初我以为是程序bug，或着运营失误，没在意。但等啊等，不仅跳广告的频率没降，而且各路牛鬼蛇神都来了。不堪其扰的我看了一眼会员权益，发现它变了
-措辞非常委婉。广告该怎么弹还弹，但概率从100%降到了99% 。堪称史诗级鸡肋削弱。云音乐的广告是全屏的，以牺牲操作连贯性，破坏体验为代价换取商业利益。这类广告最近连只顾赚钱不怕骂的电商app 都不咋用了，反而被一个音乐app拾遗，令人意外
-我猜广告一定很赚钱吧，比订阅收入挣的多得多，才让他们被财迷了心窍，杀鸡取卵。但等看完他们家2月23日发布的2022财报，我更懵逼了。财报亮点的第一行写道
-来自在线音乐服务的收入为37亿元人民币，与2021年的33亿元人民币相比增长了12.4%。增长的主要原因是来自会员订阅收入的大幅增长
-增长主要来自订阅收入 ，这么看我这类黑胶会员应该是他们的大金主啊。反而是“广告”二字在财报里就没出现过。那么到底广告能给云音乐带来多少利润？《为不到1%的收入而背负用户流失的压力，网易云音乐值得吗？》 中提到
-2022年中报显示，网易云音乐上半年在线音乐服务收入17.84亿元，其中会员订阅收入14.65亿元，其余的广告服务及版权运营服务共计收入3.19亿元，占在线音乐服务收入的17.88%，而在线音乐服务贡献了总营收的41.9%。
-我没看过年中报，但姑且相信donews的数据是真实的，那么 广告收入占总营收的 7%
-可能是我某个概念弄错了，可能是我分析的方法不对，也可能财报就不该这么解读……但总之，我没找到一个理由，让我忍受没完没了的广告
-是时候说再见了，云村。相逢时难别……别别吧您呐</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-02-23 14:29:14 +0800 CST'>February 23, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to 小米随手吸尘器清不掉网易云音乐的广告" href="https://kyzy540.github.io/post/bad_mi_nemusic_exp/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

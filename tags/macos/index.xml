@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>macos on 低质量随笔</title>
+    <link>https://kyzy540.github.io/tags/macos/</link>
+    <description>Recent content in macos on 低质量随笔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 12 Oct 2023 11:00:52 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>macOS Sonoma 关闭光标输入法提示</title>
+      <link>https://kyzy540.github.io/post/disable_input_indicator/</link>
+      <pubDate>Thu, 12 Oct 2023 11:00:52 +0800</pubDate>
+      
+      <guid>https://kyzy540.github.io/post/disable_input_indicator/</guid>
+      <description>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &amp;#34;Add &amp;#39;redesigned_text_cursor:Enabled&amp;#39; bool false&amp;#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</description>
+    </item>
+    
+  </channel>
+</rss>
