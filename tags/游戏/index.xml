@@ -1,71 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>游戏 on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</link>
     <description>Recent content in 游戏 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Apr 2023 17:24:13 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Apr 2023 17:24:13 +0800</lastBuildDate>
+    <atom:link href="https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>跟拍《秘境探险: 失落的遗产》</title>
       <link>https://kyzy540.github.io/post/uncharted_the_lost_legacy/</link>
       <pubDate>Tue, 25 Apr 2023 17:24:13 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/uncharted_the_lost_legacy/</guid>
       <description>克洛伊和娜蒂恩的组合太棒了👊
 流着哈喇子等续作，可一定得有啊🤤</description>
     </item>
-    
     <item>
       <title>谨慎期待王国之泪</title>
       <link>https://kyzy540.github.io/post/preview_tears_of_the_kingdom/</link>
       <pubDate>Thu, 30 Mar 2023 14:29:08 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/preview_tears_of_the_kingdom/</guid>
       <description>有点担心王国之泪
 《旷野之息》最厉害的部分是地图探索。游戏的主轴是登高，探索周围，再登高，周而复始。攀爬、等高线地形图、坐骑都围绕主轴展开。因而仅仅限制体力这么一个简单的设计，就能限制玩家初期探索范围
 而王国之泪演示的重点在于介绍新能力。我看不出这些能力对原来的探索体验有多大提升，反而有点担心可能破坏原来的主轴。如果浮空岛是轻而易举可以抵达的地方，地表变得一览无余，那爬山是不是没意义了？主轴岂不是变了？它是设计了新主轴只是没展示吗？</description>
     </item>
-    
     <item>
       <title>《灵魂摆渡人》吊了一口长气</title>
       <link>https://kyzy540.github.io/post/spiritfarer/</link>
       <pubDate>Tue, 14 Feb 2023 16:43:58 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/spiritfarer/</guid>
       <description>游戏好是好，就是太长了。How Long to Beat网站显示主流程耗时25小时，加支线接近30小时。对于一款主打艺术气质的休闲游戏，如此时长反而让我有点负担
 但撇开这点，这是款优秀的休闲游戏。宽容、治愈、舒适。整个流程中不乏令人感动的桥段。制作组选了一个沉重题材，能做出这般效果，令人钦佩</description>
     </item>
-    
     <item>
       <title>《遗忘之城》——贝赛精华版</title>
       <link>https://kyzy540.github.io/post/the_forgotten_city/</link>
       <pubDate>Wed, 01 Feb 2023 16:01:28 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/the_forgotten_city/</guid>
       <description>只要不到10小时，就能体会贝塞斯达游戏的精华！是的，包括卡地形bug和程序崩溃
 拿时髦话说，《遗忘之城》是一款故事驱动的开放世界动作RPG。故事是它的绝对核心和最大亮点。玩家可以自由探索一个被遗忘的古城 (是的，不大的开放地图)，与诸多个性鲜明的NPC交流，解开尘封多年的秘密。内容方面我不能再多说了，哪怕一丁点儿剧透都有损我对该作的敬意
 《遗》源于《上古卷轴5：天际》的同名Mod。作者们成立了一个组: Modern Storyteller，将原本的Mod开发成一款独立RPG。瞧这组名就是哥几位都是老司机了。我觉得《遗》的作者们比贝塞更了解Creation 引擎。这款服役多年的引擎特色鲜明: 牛皮癣般难以根治的bug，微妙的操控手感和无比适合复杂叙事的任务、对话、脚本系统，显然作者们对它了如指掌。《遗》的重心完全在故事、人物和世界观塑造上，扬长避短，真正让Creation发光发亮
 它就像一部好电影，想多夸，又怕剧透。强烈建议感兴趣的朋友直接上手游戏，别看任何视频、百科或介绍 (包括这网页)。游戏愉快</description>
     </item>
-    
     <item>
       <title>在Android上玩《Metal Slug X》</title>
       <link>https://kyzy540.github.io/post/metal_slug_x_on_android/</link>
       <pubDate>Wed, 02 Nov 2022 14:08:19 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/metal_slug_x_on_android/</guid>
       <description>写在前面:《Metal Slug X》，即《合金弹头 X》，是有正版在售的，但只上架了海外应用商店，如 Google Play 和 App Store 美区。希望有条件的朋友支持正版。我没条件，我上模拟器
 模拟平台我选PS1。PS1版游戏比NEO-GEO版多了 选关 和 画廊 功能，每关的读盘动画也很精美。模拟器用了DuckStation 。它开源，2022仍在更新 (ePSXe也不错)。DuckStation 并非开箱即用，除了安装apk，还要准备一个PS1的BIOS ROM: ⬇️下载链接 （参考文章)
 注意把文件的_ip改称.bin。这个BIOS ROM是美版的，要搭配美版的游戏ROM。下载链接我就不贴了，比较好找。游戏ROM应该包含.bin和.cue文件，和BIOS ROM一起导入模拟器就可以开玩了</description>
     </item>
-    
     <item>
       <title>2022年度游戏三号种子: 《审判之眼: 死神的遗言》</title>
       <link>https://kyzy540.github.io/post/judge_eyes/</link>
       <pubDate>Wed, 12 Oct 2022 14:20:07 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/judge_eyes/</guid>
       <description>好久没这么喜欢开放世界游戏了，如果《审判之眼: 死神的遗言》算开放世界的话
 初到神室町，我的第一反应就是这开放世界太小了。只有一个街区，轻松能从一头跑到彼端，给人一种立马玩儿到头的感觉。但随着游戏逐步推进，我发现自己完全搞错了重点。《审》的核心不在开放世界，而是叙事
@@ -75,45 +65,37 @@
 但《审》不仅讲好了故事，还提供了电子游戏式的独特体验。电子游戏的“互动体验”是其他媒介所不具备的，它给玩家“置身事内”探索世界的机会。而这其中又以“开放世界”类型见长。《审》作为游戏，提供了电视剧或小说所不具备的广度，让玩家能沉浸在神室町中。小说中的侦探不需要和邻居打好关系，不需要擅长投飞镖。但游戏中提供的这些体验进一步丰富了神室町的世界，让它鲜活，让玩家喜爱。这种沉浸感在不经意间延展到故事中，让玩家欲罢不能
 当我游玩数十小时后不禁反思，《审判之眼: 死神的遗言》绝不是传统意义上的开放世界游戏。探索不是它的核心，故事才是。但如果把它改成线性游戏，那个鲜活的神室町又令人难以割舍。或许这种微妙的魅力正是如龙系列长青多年的原因吧</description>
     </item>
-    
     <item>
       <title>2022年度游戏二号种子:《TOEM》</title>
       <link>https://kyzy540.github.io/post/toem/</link>
       <pubDate>Tue, 11 Oct 2022 16:31:39 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/toem/</guid>
       <description>《TOEM》体量很小，4小时通关，全成就也不消8小时。但它带来的快乐却超出了许多3A大作，让我愉悦到甚至有些感动
 有人评论说《TOEM》的体验像《马里奥-奥德赛》，我同意。倒不是说二者玩法相近，而是传递快乐的方式——探索和发现的乐趣，是多个 “wow~ 还可以这样!” 的时刻，是浓郁任天堂气质
 我很难把“wow”时刻说明白，说细了显得言语苍白，说粗了又不全面。它是画面、音乐、互动等多个因素杂糅在一起，经过巧妙的剧本安排酝酿后迸发出来的。在我看来这是只有电子游戏才有的独特体验。只有电子游戏能带玩家 “置身事内”，亲身体验惊喜。如果你体验过 NDS《塞尔达: 幻影沙漏》的 “合盖”，应该知道我在说什么
 宫本茂曾说，任天堂总以制作玩家从未体验过的创新游戏为目标。以此标准衡量游戏的话，我想《TOEM》达标了</description>
     </item>
-    
     <item>
       <title>《Inspiration》 - Florence</title>
       <link>https://kyzy540.github.io/post/florence/</link>
       <pubDate>Wed, 29 Jun 2022 08:45:06 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/florence/</guid>
       <description>日推遇上《Inspiration》 ，一下被击中。《Florence》是款游戏，别的不敢说，音乐绝了</description>
     </item>
-    
     <item>
       <title>《最终幻想7》好尬</title>
       <link>https://kyzy540.github.io/post/ff7_remake/</link>
       <pubDate>Wed, 22 Jun 2022 09:00:05 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/ff7_remake/</guid>
       <description>这游戏很尬，特别是巴雷特。在队时间长，戏份足，抓住每一个间隙玩儿尬的。大哥明明使机枪，还一直“哦啦哦啦”地喊。喊得那么激昂，那么连绵，那么忘我。制作团队肯定是有意为之，可能他们觉得幽默吧。反正我是玩儿到生理不适，进度推一半的时候弃了半年，最近才重新拾起
 但如果不反感巴雷特，那这游戏很值得一玩。各方面的素质都可圈可点。画面、游戏性都不错，整体节奏现代化，值得称道。我以前也玩过最终幻想 (1/4/9)，但都没通关，最主要就是忍不了拖沓的节奏。《FF7 Remake》则完全没问题。战斗系统从回合制进化到即时制，代入感大增。游戏主线分18章，段落分明。短章节40分钟，长章节80分钟，长度刚好，有种看剧的感觉。每章里杂兵战、boss战、小游戏、剧情演出错落有致，体验丰满。帮村民找猫的支线也有，但引导明确，甚至步骤和耗时都标注了，对于只关注主线的玩家可以有选择的忽略，也不会影响主线剧情，很人性化。我的玩法就是把难度调到“简单”，忽略支线，一路火花带闪电地推主线剧情，还挺畅快
 木讷的克劳德没想到居然是这游戏里我最喜欢的角色。他的每句吐槽都恰到好处，表达情感隐晦却不至于没有。在游戏里其他人物都亢奋到脱轨的映衬下，克劳德显得特别正常。我很容易将他作为情感锚地，代入故事。再加上克劳德装逼的时候招帅话不多，是我能坚持通关游戏的一大动力
 玩过《FF7 Remake》后我更期待《FF16》了。16是中古奇幻风格，背景更适合制作组发挥。7代很尬，很多是因为制作组生搬硬套中古奇幻的桥段，在蒸汽朋克的背景雷得我双脚抠地。同样的桥段在剑与魔法背景下应该好咽些</description>
     </item>
-    
     <item>
       <title>PS5待机模式崩溃</title>
       <link>https://kyzy540.github.io/post/ps5_rest_crash/</link>
       <pubDate>Wed, 15 Jun 2022 10:15:24 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/ps5_rest_crash/</guid>
       <description>玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，迟迟等不到补丁修复。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&amp;quot;How to fix&amp;quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
 Is there a fix for the &amp;ldquo;Rest Mode Crashing&amp;rdquo; yet?
@@ -127,12 +109,10 @@ How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
 强调一下，这只是临时方案。即便只装2个游戏，待机3周依然可能崩溃。根治还得等索尼的补丁
 根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。再考虑到两家公司6月宣传活动的表现，我想等打通战神2就把PS5卖了，换台XSX</description>
     </item>
-    
     <item>
       <title>《风来之国》的好很感性</title>
       <link>https://kyzy540.github.io/post/eastward/</link>
       <pubDate>Fri, 13 May 2022 08:54:43 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/eastward/</guid>
       <description>《风来之国》是个好游戏
 它既中式又日式。一条商业街上，同时存在友好饭店和山田奶奶杂货铺。一个城市里，同时存在日式独栋小洋房和上海老式桶子楼。最棒的是，这一切在后启示录的世界中显得合情合理，相印成趣
@@ -140,24 +120,20 @@ How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
 它既像素又精致。整个游戏画面都是用大颗粒像素构建，给人一种浓郁的90年代游戏的气息。同时游戏又在画面中塞入了无数生动的细节，场景的光阴、人物的表情、演出时人物微妙的动作刻画，甚至大战中还有动态模糊演出
 《风来之国》的每一处都透露着设计、巧思、精致，是款匠人之作</description>
     </item>
-    
     <item>
       <title>年度游戏一号种子: 星之卡比 探索发现</title>
       <link>https://kyzy540.github.io/post/kirby_and_the_forgotten_land/</link>
       <pubDate>Fri, 06 May 2022 15:37:57 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/kirby_and_the_forgotten_land/</guid>
       <description>截止5月，《星之卡比: 探索发现》是我今年玩的最开心的游戏。通关游戏时的感觉类似《巫师3》或《MGSV》，我明确地感受到我还没玩够，而且游戏里确实还有内容等着继续探索
 优秀的关卡设计，精致的画面和细节，丰富多样的玩法，舒适的难度曲线，优美的音乐，治愈的场景 (倒数第二个boss除外)。从头到尾感到满满的快乐。这游戏基本只需方向键和另外3个按键就能通关，仅占用5G多存储空间，体验却超过一大票3A巨制。当下可是时值2022年，大部分游戏者都在绞尽脑汁把手柄上每个按钮安排个遍，甚至宁愿操作蹩脚，也要给1按钮强塞多个功能。瞧瞧卡比，简直是巧夺天工
 来点不知有没用的建议吧
 剑的Lv.2很好用，按住R/L可以举盾，完全抵御正面伤害，用来打boss简直像作弊。第一次挑战小镇竞技场的时候记得要升级 冰的Lv.3在熔岩区很好用。移动不仅带加速，而且在水面也能保持灵活，利于闯关。不带方向连按B键会制造带刺龟壳，攻守一体，打boss时用就是作弊 。长按B键攻击boss会逐渐让之凝固，继续B键不松等凝固破裂后会造成大量伤害。干部关的boss一般2套下来血条见底 </description>
     </item>
-    
     <item>
       <title>The wolf among us</title>
       <link>https://kyzy540.github.io/post/the_wolf_among_us/</link>
       <pubDate>Fri, 29 Apr 2022 11:05:40 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/the_wolf_among_us/</guid>
       <description>《The wolf among us 2》前些日子公布了，我有点期待。前作的大名我早有耳闻，却一直没玩儿。说来也巧，就去年圣诞epic送了《The wolf among us》 (TWAU)，这不得趁机补课？
 这是我第一个玩通的telltale游戏。8小时的游戏中，体验了一个完整的侦探故事。适时的QTE增加了玩家带入感，又没给实质性的压力。过瘾又不累，很舒适
@@ -167,12 +143,10 @@ TWAU就有一点不太完美: 没中文。其实TWAU的故事不复杂，但背�
 再引一篇大佬写的推荐文档: 《这部漫画里，大恶狼和白雪公主生了7个娃》
 最后我还想再多嘴一句，原著《Fables》有个美式文艺作品的通病: 没法在最合适的时机完结，管卖不管埋。我觉得读到“大恶狼和白雪公主生了7个娃”就够，往后就有点狗尾续貂了</description>
     </item>
-    
     <item>
       <title>《地平线2: 西之绝境》</title>
       <link>https://kyzy540.github.io/post/horizon2_forbidden_west/</link>
       <pubDate>Sat, 02 Apr 2022 16:55:21 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/horizon2_forbidden_west/</guid>
       <description>这游戏吧，一定要注重提升数值。每个任务有推荐等级，防御力 (近战和远程)=等级+10，攻击力=等级+30会比较舒适，例如防御力30适合挑战20级左右任务。如果角色的攻防不够狠容易被秒，体验很差
 带RPG要素的开放世界游戏要练级很正常，但为啥这游戏特别需要关注数值？为啥这游戏不练级体验特差？我认真思考了一番
@@ -192,12 +166,10 @@ Nora Valiant: 收集完3个盖亚组建后在基地左边的商人处买。数�
 大致加点优先级是 生存-&amp;gt;射击-&amp;gt;陷阱
 生存第一个勇气激增大招 (自动回血)很好用，我一直用到通关没换过 射击树的加特林大招 (倾斜弹夹全部弹药) 好用，也是一直用到通关 子弹时间相关的被动技能优先点，毕竟游戏主要玩的就是这个 陷阱很强 ，比射击高效2倍以上。优先点快速放置和减伤害，然后可以玩“自爆套路”: 先喝一壶药，然后直接在怪身边放陷阱。怪一般能炸到，自己受不受伤看运气。加了陷阱技能后可以提高生还概率 </description>
     </item>
-    
     <item>
       <title>听《动视暴雪前世今生》有感</title>
       <link>https://kyzy540.github.io/post/gadio_blizzard_thoughts/</link>
       <pubDate>Thu, 31 Mar 2022 16:01:41 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/gadio_blizzard_thoughts/</guid>
       <description>听重轻老师聊暴雪故事很棒。以前也听说过北方暴雪，听过Bill和地狱之门和许多其他暴雪故事，但都很碎片化。重轻老师的节目让我第一次把这些碎片串成了线。故事有了脉络就有了前后呼应，听起来更触动人，让我感慨颇多
 三十年河东 儿时另我印象最深的游戏公司有两家: 任天堂和暴雪，他们是当时游戏界的神仙。如果把游戏分为“娱乐”和“严谨”两个象限，两个象限的满分是100分，那么任天堂的作品站了“娱乐”象限的100分以上的顶端。而暴雪作品则站在了“严谨”象限100分以上的顶端
@@ -213,12 +185,10 @@ Nora Valiant: 收集完3个盖亚组建后在基地左边的商人处买。数�
 暴雪用行动告诉玩家，他们是凡人，他们会犯错。仔细想想，这不是理所当然的吗？暴雪不需再多证明什么，他们的作品前无古人，后无来者。电子竞技也好，MOBA也好，RPG也好，他们已经永远地影响了电子游戏，在历史长卷中留下了浓墨重彩的一笔
 愿所有纷扰过去他们能重整旗鼓吧，重铸往日荣光</description>
     </item>
-    
     <item>
       <title>《Cyberpunk2077》</title>
       <link>https://kyzy540.github.io/post/cyberpunk2077/</link>
       <pubDate>Sun, 13 Mar 2022 20:27:07 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/cyberpunk2077/</guid>
       <description>今天读完了2077艺术设定集，也距离我通关游戏过去了一年。回忆起游戏中的林林总总，依然感慨万千。我曾在机核投票2021年度游戏时留言过，心中的年度游戏是2077和死亡搁浅。时至今日我对它的赞誉依然不变
 读完艺术设定集我不禁感慨，这游戏为何能如此割裂？CDPR把艺术设定、演出等“外在”全都用在售前宣传，只把精神内核留在了游戏里。蠢驴用令人发指的手段在游戏发售前欺骗了玩家和媒体，却至今依然不顾冷嘲热讽，一意孤行地持续地修补游戏。连黑客袭击、代码丢失并泄漏、数月的辛勤劳动付诸东流也没能让他们停下脚步。发售前，人们疯狂吹捧这款游戏，吹捧它画面、美术、文化符号和带来的“赛博朋克文艺复兴”，同时吹嘘自己多懂。甚至连“祖师爷”在推特上都说
@@ -237,12 +207,10 @@ CDPR:《赛博朋克2077》将不会有“任务失败&amp;quot;一说
 还有杰克·威尔斯，这是个阳光大男孩儿，V无数次提到夜城中他最爱的人，游戏中塑造最成功的角色之一，他不应该只是玩家的入门向导这么简单。试想有没有一种可能，亚当·重锤不是最终boss？重锤的人物形象太单薄了，也没啥塑造空间。打败一个纯粹恶人除了解气没啥其他滋味。但如果重锤之后还有更鲜活的boss呢？Relic能塑造V和银手，那会不会有塑造其他角色的可能性？要知道杰克也插入过Relic芯片。如果V和银手最终要面对的是最爱同时又最恨的人，那玩家的情感将被拉升到一个怎样的水平？
 虽然游戏现在的多结局已经给了我很大的情感冲击，但我总觉得有点意犹未尽。《赛博朋克2077》在我看来是游戏叙事的一座高峰，但他割裂、不完整。CDPR想创作第九艺术，缺落了一个江湖骗子的名声。故事之外的故事没偏离赛博朋克的主题，令人唏嘘</description>
     </item>
-    
     <item>
       <title>《对马岛之魂》</title>
       <link>https://kyzy540.github.io/post/ghost_of_tsushima/</link>
       <pubDate>Tue, 08 Mar 2022 17:31:17 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/ghost_of_tsushima/</guid>
       <description>机核链接
 起初，我对这游戏是抗拒的，因为……人物有点
@@ -260,12 +228,10 @@ CDPR:《赛博朋克2077》将不会有“任务失败&amp;quot;一说
 弓箭配合射术才好用，否则难以命中，效率低。但即便点满弓箭技能也没法连续启动专注 (子弹时间)，射速也不快，成型后击杀效率还是不高。但弓很适合杀动物，例如狗和熊。狗和熊的攻击都带红闪，无法架势也不好躲，一旦被击中还会硬直或被甩远，很烦。未被发现时用弓箭杀狗和熊几乎不会引起警觉，约等于白嫖
 架势技能属于添头，费技能点多但效果一般。实在技能点有富裕，我推荐优先加点盾和矛架势。盾兵比较难对付，有红闪攻击，能附火，能格挡，还有boss形态。盾架势的蓄力重击不仅可以破盾，还可以打断盾兵的红闪攻击，对boss战也适用。面对盾兵不用干等着打反击，拉开距离，蓄力重击，可有效降低游戏难度。矛架势点到第3级后重攻击可自动招架矛兵攻击，让矛兵变成决心提取罐</description>
     </item>
-    
     <item>
       <title>巫师系列第三章</title>
       <link>https://kyzy540.github.io/post/witcher3_review/</link>
       <pubDate>Fri, 18 Feb 2022 12:50:53 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/witcher3_review/</guid>
       <description>《魔兽争霸3》陪伴了我2年，《炉石传说》陪了我4年，《巫师》系列陪了我10年。作为系列的最后一作，《巫师3》无疑达到全新的高度。我甚至认为它是2010-2020年最佳游戏，没有之一
 写在前面 每当我想写《巫师3》的文章总会感到纠结。这作品是那么优秀，我对它的喜爱又无以复加，心中感慨万千，却奈何才疏学浅，不知该从何说起。2018年我第一遍通关，曾在豆瓣写过一篇日志。写的时候本想来个欲扬先抑，结果吐槽如泄洪的潮水一般连绵不绝，反倒是没写几句好话，回想起来很尴尬。如今重新开篇，索性随想随写，当日记聊了
@@ -308,12 +274,10 @@ CDPR:《赛博朋克2077》将不会有“任务失败&amp;quot;一说
 毕竟这个结局我等了10年
 my end</description>
     </item>
-    
     <item>
       <title>《Coffee Talk》——味道刚好</title>
       <link>https://kyzy540.github.io/post/coffee_talk_thoughts/</link>
       <pubDate>Thu, 20 Jan 2022 08:38:33 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/coffee_talk_thoughts/</guid>
       <description>玩《Coffee Talk》的感觉就像周末在咖啡店小憩，喝上一杯拿铁，放松片刻，很惬意
 这是一款轻小说游戏。玩家扮演一位咖啡店老板，冲咖啡之余听顾客讲形形色色的故事。跟《赛博朋克酒保行动》和《命运石之门》很像。而相比前辈，《Coffee Talk》更轻松愉快，不仅玩法简单，而且时长只有5小时，是迄今为止唯一我通关的&amp;quot;轻小说&amp;quot;游戏
@@ -323,12 +287,10 @@ my end</description>
 我想到这才明白之前为啥放弃酒保行动和命运石。文字多但信息密度低，故事推进太慢，味如嚼蜡。酒保行动2小时游戏才开头。命运石玩了5小时甚至不知道开头了没有。而《Coffee Talk》呢？故事短小精悍，起承转折却一样不少。它不是宴席，也不是快餐。它就像一杯咖啡，不费事，不费时，却挥发出应有的醇香。游戏第二章快发售了，有点期待
 理解了咖啡馆的梦想 我开始理解为啥很多文艺青年希望财富自由后开一家咖啡馆。找一个目光可遍及的小店，按自己的品味装饰起来，让它温暖舒适。背景放着舒缓的音乐，空气中偶尔散出咖啡的醇香。店里客人不多，三两成簇，有人间烟火，但不吵闹。可能在不经意听到别人的故事，也有机会遇上情投意合的新朋友。自得其乐，或许就是这种状态吧</description>
     </item>
-    
     <item>
       <title>《Horizon 4》和《GT Sports》</title>
       <link>https://kyzy540.github.io/post/gtsports_thoughts/</link>
       <pubDate>Thu, 13 Jan 2022 16:47:32 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/gtsports_thoughts/</guid>
       <description>我检讨 我有驾照，但不懂车，生活中对车的诉求仅限于能跑。即便是在热爱的电子游戏领域，我在很长一段时间内也对赛车游戏不感兴趣。毕竟赛车游戏的核心魅力之一就是满足驾驶幻想——开梦想车，踩地板油。对于没有梦想车的我，赛车游戏的吸引力只剩下游戏本身。我仅在换新游戏设备的时候会试玩赛车游戏。这类游戏的画面会尽量拟真，往往能代表一个时代的画面上限。更赤裸一点，我只想试硬件。2018年以前，我甚至没未赛车游戏掏过钱，全玩盗版，很惭愧
 而改变我对赛车游戏印象的是他们俩: 《极限竞速:地平线4》(地平线)和《GT Sports》(GT)。我付钱了。付得心甘情愿，玩得不亦乐乎
@@ -344,21 +306,17 @@ Horizon (地平线)在游戏中代表着一个汽车嘉年华活动，而&amp;qu
 试错成本低、反馈直观、价值实用、随机奖励、自我超越……制作组把&amp;quot;教学&amp;quot;的核心提纯，并推到了极致。GT驾校毕业后我试玩《尘埃5》，明显发现自己的赛车水平提高了。《尘埃5》的赛车显得太容易操控，弯道显得太宽，连玩7关都轻松夺冠
 自然，《GT Sports》也有很多缺点被人诟病。没有华丽的开场，&amp;ldquo;驾校&amp;quot;做这么好，却没做引导叫新手先玩驾校模式。游戏的画面停留在PS3时代，特别是白天的东京高速赛道，可以用惨不忍睹来形容。当纵使它有万般缺陷，依然是我迄今最爱的赛车游戏，当然也玩得最久。GT具备日式游戏诸多特质，自我成长的快乐、入微的人文关怀、严谨的游戏系统。玩GT的时候我总能全身心投入。当人完全专注于一件事时，心情反而会获得完全的放松。机核龙马曾说GT赛车有种禅意，我想大概就是指这吧 </description>
     </item>
-    
     <item>
       <title>《死亡搁浅: 导演剪辑版》心得</title>
       <link>https://kyzy540.github.io/post/death_stranding/</link>
       <pubDate>Tue, 28 Dec 2021 20:40:49 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/death_stranding/</guid>
       <description>我的2021年度游戏</description>
     </item>
-    
     <item>
       <title>夸夸《巫师1》的剧情</title>
       <link>https://kyzy540.github.io/post/wicher1_thoughts/</link>
       <pubDate>Sat, 18 Jul 2020 19:05:59 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/wicher1_thoughts/</guid>
       <description>它和小说原著的气质很契合，讲的是落魄英雄在乱世中行侠仗义的故事。基调灰暗
 英雄身处乱世的作品，近几年呈现最好的作品之一是《权利的游戏》。《巫师1》基调和《权游》有诸多相似
@@ -370,12 +328,10 @@ Horizon (地平线)在游戏中代表着一个汽车嘉年华活动，而&amp;qu
 我想拯救苍生，却慢慢意识到，并非每个人都值得被拯救
 《巫师1》的故事无论主线和支线都非常精彩。比起2代和3代，它的主线故事更完整，更闭环。玩家不需要有什么背景知识，就能体验一个有始有终的奇幻故事 另外，游戏中所有人物都有全程配音，且质量上乘。受技术限制，游戏中的人物都没有表情变化，始终板着脸。但得益于巧妙搭配的台词和配音，剧情中喜怒哀乐样样恰到好处。这种“含蓄”的情感表达很有文艺气息，符合东方审美，还契合了整体灰暗的基调</description>
     </item>
-    
     <item>
       <title>《只狼》一周目推荐技能</title>
       <link>https://kyzy540.github.io/post/sekiro_guide/</link>
       <pubDate>Fri, 14 Jun 2019 17:56:24 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/sekiro_guide/</guid>
       <description>本文十分主观且缺乏考证
 技能推荐只针对游戏的前、中期 (源之宫以前)。后期玩家理解了游戏，也形成了自己的风格，就用不着我瞎bb了。《只狼》支持多样化游戏风格。拿料理作比的话，游戏是食材，做中餐还是西餐还得看个人口味。我口味自诩骚而不邪：用紫伞打无首ok; 跳墙摔死鬼刑部no
@@ -406,12 +362,10 @@ Horizon (地平线)在游戏中代表着一个汽车嘉年华活动，而&amp;qu
 据说是续航神技。要5个技能点
 写这篇文章的动机 不知道有没人遇到跟我一样的问题：初玩只狼，面对满目的技能和稀缺的技能点，不知道学哪个好。我当时查了半天，只找到技能评价的文章，独缺一篇指南，能直观的给出技能学习顺序。我想要《只狼：适合新手的技能学习指南》，想要有人告诉点技能的顺序、理由，但不想做深入讲解。能帮我降低前期游戏难度，带我入门就成。可惜我没找到这样的文章。于是在浪费不少技能点，通关了游戏之后，我想自己写这么一篇</description>
     </item>
-    
     <item>
       <title>《只狼》玩的有点伤</title>
       <link>https://kyzy540.github.io/post/sekiro_review/</link>
       <pubDate>Tue, 14 May 2019 13:10:30 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/sekiro_review/</guid>
       <description>首先，《只狼》是个好游戏，所以，别揍我……别踢裆总行吧。那么为啥我不满意呢？只能说不合胃口。好比卤煮，不是人人都吃得惯
 《只狼》的核心乐趣在于战斗，那是一种前所未有的体验。玩家要做的就是见招拆招。如果熟记敌人招式，就能在连续弹反、打断、看破中快速地打败对手。胜利时有一种“我已经完全看破你的招式”的成就感。而这个过程看似很像格斗游戏，却对手速要求并不苛刻。只要死过几百次，谁都能成为武林高手。但我的症结也就出在这: 必须一遍遍地在死亡中学习敌人的招式，并把破解之法练到近似肌肉记忆。这种玩法在前20小时非常快乐，但之后就开始变得乏味，进而疲惫。最终通关时，我有一种从过量运动中解脱的感觉
@@ -438,12 +392,10 @@ Horizon (地平线)在游戏中代表着一个汽车嘉年华活动，而&amp;qu
 七本枪-山内式部利胜很难？ 七本枪-山内式部利胜位于初见九郎的塔下，打败鬼刑部后就能挑战。他是我打了最久的怪，比苇名一心都久。难的原因是：技术差、血少、攻低、画面延迟 (他在居合斩前，我到后来才意识到延迟问题)。我打七本枪的时候不知道要花费&amp;quot;战斗记忆&amp;quot;来提供攻击力，也没提过血量，等于用初始数值挑战，砍他不咋掉血，而且还经常被招架。反过来，七本枪攻击方式多样、判定范围广，3下致命。我也不知道自己是手残还是延迟，经常被打中
 因此，建议晚点来挑战七本枪。多晚呢？中后期再去。中期我们要去金刚山、水生村、堕落谷取3样东西。攒齐3样后苇名城地图会变化。我不确定变化后七本枪还在不在，但肯定攒齐3样东西前他不会跑。等有了几串佛珠，一打治疗药和更高的攻击力，再会他老人能轻松一些</description>
     </item>
-    
     <item>
       <title>《马里奥: 奥德赛》——致志在全成就的老哥</title>
       <link>https://kyzy540.github.io/post/super_mario_odyssey/</link>
       <pubDate>Mon, 18 Feb 2019 15:42:01 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/super_mario_odyssey/</guid>
       <description>老哥，
 如果您之前全成就过其他3D马里奥，或者通关了黑魂，请无视弟弟以下言论。ctrl+w，祝您旅途愉快
@@ -463,12 +415,10 @@ dark side of the moon 的boss车轮战中途可以跑图回飞船补血。地图
 如果您对&amp;quot;快乐&amp;quot;有独到的理解，请允许我介绍一位名为 宫崎英高 先生，您一定会爱上他的
 此致敬礼</description>
     </item>
-    
     <item>
       <title>巫师系列第二章</title>
       <link>https://kyzy540.github.io/post/witcher2_review/</link>
       <pubDate>Wed, 11 Jul 2018 16:03:06 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/witcher2_review/</guid>
       <description>聊《巫师2》必须带上《巫师3》，反之亦然
 一点历史 《巫师》大卖后，野心勃勃的CDPR一口气启动了3个项目
@@ -513,12 +463,10 @@ dark side of the moon 的boss车轮战中途可以跑图回飞船补血。地图
 先找最强装备，然后随便虐
 to be continue&amp;hellip;</description>
     </item>
-    
     <item>
       <title>巫师系列第一章</title>
       <link>https://kyzy540.github.io/post/witcher1_review/</link>
       <pubDate>Wed, 27 Jun 2018 17:13:23 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/witcher1_review/</guid>
       <description>2018年6月初，我通关了《巫师3》。从2007年第一次玩《巫师》算起，这个游戏系列和小说陪我走过了10余年。当年对这游戏感慨颇多，如今也仅剩只言片语。写下来权当给自己一个交代
 2007年暑假，家里组了台配置不赖的PC。我盯着21寸的大屏，在各大游戏论坛上寻觅能小试牛机的游戏大作。一番调研下来，锁定了《巫师》。“嗯，论坛大佬和媒体一致好评，又是我喜欢的动作RPG，应该差不了”。就这样，我抱着试一试的心态开始下载游戏。经历数十个小时的等待后，安装、启动游戏。从开场CG开始，我就无法自拔地爱上了这个游戏
@@ -530,6 +478,5 @@ P.S. 当年《巫师》有国内正版代理，但那个版本被和谐了，且
 最近。我拿自己经历的故事对照了网上的剧情梗概，发现诸多不同。窃喜，看来我的故事终究只属于我自己
 to be continue&amp;hellip;</description>
     </item>
-    
   </channel>
 </rss>

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/tags/macos/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a6dfd66fd409c37cc6041a4586663b00122a14afa93d2868364feab8f05ff5dd.css" integrity="sha256-pt/Wb9QJw3zGBBpFhmY7ABIqFK&#43;pPShoNk/quPBf9d0=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f31713190d61273cd787197eda621c3b5af66c744dc6d89be7f9cd30bf0cd59f.css" integrity="sha256-8xcTGQ1hJzzXhxl&#43;2mIcO1r2bHRNxtib5/nNML8M1Z8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -36,7 +36,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -133,14 +133,14 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>macOS Sonoma 关闭光标输入法提示
+    <h2 class="entry-hint-parent">macOS Sonoma 关闭光标输入法提示
     </h2>
   </header>
   <div class="entry-content">
     <p>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
 sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-10-12 11:00:52 &#43;0800 CST&#39;&gt;October 12, 2023&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2023-10-12 11:00:52 +0800 CST'>October 12, 2023</span></footer>
   <a class="entry-link" aria-label="post link to macOS Sonoma 关闭光标输入法提示" href="https://kyzy540.github.io/post/disable_input_indicator/"></a>
 </article>
     </main>

@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - 低质量随笔">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a6dfd66fd409c37cc6041a4586663b00122a14afa93d2868364feab8f05ff5dd.css" integrity="sha256-pt/Wb9QJw3zGBBpFhmY7ABIqFK&#43;pPShoNk/quPBf9d0=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f31713190d61273cd787197eda621c3b5af66c744dc6d89be7f9cd30bf0cd59f.css" integrity="sha256-8xcTGQ1hJzzXhxl&#43;2mIcO1r2bHRNxtib5/nNML8M1Z8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -36,7 +36,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -148,7 +148,7 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>Android http-server
+    <h2 class="entry-hint-parent">Android http-server
     </h2>
   </header>
   <div class="entry-content">
@@ -160,13 +160,13 @@ pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源�
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
 http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-03-17 18:36:21 &#43;0800 CST&#39;&gt;March 17, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-03-17 18:36:21 +0800 CST'>March 17, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Android http-server" href="https://kyzy540.github.io/post/android_httpserver/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《Cyberpunk2077》
+    <h2 class="entry-hint-parent">《Cyberpunk2077》
     </h2>
   </header>
   <div class="entry-content">
@@ -187,13 +187,13 @@ CDPR:《赛博朋克2077》将不会有“任务失败&#34;一说
 还有杰克·威尔斯，这是个阳光大男孩儿，V无数次提到夜城中他最爱的人，游戏中塑造最成功的角色之一，他不应该只是玩家的入门向导这么简单。试想有没有一种可能，亚当·重锤不是最终boss？重锤的人物形象太单薄了，也没啥塑造空间。打败一个纯粹恶人除了解气没啥其他滋味。但如果重锤之后还有更鲜活的boss呢？Relic能塑造V和银手，那会不会有塑造其他角色的可能性？要知道杰克也插入过Relic芯片。如果V和银手最终要面对的是最爱同时又最恨的人，那玩家的情感将被拉升到一个怎样的水平？
 虽然游戏现在的多结局已经给了我很大的情感冲击，但我总觉得有点意犹未尽。《赛博朋克2077》在我看来是游戏叙事的一座高峰，但他割裂、不完整。CDPR想创作第九艺术，缺落了一个江湖骗子的名声。故事之外的故事没偏离赛博朋克的主题，令人唏嘘</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-03-13 20:27:07 &#43;0800 CST&#39;&gt;March 13, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-03-13 20:27:07 +0800 CST'>March 13, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《Cyberpunk2077》" href="https://kyzy540.github.io/post/cyberpunk2077/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《开端》
+    <h2 class="entry-hint-parent">《开端》
     </h2>
   </header>
   <div class="entry-content">
@@ -202,13 +202,13 @@ CDPR:《赛博朋克2077》将不会有“任务失败&#34;一说
 另外我觉着主创是真玩儿游戏啊，P5天下第一都来了😄
 我更喜欢 P5S</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-03-09 19:04:13 &#43;0800 CST&#39;&gt;March 9, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-03-09 19:04:13 +0800 CST'>March 9, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《开端》" href="https://kyzy540.github.io/post/reset_series/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《对马岛之魂》
+    <h2 class="entry-hint-parent">《对马岛之魂》
     </h2>
   </header>
   <div class="entry-content">
@@ -228,26 +228,26 @@ CDPR:《赛博朋克2077》将不会有“任务失败&#34;一说
 弓箭配合射术才好用，否则难以命中，效率低。但即便点满弓箭技能也没法连续启动专注 (子弹时间)，射速也不快，成型后击杀效率还是不高。但弓很适合杀动物，例如狗和熊。狗和熊的攻击都带红闪，无法架势也不好躲，一旦被击中还会硬直或被甩远，很烦。未被发现时用弓箭杀狗和熊几乎不会引起警觉，约等于白嫖
 架势技能属于添头，费技能点多但效果一般。实在技能点有富裕，我推荐优先加点盾和矛架势。盾兵比较难对付，有红闪攻击，能附火，能格挡，还有boss形态。盾架势的蓄力重击不仅可以破盾，还可以打断盾兵的红闪攻击，对boss战也适用。面对盾兵不用干等着打反击，拉开距离，蓄力重击，可有效降低游戏难度。矛架势点到第3级后重攻击可自动招架矛兵攻击，让矛兵变成决心提取罐</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-03-08 17:31:17 &#43;0800 CST&#39;&gt;March 8, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-03-08 17:31:17 +0800 CST'>March 8, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《对马岛之魂》" href="https://kyzy540.github.io/post/ghost_of_tsushima/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《扬名立万》
+    <h2 class="entry-hint-parent">《扬名立万》
     </h2>
   </header>
   <div class="entry-content">
     <p>2022年看的第一部电影。好，不错，而且是国产片近年少有的类型。戏谑开场，严肃收尾，立意高但不做作。故事想讨论的主题挺沉重的，能以轻松的基调拍出来很不简单。影片开头说好不谈的内容后头其实都谈到了，回想起来很值得玩味
 感谢机博让我知道了这部佳作</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-02-23 09:05:08 &#43;0800 CST&#39;&gt;February 23, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-02-23 09:05:08 +0800 CST'>February 23, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《扬名立万》" href="https://kyzy540.github.io/post/be_somebody/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>巫师系列第三章
+    <h2 class="entry-hint-parent">巫师系列第三章
     </h2>
   </header>
   <div class="entry-content">
@@ -292,13 +292,13 @@ CDPR:《赛博朋克2077》将不会有“任务失败&#34;一说
 毕竟这个结局我等了10年
 my end</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-02-18 12:50:53 &#43;0800 CST&#39;&gt;February 18, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-02-18 12:50:53 +0800 CST'>February 18, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 巫师系列第三章" href="https://kyzy540.github.io/post/witcher3_review/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《双城之战 第一季》
+    <h2 class="entry-hint-parent">《双城之战 第一季》
     </h2>
   </header>
   <div class="entry-content">
@@ -306,25 +306,25 @@ my end</p>
 本作诠释了真正的女拳。全局一共9集，每集的制作质量都高的令人发指。故事、音乐、配音、画面都极好。尤其是画面，兼顾LOL游戏画风照顾到了老粉丝。细节中融入类似《蜘蛛侠：平行宇宙》视觉要素，手绘涂鸦、高锐度、虚影效果等，不仅赏心悦目，还契合蒸汽朋克的整体风格。这还没完，画面中使用了大量油画技法，远景、梅尔绘画等比比皆是。可以说把从雅到俗的各类观众都照顾到了。而最牛逼的是，制作组将这种质量保持了9集，每一帧都让人感觉都经费在燃烧
 故事和人物塑造也很好。对立又纠葛是人物关系的主旋律: 蔚和金克丝，杰斯和维克多，范德尔和希尔科。蔚是我觉得塑造最成功的，很容易产生共情。但反过来金克丝的素质我觉得不够丰满，即便她在海报里占了主角位。借别人的话讲，金克丝没有人物弧光，只是一路混乱到尾。如果放在其他作品里其实这不是问题，但由于本作中其他人物的弧光都太耀眼了，对照起来就显得金克丝很单薄。当然，这是鸡蛋里挑骨头。《双城之战》总之是十分牛逼的作品，看着很开心</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-01-31 13:28:38 &#43;0800 CST&#39;&gt;January 31, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-01-31 13:28:38 +0800 CST'>January 31, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《双城之战 第一季》" href="https://kyzy540.github.io/post/arcane/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《爱情神话》
+    <h2 class="entry-hint-parent">《爱情神话》
     </h2>
   </header>
   <div class="entry-content">
     <p>2021年度微信广告（玩笑话）。我的2021年度电影（虽然2022才看）。在2021年末上映特别合适，细节时髦，内核经典。通篇上海话对白，从头笑到尾。有冯小刚早年贺岁片的味儿。我不记得上次看到这么让人开心的电影是啥时候了</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-01-29 07:33:04 &#43;0800 CST&#39;&gt;January 29, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-01-29 07:33:04 +0800 CST'>January 29, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《爱情神话》" href="https://kyzy540.github.io/post/b_for_busy/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《Coffee Talk》——味道刚好
+    <h2 class="entry-hint-parent">《Coffee Talk》——味道刚好
     </h2>
   </header>
   <div class="entry-content">
@@ -336,13 +336,13 @@ my end</p>
 我想到这才明白之前为啥放弃酒保行动和命运石。文字多但信息密度低，故事推进太慢，味如嚼蜡。酒保行动2小时游戏才开头。命运石玩了5小时甚至不知道开头了没有。而《Coffee Talk》呢？故事短小精悍，起承转折却一样不少。它不是宴席，也不是快餐。它就像一杯咖啡，不费事，不费时，却挥发出应有的醇香。游戏第二章快发售了，有点期待
 理解了咖啡馆的梦想 我开始理解为啥很多文艺青年希望财富自由后开一家咖啡馆。找一个目光可遍及的小店，按自己的品味装饰起来，让它温暖舒适。背景放着舒缓的音乐，空气中偶尔散出咖啡的醇香。店里客人不多，三两成簇，有人间烟火，但不吵闹。可能在不经意听到别人的故事，也有机会遇上情投意合的新朋友。自得其乐，或许就是这种状态吧</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-01-20 08:38:33 &#43;0800 CST&#39;&gt;January 20, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-01-20 08:38:33 +0800 CST'>January 20, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《Coffee Talk》——味道刚好" href="https://kyzy540.github.io/post/coffee_talk_thoughts/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>《Horizon 4》和《GT Sports》
+    <h2 class="entry-hint-parent">《Horizon 4》和《GT Sports》
     </h2>
   </header>
   <div class="entry-content">
@@ -360,7 +360,7 @@ Horizon (地平线)在游戏中代表着一个汽车嘉年华活动，而&#34;�
 试错成本低、反馈直观、价值实用、随机奖励、自我超越……制作组把&#34;教学&#34;的核心提纯，并推到了极致。GT驾校毕业后我试玩《尘埃5》，明显发现自己的赛车水平提高了。《尘埃5》的赛车显得太容易操控，弯道显得太宽，连玩7关都轻松夺冠
 自然，《GT Sports》也有很多缺点被人诟病。没有华丽的开场，“驾校&#34;做这么好，却没做引导叫新手先玩驾校模式。游戏的画面停留在PS3时代，特别是白天的东京高速赛道，可以用惨不忍睹来形容。当纵使它有万般缺陷，依然是我迄今最爱的赛车游戏，当然也玩得最久。GT具备日式游戏诸多特质，自我成长的快乐、入微的人文关怀、严谨的游戏系统。玩GT的时候我总能全身心投入。当人完全专注于一件事时，心情反而会获得完全的放松。机核龙马曾说GT赛车有种禅意，我想大概就是指这吧 </p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-01-13 16:47:32 &#43;0800 CST&#39;&gt;January 13, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-01-13 16:47:32 +0800 CST'>January 13, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 《Horizon 4》和《GT Sports》" href="https://kyzy540.github.io/post/gtsports_thoughts/"></a>
 </article>
 <footer class="page-footer">

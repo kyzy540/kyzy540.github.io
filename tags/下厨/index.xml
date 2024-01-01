@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>下厨 on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</link>
     <description>Recent content in 下厨 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jan 2024 08:44:59 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Jan 2024 08:44:59 +0800</lastBuildDate>
+    <atom:link href="https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>黄焖鸡</title>
       <link>https://kyzy540.github.io/post/chicken_braised_in_brown_sauce/</link>
       <pubDate>Mon, 01 Jan 2024 08:44:59 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/chicken_braised_in_brown_sauce/</guid>
       <description>我也是吃饱了撑的，“黄焖鸡”的英文翻译来源《“黄焖鸡米饭”英文怎么说？可不是“jimmy fan！”》
 材料 鸡腿肉: 4人2腿 土豆: 1颗中个头或2颗小个头 洋葱: 半个 青椒: 1个 干香菇 蒜、姜 步骤 整个过程大约70分钟
@@ -24,12 +24,10 @@
 要提醒的是，鸡肉不同与猪/牛肉，不经炖。请勿故意延长炖煮时间，否则会烂。同理，土豆炖久了也容易糊，所以我选择只炖15分钟。想吃糊土豆的话可以和香菇一起下锅，炖上30分钟。
 我头一次做的时候，把鸡肉炖了45分钟，还老早放入了腐竹。炖完那一坨糊糊，可谓悲壮</description>
     </item>
-    
     <item>
       <title>做3杯奶茶</title>
       <link>https://kyzy540.github.io/post/milktea_hk_style/</link>
       <pubDate>Fri, 03 Feb 2023 15:48:45 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/milktea_hk_style/</guid>
       <description>我家的玻璃杯250ml，做3杯奶茶的配料包括
 一块黑糖 (例如严选的原味黑糖) 100ml 黑白淡奶 (大约) 川宁乌龙茶/锡兰红茶 茶包*3袋 600ml 开水 制作流程
@@ -40,12 +38,10 @@
 不能用鲜奶替代黑白淡奶。黑白淡奶是经过提纯的牛奶，奶茶醇厚的口感来源于此。用鲜奶口感不“醇”，这感觉比较抽象，但喝过就知道区别明显，是奶茶的灵魂。如果做出来的成品喝着不像店里卖的，不妨多加点黑白淡奶再尝尝
 茶包可以根据个人喜好选择，大部分教程都推荐锡兰红茶，但我偏爱乌龙茶，香</description>
     </item>
-    
     <item>
       <title>抹茶拿铁制作小记</title>
       <link>https://kyzy540.github.io/post/matcha_latte/</link>
       <pubDate>Wed, 01 Feb 2023 17:11:19 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/matcha_latte/</guid>
       <description>我喝不了咖啡，哪怕一包速溶雀巢都能让我尿频，狂上厕所，并且第二天口腔溃疡。于是当我想去星巴克装逼的时候抹茶拿铁就成了不二之选。能做热饮，量大管饱，一点不影响晚上睡眠。随着时间推移，我自然而然地 (因为抠门)想，能不能自制抹茶拿铁？
 打开淘宝，搜索抹茶粉，那结果……令人寒心。即便用鲜奶配优质抹茶粉，一杯抹茶拿铁的成本也不到8元，星巴克直接卖我30多！？人家果然卖的还是逼格啊
@@ -54,12 +50,10 @@
 想稍微讲究点呢，可以先打茶: 准备一个独立碗，以把抹茶粉(2g)、白糖(3g)勺里面。加 80ºC 水(100ml)后用茶筅打匀。然后兑温奶。打茶可以让茶汤更均匀。80ºC的水温能保留绿茶最好的风味
 如果还想再进一步，追求奶泡。可以买一个电动打泡器，先把温奶打出泡后倒在茶汤上面。不嫌土的话，也可以随便找个密闭容器，例如空矿泉水瓶，把温奶倒里面猛摇，也能成奶泡。奶泡就是让奶和容器充分融合，利用奶的脂肪包裹住气泡不会立刻溶解形成。只要能让空气混进奶里，手段不限。电动打泡器的价值在于可以打出比较均匀的奶泡，装逼效果也更好</description>
     </item>
-    
     <item>
       <title>牛肉汉堡制作小记</title>
       <link>https://kyzy540.github.io/post/burger_cooknote/</link>
       <pubDate>Tue, 17 May 2022 08:57:29 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/burger_cooknote/</guid>
       <description>家里买了汉堡肉，于是尝试自制汉堡包。目前为止尝试了3次，失败了3次，还挺让我泄气的。不过好歹在这几次失败中总结了一些经验，写下来算给自个人留个备忘录。等下次工起勇气再次尝试的时候希望能做的更好吧
 制作步骤 备忘先从制作前的准备开始，需要的材料包括: 汉堡肉 (废话)，番茄，洋葱，蒜，芝士片 (推荐用2片)，黑胡椒酱，黄油，吐司或汉堡面包，包菜 (可选)
@@ -75,6 +69,5 @@
 吐司要烤，烤过的吐司表面微脆，不会被汉堡肉里残留的油脂浸透，否则不好吃，握着也容易弄脏手。我估计汉堡面包没这问题，可以不烤，但没实践过。附近面包店不卖这东西
 再说不足的部分吧。第一个问题不大，就是熟洋葱捞出来要领拿一个容器装，有点麻烦。第二个问题是我掌握不好撒盐和胡椒的量。我要么放少了缺点滋味，要么放多了猴咸。只能继续探索尝试了</description>
     </item>
-    
   </channel>
 </rss>

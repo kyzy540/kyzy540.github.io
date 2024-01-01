@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PS5 on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/ps5/</link>
     <description>Recent content in PS5 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Jun 2022 10:15:24 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/ps5/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Jun 2022 10:15:24 +0800</lastBuildDate>
+    <atom:link href="https://kyzy540.github.io/tags/ps5/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PS5待机模式崩溃</title>
       <link>https://kyzy540.github.io/post/ps5_rest_crash/</link>
       <pubDate>Wed, 15 Jun 2022 10:15:24 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/ps5_rest_crash/</guid>
       <description>玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，迟迟等不到补丁修复。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&amp;quot;How to fix&amp;quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
 Is there a fix for the &amp;ldquo;Rest Mode Crashing&amp;rdquo; yet?
@@ -25,6 +25,5 @@ How to Fix Sony PS5 Crashing in 2022 [6 Easy Methods]
 强调一下，这只是临时方案。即便只装2个游戏，待机3周依然可能崩溃。根治还得等索尼的补丁
 根据2022年第一季度索尼和微软的财报，本世代到目前为止Xbox领先于PS。Xbox出货量12年来首次在日本超过PS。再考虑到两家公司6月宣传活动的表现，我想等打通战神2就把PS5卖了，换台XSX</description>
     </item>
-    
   </channel>
 </rss>

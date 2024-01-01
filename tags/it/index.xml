@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>it on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/it/</link>
     <description>Recent content in it on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Sep 2023 21:06:11 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Sep 2023 21:06:11 +0800</lastBuildDate>
+    <atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>zkcli</title>
       <link>https://kyzy540.github.io/post/zkcli/</link>
       <pubDate>Sat, 16 Sep 2023 21:06:11 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/zkcli/</guid>
       <description>2023-09-16
 一个zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
@@ -21,12 +21,10 @@ go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 
 交互模式支持 tab 自动提示 支持 batch 模式执行命令 方便安装配置，不依赖java zkcli默认会读配置文件$HOME/.config/zkcli.conf，可以避免每条命了都要输入冗长参数。配置文件参考 zkcli.conf。个人常用配置如下
 s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏</description>
     </item>
-    
     <item>
       <title>分析一个Python MongoEngine的多层装饰器</title>
       <link>https://kyzy540.github.io/post/python_decorator/</link>
       <pubDate>Tue, 01 Aug 2023 16:48:08 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/python_decorator/</guid>
       <description>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
 def handler(event): &amp;#34;&amp;#34;&amp;#34;Signal decorator to allow use of callback functions as class decorators.&amp;#34;&amp;#34;&amp;#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
@@ -34,12 +32,10 @@ signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解p
 cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
 def decorator(fn): def apply(cls): signals.</description>
     </item>
-    
     <item>
       <title>扩展插件SwitchyOmega</title>
       <link>https://kyzy540.github.io/post/extend_switchyomega/</link>
       <pubDate>Thu, 30 Mar 2023 20:26:29 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/extend_switchyomega/</guid>
       <description>背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
 它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
@@ -56,12 +52,10 @@ SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创
 本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
 bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &amp;ldquo;git ls-remote &amp;ndash;tags &amp;ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&amp;quot;, exit code of #128 remote: Repository not found.</description>
     </item>
-    
     <item>
       <title>VPN Setup</title>
       <link>https://kyzy540.github.io/post/vpnsetup/</link>
       <pubDate>Tue, 18 Oct 2022 09:16:11 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/vpnsetup/</guid>
       <description>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
 文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
@@ -72,24 +66,20 @@ wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV
 safari cannot open the page cannot establish a secure connection
 诊断的关键是在 /etc/v2ray/config.</description>
     </item>
-    
     <item>
       <title>ERROR: Win32Bridge.Server.exe</title>
       <link>https://kyzy540.github.io/post/windows_bridge_server_error/</link>
       <pubDate>Thu, 28 Apr 2022 09:43:39 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
       <description>某次系统升级后一登录就报错
 Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.
 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
 参考链接</description>
     </item>
-    
     <item>
       <title>微软好终端</title>
       <link>https://kyzy540.github.io/post/windows_terminal/</link>
       <pubDate>Thu, 18 Jun 2020 19:05:59 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/windows_terminal/</guid>
       <description>Windows发展到今日，已非复吴下阿蒙。被诟病多年的&amp;quot;终端难用&amp;quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
@@ -106,6 +96,5 @@ choco install gow ZLocation 类似autojump，是一款目录导航工具，可�
 ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
 rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>微软 on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/%E5%BE%AE%E8%BD%AF/</link>
     <description>Recent content in 微软 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Apr 2022 09:43:39 +0800</lastBuildDate><atom:link href="https://kyzy540.github.io/tags/%E5%BE%AE%E8%BD%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Apr 2022 09:43:39 +0800</lastBuildDate>
+    <atom:link href="https://kyzy540.github.io/tags/%E5%BE%AE%E8%BD%AF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ERROR: Win32Bridge.Server.exe</title>
       <link>https://kyzy540.github.io/post/windows_bridge_server_error/</link>
       <pubDate>Thu, 28 Apr 2022 09:43:39 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
       <description>某次系统升级后一登录就报错
 Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.
 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
 参考链接</description>
     </item>
-    
     <item>
       <title>微软好终端</title>
       <link>https://kyzy540.github.io/post/windows_terminal/</link>
       <pubDate>Thu, 18 Jun 2020 19:05:59 +0800</pubDate>
-      
       <guid>https://kyzy540.github.io/post/windows_terminal/</guid>
       <description>Windows发展到今日，已非复吴下阿蒙。被诟病多年的&amp;quot;终端难用&amp;quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
@@ -40,6 +38,5 @@ choco install gow ZLocation 类似autojump，是一款目录导航工具，可�
 ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
 rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助</description>
     </item>
-    
   </channel>
 </rss>

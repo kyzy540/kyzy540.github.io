@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/tags/it/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a6dfd66fd409c37cc6041a4586663b00122a14afa93d2868364feab8f05ff5dd.css" integrity="sha256-pt/Wb9QJw3zGBBpFhmY7ABIqFK&#43;pPShoNk/quPBf9d0=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f31713190d61273cd787197eda621c3b5af66c744dc6d89be7f9cd30bf0cd59f.css" integrity="sha256-8xcTGQ1hJzzXhxl&#43;2mIcO1r2bHRNxtib5/nNML8M1Z8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -36,7 +36,7 @@
                 --secondary: rgb(155, 156, 157);
                 --tertiary: rgb(65, 66, 68);
                 --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
+                --code-block-bg: rgb(46, 46, 51);
                 --code-bg: rgb(55, 56, 62);
                 --border: rgb(51, 51, 51);
             }
@@ -133,7 +133,7 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>zkcli
+    <h2 class="entry-hint-parent">zkcli
     </h2>
   </header>
   <div class="entry-content">
@@ -145,13 +145,13 @@ go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 
 交互模式支持 tab 自动提示 支持 batch 模式执行命令 方便安装配置，不依赖java zkcli默认会读配置文件$HOME/.config/zkcli.conf，可以避免每条命了都要输入冗长参数。配置文件参考 zkcli.conf。个人常用配置如下
 s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-09-16 21:06:11 &#43;0800 CST&#39;&gt;September 16, 2023&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2023-09-16 21:06:11 +0800 CST'>September 16, 2023</span></footer>
   <a class="entry-link" aria-label="post link to zkcli" href="https://kyzy540.github.io/post/zkcli/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>分析一个Python MongoEngine的多层装饰器
+    <h2 class="entry-hint-parent">分析一个Python MongoEngine的多层装饰器
     </h2>
   </header>
   <div class="entry-content">
@@ -161,13 +161,13 @@ signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解p
 cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
 def decorator(fn): def apply(cls): signals....</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-08-01 16:48:08 &#43;0800 CST&#39;&gt;August 1, 2023&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2023-08-01 16:48:08 +0800 CST'>August 1, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 分析一个Python MongoEngine的多层装饰器" href="https://kyzy540.github.io/post/python_decorator/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>扩展插件SwitchyOmega
+    <h2 class="entry-hint-parent">扩展插件SwitchyOmega
     </h2>
   </header>
   <div class="entry-content">
@@ -186,13 +186,13 @@ SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创
 本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
 bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-remote –tags –heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&#34;, exit code of #128 remote: Repository not found....</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-03-30 20:26:29 &#43;0800 CST&#39;&gt;March 30, 2023&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2023-03-30 20:26:29 +0800 CST'>March 30, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 扩展插件SwitchyOmega" href="https://kyzy540.github.io/post/extend_switchyomega/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>VPN Setup
+    <h2 class="entry-hint-parent">VPN Setup
     </h2>
   </header>
   <div class="entry-content">
@@ -205,13 +205,13 @@ wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV
 safari cannot open the page cannot establish a secure connection
 诊断的关键是在 /etc/v2ray/config....</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-10-18 09:16:11 &#43;0800 CST&#39;&gt;October 18, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
   <a class="entry-link" aria-label="post link to VPN Setup" href="https://kyzy540.github.io/post/vpnsetup/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>ERROR: Win32Bridge.Server.exe
+    <h2 class="entry-hint-parent">ERROR: Win32Bridge.Server.exe
     </h2>
   </header>
   <div class="entry-content">
@@ -220,13 +220,13 @@ Windows cannot find ‘C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x6
 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
 参考链接</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2022-04-28 09:43:39 &#43;0800 CST&#39;&gt;April 28, 2022&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2022-04-28 09:43:39 +0800 CST'>April 28, 2022</span></footer>
   <a class="entry-link" aria-label="post link to ERROR: Win32Bridge.Server.exe" href="https://kyzy540.github.io/post/windows_bridge_server_error/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>微软好终端
+    <h2 class="entry-hint-parent">微软好终端
     </h2>
   </header>
   <div class="entry-content">
@@ -245,7 +245,7 @@ choco install gow ZLocation 类似autojump，是一款目录导航工具，可�
 ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
 rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助...</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2020-06-18 19:05:59 &#43;0800 CST&#39;&gt;June 18, 2020&lt;/span&gt;</footer>
+  <footer class="entry-footer"><span title='2020-06-18 19:05:59 +0800 CST'>June 18, 2020</span></footer>
   <a class="entry-link" aria-label="post link to 微软好终端" href="https://kyzy540.github.io/post/windows_terminal/"></a>
 </article>
     </main>
