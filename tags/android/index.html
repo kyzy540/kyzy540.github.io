@@ -145,13 +145,13 @@ pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源�
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
 http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性</p>
   </div>
-  <footer class="entry-footer"><span title='2022-03-17 18:36:21 +0800 CST'>March 17, 2022</span></footer>
+  <footer class="entry-footer">&lt;span title=&#39;2022-03-17 18:36:21 &#43;0800 CST&#39;&gt;March 17, 2022&lt;/span&gt;</footer>
   <a class="entry-link" aria-label="post link to Android http-server" href="https://kyzy540.github.io/post/android_httpserver/"></a>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+    <span>&copy; 2024 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
