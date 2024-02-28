@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>微软 on 低质量随笔</title>
-    <link>https://kyzy540.github.io/tags/%E5%BE%AE%E8%BD%AF/</link>
+    <link>http://localhost:54708/tags/%E5%BE%AE%E8%BD%AF/</link>
     <description>Recent content in 微软 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 28 Apr 2022 09:43:39 +0800</lastBuildDate>
-    <atom:link href="https://kyzy540.github.io/tags/%E5%BE%AE%E8%BD%AF/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:54708/tags/%E5%BE%AE%E8%BD%AF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ERROR: Win32Bridge.Server.exe</title>
-      <link>https://kyzy540.github.io/post/windows_bridge_server_error/</link>
+      <link>http://localhost:54708/post/windows_bridge_server_error/</link>
       <pubDate>Thu, 28 Apr 2022 09:43:39 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
+      <guid>http://localhost:54708/post/windows_bridge_server_error/</guid>
       <description>某次系统升级后一登录就报错
 Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.
 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
@@ -20,9 +20,9 @@ Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4
     </item>
     <item>
       <title>微软好终端</title>
-      <link>https://kyzy540.github.io/post/windows_terminal/</link>
+      <link>http://localhost:54708/post/windows_terminal/</link>
       <pubDate>Thu, 18 Jun 2020 19:05:59 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/windows_terminal/</guid>
+      <guid>http://localhost:54708/post/windows_terminal/</guid>
       <description>Windows发展到今日，已非复吴下阿蒙。被诟病多年的&amp;quot;终端难用&amp;quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如

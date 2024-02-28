@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android on 低质量随笔</title>
-    <link>https://kyzy540.github.io/tags/android/</link>
+    <link>http://localhost:54708/tags/android/</link>
     <description>Recent content in Android on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 17 Mar 2022 18:36:21 +0800</lastBuildDate>
-    <atom:link href="https://kyzy540.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:54708/tags/android/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Android http-server</title>
-      <link>https://kyzy540.github.io/post/android_httpserver/</link>
+      <link>http://localhost:54708/post/android_httpserver/</link>
       <pubDate>Thu, 17 Mar 2022 18:36:21 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/android_httpserver/</guid>
+      <guid>http://localhost:54708/post/android_httpserver/</guid>
       <description>Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
 办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
 第一步，安装 Termux。进入终端，启用并授权访问存储设备

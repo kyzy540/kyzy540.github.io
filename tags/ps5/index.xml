@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PS5 on 低质量随笔</title>
-    <link>https://kyzy540.github.io/tags/ps5/</link>
+    <link>http://localhost:54708/tags/ps5/</link>
     <description>Recent content in PS5 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 15 Jun 2022 10:15:24 +0800</lastBuildDate>
-    <atom:link href="https://kyzy540.github.io/tags/ps5/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:54708/tags/ps5/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PS5待机模式崩溃</title>
-      <link>https://kyzy540.github.io/post/ps5_rest_crash/</link>
+      <link>http://localhost:54708/post/ps5_rest_crash/</link>
       <pubDate>Wed, 15 Jun 2022 10:15:24 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/ps5_rest_crash/</guid>
+      <guid>http://localhost:54708/post/ps5_rest_crash/</guid>
       <description>玩PS5一年多了，总体而言比较失望。待机崩溃问题 已经存在了一年以上，迟迟等不到补丁修复。仅列几篇网上搜来的文章，说明问题的普遍性。这些声称&amp;quot;How to fix&amp;quot; 的文档最终只落在: 关掉待机模式，等索尼出补丁
 Is there a fix for the &amp;ldquo;Rest Mode Crashing&amp;rdquo; yet?
 PS5 Rest mode crashing Issue Fix (Updated March 2022)

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>It on 低质量随笔</title>
-    <link>https://kyzy540.github.io/tags/it/</link>
+    <link>http://localhost:54708/tags/it/</link>
     <description>Recent content in It on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 16 Sep 2023 21:06:11 +0800</lastBuildDate>
-    <atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:54708/tags/it/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>zkcli</title>
-      <link>https://kyzy540.github.io/post/zkcli/</link>
+      <link>http://localhost:54708/post/zkcli/</link>
       <pubDate>Sat, 16 Sep 2023 21:06:11 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/zkcli/</guid>
+      <guid>http://localhost:54708/post/zkcli/</guid>
       <description>2023-09-16
 一个zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
 原版有个问题: deleteall子命令不能递归删除zookeeper node。原因是 代码 没实现递归删除
@@ -22,10 +22,25 @@ go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 
 s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏</description>
     </item>
     <item>
+      <title>TaskFlow学习笔记</title>
+      <link>http://localhost:54708/post/taskflow_note/</link>
+      <pubDate>Tue, 05 Sep 2023 14:51:44 +0800</pubDate>
+      <guid>http://localhost:54708/post/taskflow_note/</guid>
+      <description>Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client&amp;amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用
+设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
+这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。
+分布式工作流样例 Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
+构建工作流meta data数据库 发布job: 将工作流meta data宣告到zookeeper conductor从zookeeper承接job conductor从数据库获悉工作流meta data conductor调用make_bottles实例化工作流并执行完成 conductor删除zookeeper中的job，完成job Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
+至此，读者认识了由若干陌生名词堆砌而成的一张流程图，同时收获了一头雾水。不要紧，接下来将逐步分解
+自顶向下 一个job的生命周期包括: 发布(post) -&amp;gt; 承接(require) -&amp;gt; 执行(execute) -&amp;gt; 完成(done) 。Jobboard就是发布和承接的中心
+Jobboard 打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民 poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
+lb = models.LogBook(&amp;#34;post-from-%s&amp;#34; % my_name) fd = models.FlowDetail(&amp;#34;song-from-%s&amp;#34; % my_name, uuidutils.generate_uuid()) lb.add(fd) with contextlib.closing(persist_backend.get_connection()) as conn: conn.</description>
+    </item>
+    <item>
       <title>分析一个Python MongoEngine的多层装饰器</title>
-      <link>https://kyzy540.github.io/post/python_decorator/</link>
+      <link>http://localhost:54708/post/python_decorator/</link>
       <pubDate>Tue, 01 Aug 2023 16:48:08 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/python_decorator/</guid>
+      <guid>http://localhost:54708/post/python_decorator/</guid>
       <description>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
 def handler(event): &amp;#34;&amp;#34;&amp;#34;Signal decorator to allow use of callback functions as class decorators.&amp;#34;&amp;#34;&amp;#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
 signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
@@ -34,9 +49,9 @@ def decorator(fn): def apply(cls): signals.</description>
     </item>
     <item>
       <title>扩展插件SwitchyOmega</title>
-      <link>https://kyzy540.github.io/post/extend_switchyomega/</link>
+      <link>http://localhost:54708/post/extend_switchyomega/</link>
       <pubDate>Thu, 30 Mar 2023 20:26:29 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/extend_switchyomega/</guid>
+      <guid>http://localhost:54708/post/extend_switchyomega/</guid>
       <description>背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
 它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
 所以当我想对它做改动，只能直接修改源代码，自己制作crx了
@@ -54,9 +69,9 @@ bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &amp;ldquo;g
     </item>
     <item>
       <title>VPN Setup</title>
-      <link>https://kyzy540.github.io/post/vpnsetup/</link>
+      <link>http://localhost:54708/post/vpnsetup/</link>
       <pubDate>Tue, 18 Oct 2022 09:16:11 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/vpnsetup/</guid>
+      <guid>http://localhost:54708/post/vpnsetup/</guid>
       <description>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
 文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
 wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod +x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下
@@ -68,9 +83,9 @@ safari cannot open the page cannot establish a secure connection
     </item>
     <item>
       <title>ERROR: Win32Bridge.Server.exe</title>
-      <link>https://kyzy540.github.io/post/windows_bridge_server_error/</link>
+      <link>http://localhost:54708/post/windows_bridge_server_error/</link>
       <pubDate>Thu, 28 Apr 2022 09:43:39 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
+      <guid>http://localhost:54708/post/windows_bridge_server_error/</guid>
       <description>某次系统升级后一登录就报错
 Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.
 简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
@@ -78,9 +93,9 @@ Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4
     </item>
     <item>
       <title>微软好终端</title>
-      <link>https://kyzy540.github.io/post/windows_terminal/</link>
+      <link>http://localhost:54708/post/windows_terminal/</link>
       <pubDate>Thu, 18 Jun 2020 19:05:59 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/windows_terminal/</guid>
+      <guid>http://localhost:54708/post/windows_terminal/</guid>
       <description>Windows发展到今日，已非复吴下阿蒙。被诟病多年的&amp;quot;终端难用&amp;quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
 掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如

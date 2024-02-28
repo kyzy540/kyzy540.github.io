@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>下厨 on 低质量随笔</title>
-    <link>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</link>
+    <link>http://localhost:54708/tags/%E4%B8%8B%E5%8E%A8/</link>
     <description>Recent content in 下厨 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 01 Jan 2024 08:44:59 +0800</lastBuildDate>
-    <atom:link href="https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:54708/tags/%E4%B8%8B%E5%8E%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>黄焖鸡</title>
-      <link>https://kyzy540.github.io/post/chicken_braised_in_brown_sauce/</link>
+      <link>http://localhost:54708/post/chicken_braised_in_brown_sauce/</link>
       <pubDate>Mon, 01 Jan 2024 08:44:59 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/chicken_braised_in_brown_sauce/</guid>
+      <guid>http://localhost:54708/post/chicken_braised_in_brown_sauce/</guid>
       <description>我也是吃饱了撑的，“黄焖鸡”的英文翻译来源《“黄焖鸡米饭”英文怎么说？可不是“jimmy fan！”》
 材料 鸡腿肉: 4人2腿 土豆: 1颗中个头或2颗小个头 洋葱: 半个 青椒: 1个 干香菇 蒜、姜 步骤 整个过程大约70分钟
 先给肉去腥。鸡腿肉洗净切块，刀不行或单纯就懒的可以让店家帮忙切。肉放入冷水中，加生姜、料酒，浸泡10分钟
@@ -26,9 +26,9 @@
     </item>
     <item>
       <title>做3杯奶茶</title>
-      <link>https://kyzy540.github.io/post/milktea_hk_style/</link>
+      <link>http://localhost:54708/post/milktea_hk_style/</link>
       <pubDate>Fri, 03 Feb 2023 15:48:45 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/milktea_hk_style/</guid>
+      <guid>http://localhost:54708/post/milktea_hk_style/</guid>
       <description>我家的玻璃杯250ml，做3杯奶茶的配料包括
 一块黑糖 (例如严选的原味黑糖) 100ml 黑白淡奶 (大约) 川宁乌龙茶/锡兰红茶 茶包*3袋 600ml 开水 制作流程
 把3袋茶包的纸标签🏷️剪掉，和黑糖一起下锅，下开水，盖锅盖泡15分钟 开最小火，煮20分钟，关火。大概煮到能闻到茶香后，再继续煮一会儿关火 关火后别开锅盖，静置15分钟 捞出茶包，如果包破口的话要过滤一下茶叶渣 加黑白淡奶，具体量看个人口味。我通常加100ml左右 这是我总结的奶茶做法，味道比较接近港式茶餐厅的丝袜奶茶。操作相对简单，没有拿滤网撞茶的步骤。所谓撞茶就是拿跟长筒丝袜一样长的滤网，反复用热水冲茶叶，据说可以最大程度冲出茶叶的香味。如果读者搜丝袜奶茶制作视频，大多都有撞茶。毕竟丝袜奶茶就是因撞茶而得名 (长滤网经过浓茶反复重刷变成褐色，看起来很像丝袜)
@@ -40,9 +40,9 @@
     </item>
     <item>
       <title>抹茶拿铁制作小记</title>
-      <link>https://kyzy540.github.io/post/matcha_latte/</link>
+      <link>http://localhost:54708/post/matcha_latte/</link>
       <pubDate>Wed, 01 Feb 2023 17:11:19 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/matcha_latte/</guid>
+      <guid>http://localhost:54708/post/matcha_latte/</guid>
       <description>我喝不了咖啡，哪怕一包速溶雀巢都能让我尿频，狂上厕所，并且第二天口腔溃疡。于是当我想去星巴克装逼的时候抹茶拿铁就成了不二之选。能做热饮，量大管饱，一点不影响晚上睡眠。随着时间推移，我自然而然地 (因为抠门)想，能不能自制抹茶拿铁？
 打开淘宝，搜索抹茶粉，那结果……令人寒心。即便用鲜奶配优质抹茶粉，一杯抹茶拿铁的成本也不到8元，星巴克直接卖我30多！？人家果然卖的还是逼格啊
 如果只求味道，不求口感的话，抹茶拿铁制作起来非常简单。以200ml为例
@@ -52,9 +52,9 @@
     </item>
     <item>
       <title>牛肉汉堡制作小记</title>
-      <link>https://kyzy540.github.io/post/burger_cooknote/</link>
+      <link>http://localhost:54708/post/burger_cooknote/</link>
       <pubDate>Tue, 17 May 2022 08:57:29 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/burger_cooknote/</guid>
+      <guid>http://localhost:54708/post/burger_cooknote/</guid>
       <description>家里买了汉堡肉，于是尝试自制汉堡包。目前为止尝试了3次，失败了3次，还挺让我泄气的。不过好歹在这几次失败中总结了一些经验，写下来算给自个人留个备忘录。等下次工起勇气再次尝试的时候希望能做的更好吧
 制作步骤 备忘先从制作前的准备开始，需要的材料包括: 汉堡肉 (废话)，番茄，洋葱，蒜，芝士片 (推荐用2片)，黑胡椒酱，黄油，吐司或汉堡面包，包菜 (可选)
 佐料需要盐和黑胡椒

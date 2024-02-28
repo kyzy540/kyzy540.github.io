@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>巫师 on 低质量随笔</title>
-    <link>https://kyzy540.github.io/tags/%E5%B7%AB%E5%B8%88/</link>
+    <link>http://localhost:54708/tags/%E5%B7%AB%E5%B8%88/</link>
     <description>Recent content in 巫师 on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 18 Feb 2022 12:50:53 +0800</lastBuildDate>
-    <atom:link href="https://kyzy540.github.io/tags/%E5%B7%AB%E5%B8%88/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:54708/tags/%E5%B7%AB%E5%B8%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>巫师系列第三章</title>
-      <link>https://kyzy540.github.io/post/witcher3_review/</link>
+      <link>http://localhost:54708/post/witcher3_review/</link>
       <pubDate>Fri, 18 Feb 2022 12:50:53 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/witcher3_review/</guid>
+      <guid>http://localhost:54708/post/witcher3_review/</guid>
       <description>《魔兽争霸3》陪伴了我2年，《炉石传说》陪了我4年，《巫师》系列陪了我10年。作为系列的最后一作，《巫师3》无疑达到全新的高度。我甚至认为它是2010-2020年最佳游戏，没有之一
 写在前面 每当我想写《巫师3》的文章总会感到纠结。这作品是那么优秀，我对它的喜爱又无以复加，心中感慨万千，却奈何才疏学浅，不知该从何说起。2018年我第一遍通关，曾在豆瓣写过一篇日志。写的时候本想来个欲扬先抑，结果吐槽如泄洪的潮水一般连绵不绝，反倒是没写几句好话，回想起来很尴尬。如今重新开篇，索性随想随写，当日记聊了
 注意：下文有剧透
@@ -56,9 +56,9 @@ my end</description>
     </item>
     <item>
       <title>夸夸《巫师1》的剧情</title>
-      <link>https://kyzy540.github.io/post/wicher1_thoughts/</link>
+      <link>http://localhost:54708/post/wicher1_thoughts/</link>
       <pubDate>Sat, 18 Jul 2020 19:05:59 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/wicher1_thoughts/</guid>
+      <guid>http://localhost:54708/post/wicher1_thoughts/</guid>
       <description>它和小说原著的气质很契合，讲的是落魄英雄在乱世中行侠仗义的故事。基调灰暗
 英雄身处乱世的作品，近几年呈现最好的作品之一是《权利的游戏》。《巫师1》基调和《权游》有诸多相似
 受难的人向我求助，望我惩恶扬善。可当我了解事情全貌后，发现善恶的边界其实是模糊的
@@ -71,9 +71,9 @@ my end</description>
     </item>
     <item>
       <title>巫师系列第二章</title>
-      <link>https://kyzy540.github.io/post/witcher2_review/</link>
+      <link>http://localhost:54708/post/witcher2_review/</link>
       <pubDate>Wed, 11 Jul 2018 16:03:06 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/witcher2_review/</guid>
+      <guid>http://localhost:54708/post/witcher2_review/</guid>
       <description>聊《巫师2》必须带上《巫师3》，反之亦然
 一点历史 《巫师》大卖后，野心勃勃的CDPR一口气启动了3个项目
 《巫师2》 《巫师3》 《巫师: 白狼》 (1代主机板，外包后夭折) 也就说，《巫师2》和《巫师3》是同时企划的。而且CDPR为了解决Aurora引擎 (巫师1的引擎)无法支持主机的问题，以及更好的支持开放世界游戏，开始研发自己的REDengine引擎。之后的巫师游戏都将基于该引擎制作。因此严格来说，CDPR彼时同时操心着4个大型项目。也正是这个时候，全球金融危机爆发，《巫师: 白狼》项目在投入巨资后夭折，CDPR顿时陷入濒临倒闭的危机
@@ -119,9 +119,9 @@ to be continue&amp;hellip;</description>
     </item>
     <item>
       <title>巫师系列第一章</title>
-      <link>https://kyzy540.github.io/post/witcher1_review/</link>
+      <link>http://localhost:54708/post/witcher1_review/</link>
       <pubDate>Wed, 27 Jun 2018 17:13:23 +0800</pubDate>
-      <guid>https://kyzy540.github.io/post/witcher1_review/</guid>
+      <guid>http://localhost:54708/post/witcher1_review/</guid>
       <description>2018年6月初，我通关了《巫师3》。从2007年第一次玩《巫师》算起，这个游戏系列和小说陪我走过了10余年。当年对这游戏感慨颇多，如今也仅剩只言片语。写下来权当给自己一个交代
 2007年暑假，家里组了台配置不赖的PC。我盯着21寸的大屏，在各大游戏论坛上寻觅能小试牛机的游戏大作。一番调研下来，锁定了《巫师》。“嗯，论坛大佬和媒体一致好评，又是我喜欢的动作RPG，应该差不了”。就这样，我抱着试一试的心态开始下载游戏。经历数十个小时的等待后，安装、启动游戏。从开场CG开始，我就无法自拔地爱上了这个游戏
 怎么评价《巫师》呢？我曾经这样向朋友介绍：它包含了一切爷们儿喜爱的元素。冒险、怪物、zhengzhi、阴谋、抉择、械斗、魔法、幽默、和谐、赌博……把它比作游戏界《权力的游戏》并不为过
