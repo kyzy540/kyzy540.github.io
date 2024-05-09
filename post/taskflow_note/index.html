@@ -63,7 +63,10 @@ lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#3
         }
 
     </style>
-</noscript><meta property="og:title" content="TaskFlow学习笔记" />
+</noscript>
+  
+
+<meta property="og:title" content="TaskFlow学习笔记" />
 <meta property="og:description" content="Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client&amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用
 设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
 这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。

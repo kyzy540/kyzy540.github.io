@@ -59,7 +59,10 @@ def decorator(fn): def apply(cls): signals.">
         }
 
     </style>
-</noscript><meta property="og:title" content="分析一个Python MongoEngine的多层装饰器" />
+</noscript>
+  
+
+<meta property="og:title" content="分析一个Python MongoEngine的多层装饰器" />
 <meta property="og:description" content="在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
 def handler(event): &#34;&#34;&#34;Signal decorator to allow use of callback functions as class decorators.&#34;&#34;&#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
 signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
