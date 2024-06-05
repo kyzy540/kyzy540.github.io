@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.126.1"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.126.3"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -146,6 +146,22 @@
     </nav>
 </header>
 <main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">分析一个Python MongoEngine的多层装饰器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
+def handler(event): &#34;&#34;&#34;Signal decorator to allow use of callback functions as class decorators.&#34;&#34;&#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
+signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
+cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
+def decorator(fn): def apply(cls): signals....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 16:48:08 +0800 CST'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 分析一个Python MongoEngine的多层装饰器" href="https://kyzy540.github.io/post/python_decorator/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -316,25 +332,6 @@ bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-re
   </div>
   <footer class="entry-footer"><span title='2023-02-14 16:43:58 +0800 CST'>February 14, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 《灵魂摆渡人》吊了一口长气" href="https://kyzy540.github.io/post/spiritfarer/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">做3杯奶茶
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我家的玻璃杯250ml，做3杯奶茶的配料包括
-一块黑糖 (例如严选的原味黑糖) 100ml 黑白淡奶 (大约) 川宁乌龙茶/锡兰红茶 茶包*3袋 600ml 开水 制作流程
-把3袋茶包的纸标签🏷️剪掉，和黑糖一起下锅，下开水，盖锅盖泡15分钟 开最小火，煮20分钟，关火。大概煮到能闻到茶香后，再继续煮一会儿关火 关火后别开锅盖，静置15分钟 捞出茶包，如果包破口的话要过滤一下茶叶渣 加黑白淡奶，具体量看个人口味。我通常加100ml左右 这是我总结的奶茶做法，味道比较接近港式茶餐厅的丝袜奶茶。操作相对简单，没有拿滤网撞茶的步骤。所谓撞茶就是拿跟长筒丝袜一样长的滤网，反复用热水冲茶叶，据说可以最大程度冲出茶叶的香味。如果读者搜丝袜奶茶制作视频，大多都有撞茶。毕竟丝袜奶茶就是因撞茶而得名 (长滤网经过浓茶反复重刷变成褐色，看起来很像丝袜)
-但我懒得弄，一则操作费劲，二则长滤网难清洁，除了做奶茶也没其他用途。因此我宁愿多花点时间浸泡茶叶，实际效果也差不多
-对于配料我试过几种替换，效果都不理想
-不能用红糖替代黑糖。红糖不厚重，带腻，甜度有余苦味不足
-不能用鲜奶替代黑白淡奶。黑白淡奶是经过提纯的牛奶，奶茶醇厚的口感来源于此。用鲜奶口感不“醇”，这感觉比较抽象，但喝过就知道区别明显，是奶茶的灵魂。如果做出来的成品喝着不像店里卖的，不妨多加点黑白淡奶再尝尝
-茶包可以根据个人喜好选择，大部分教程都推荐锡兰红茶，但我偏爱乌龙茶，香</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-02-03 15:48:45 +0800 CST'>February 3, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to 做3杯奶茶" href="https://kyzy540.github.io/post/milktea_hk_style/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
