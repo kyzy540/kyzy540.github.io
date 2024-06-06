@@ -164,7 +164,8 @@
 1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
 录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
 ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 参考:
+ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
+视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
 Mac OS中利用ffmpeg为视频添加字幕
 在 Mac 上截屏或录屏
 ffmpeg将mov转换为mp4
