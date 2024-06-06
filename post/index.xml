@@ -6,8 +6,25 @@
     <description>Recent content in Posts on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Jun 2024 15:41:11 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Jun 2024 14:59:51 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>macOS 录屏配字幕</title>
+      <link>https://kyzy540.github.io/post/screen_record_macos/</link>
+      <pubDate>Thu, 06 Jun 2024 14:59:51 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/screen_record_macos/</guid>
+      <description>我想做个简短的软件演示视频
+如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能+ffmpeg凑合
+我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
+1 00:00:00,000 --&amp;gt; 00:00:04,000 hello 2 00:00:04,000 --&amp;gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
+录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
+ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
+ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 参考:
+Mac OS中利用ffmpeg为视频添加字幕
+在 Mac 上截屏或录屏
+ffmpeg将mov转换为mp4
+基于ffmpeg给视频添加时间字幕</description>
+    </item>
     <item>
       <title>《未来之城》</title>
       <link>https://kyzy540.github.io/post/quality_land/</link>
