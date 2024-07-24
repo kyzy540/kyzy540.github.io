@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.128.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.129.0"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -146,6 +146,31 @@
     </nav>
 </header>
 <main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">扩展插件SwitchyOmega
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
+它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
+所以当我想对它做改动，只能直接修改源代码，自己制作crx了
+需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口
+&lt;span id=&#34;proxy&#34; data-profileName=&#39;demo&#39; data-patterns=&#39;[&#34;192.168.*&#34;]&#39;&gt; HTTP://172.168.1.1:8080 &lt;/span&gt; 工作可以拆分成几步
+学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了
+对了，我没前端经验，也没开发过Chrome插件
+基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点
+插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 “情景模式” (代理配置) 是如何生效的
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-remote –tags –heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&#34;, exit code of #128 remote: Repository not found....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-03-30 20:26:29 +0800 CST'>March 30, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 扩展插件SwitchyOmega" href="https://kyzy540.github.io/post/extend_switchyomega/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -316,25 +341,6 @@ IMEI全称国际移动设备识别码（International Mobile Equipment Identity�
   </div>
   <footer class="entry-footer"><span title='2022-11-02 14:08:19 +0800 CST'>November 2, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 在Android上玩《Metal Slug X》" href="https://kyzy540.github.io/post/metal_slug_x_on_android/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">VPN Setup
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
-文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
-wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod &#43;x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下
-删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务
-# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk &#39;{print $2}&#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray 注意云实例的防火墙也要放行配置中的端口(TCP协议)
-诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
-safari cannot open the page cannot establish a secure connection
-诊断的关键是在 /etc/v2ray/config....</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to VPN Setup" href="https://kyzy540.github.io/post/vpnsetup/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
