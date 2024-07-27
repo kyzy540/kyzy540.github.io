@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>macOS安装v2ray客户端 | 低质量随笔</title>
+<meta name="keywords" content="it, macos">
+<meta name="description" content="主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
+v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
+serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
+简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务
+注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
+brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。
+/bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 然后安装v2ray
+brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
+inbounds表示入口 (监听)用socks协议，监听127.0.0.1:1080。不需要认证
+outbounds表示出口用vmess协议，vnext下是链接服务端的地址和认证
+意味着client会将发往127.0.0.1:1080的tcp,udp流量通过vmess转发到服务端
+{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client">
+<meta name="author" content="">
+<link rel="canonical" href="https://kyzy540.github.io/post/macos_v2ray_client/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://kyzy540.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://kyzy540.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://kyzy540.github.io/post/macos_v2ray_client/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  
+
+<meta property="og:title" content="macOS安装v2ray客户端" />
+<meta property="og:description" content="主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
+v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
+serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
+简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务
+注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
+brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。
+/bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 然后安装v2ray
+brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
+inbounds表示入口 (监听)用socks协议，监听127.0.0.1:1080。不需要认证
+outbounds表示出口用vmess协议，vnext下是链接服务端的地址和认证
+意味着client会将发往127.0.0.1:1080的tcp,udp流量通过vmess转发到服务端
+{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kyzy540.github.io/post/macos_v2ray_client/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-07-27T07:45:32+08:00" />
+<meta property="article:modified_time" content="2024-07-27T07:45:32+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="macOS安装v2ray客户端"/>
+<meta name="twitter:description" content="主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
+v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
+serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
+简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务
+注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
+brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。
+/bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 然后安装v2ray
+brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
+inbounds表示入口 (监听)用socks协议，监听127.0.0.1:1080。不需要认证
+outbounds表示出口用vmess协议，vnext下是链接服务端的地址和认证
+意味着client会将发往127.0.0.1:1080的tcp,udp流量通过vmess转发到服务端
+{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://kyzy540.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "macOS安装v2ray客户端",
+      "item": "https://kyzy540.github.io/post/macos_v2ray_client/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "macOS安装v2ray客户端",
+  "name": "macOS安装v2ray客户端",
+  "description": "主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾\nv2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置\nserverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱\n简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务\n注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效\nbrew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。\n/bin/zsh -c \u0026#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)\u0026#34; 然后安装v2ray\nbrew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json\ninbounds表示入口 (监听)用socks协议，监听127.0.0.1:1080。不需要认证\noutbounds表示出口用vmess协议，vnext下是链接服务端的地址和认证\n意味着client会将发往127.0.0.1:1080的tcp,udp流量通过vmess转发到服务端\n{ \u0026#34;inbounds\u0026#34;: [{ \u0026#34;port\u0026#34;: 1080, // v2ray客户端监听端口 \u0026#34;listen\u0026#34;: \u0026#34;127.0.0.1\u0026#34;, // 只允许本电脑链接 \u0026#34;protocol\u0026#34;: \u0026#34;socks\u0026#34;, \u0026#34;settings\u0026#34;: { \u0026#34;auth\u0026#34;: \u0026#34;noauth\u0026#34;, \u0026#34;udp\u0026#34;: true } }], \u0026#34;outbounds\u0026#34;: [{ \u0026#34;protocol\u0026#34;: \u0026#34;vmess\u0026#34;, \u0026#34;settings\u0026#34;: { \u0026#34;vnext\u0026#34;: [{ \u0026#34;address\u0026#34;: \u0026#34;serverIp\u0026#34;, // v2ray服务器IP \u0026#34;port\u0026#34;: serverPort, // 服务端口 \u0026#34;users\u0026#34;: [{ \u0026#34;id\u0026#34;: \u0026#34;uuid\u0026#34;, \u0026#34;alterId\u0026#34;: alertId }] }] } }] } 启动client",
+  "keywords": [
+    "it", "macos"
+  ],
+  "articleBody": "主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾\nv2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置\nserverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱\n简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务\n注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效\nbrew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。\n/bin/zsh -c \"$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)\" 然后安装v2ray\nbrew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json\ninbounds表示入口 (监听)用socks协议，监听127.0.0.1:1080。不需要认证\noutbounds表示出口用vmess协议，vnext下是链接服务端的地址和认证\n意味着client会将发往127.0.0.1:1080的tcp,udp流量通过vmess转发到服务端\n{ \"inbounds\": [{ \"port\": 1080, // v2ray客户端监听端口 \"listen\": \"127.0.0.1\", // 只允许本电脑链接 \"protocol\": \"socks\", \"settings\": { \"auth\": \"noauth\", \"udp\": true } }], \"outbounds\": [{ \"protocol\": \"vmess\", \"settings\": { \"vnext\": [{ \"address\": \"serverIp\", // v2ray服务器IP \"port\": serverPort, // 服务端口 \"users\": [{ \"id\": \"uuid\", \"alterId\": alertId }] }] } }] } 启动client\n# 可以先检查配置格式 # v2ray test v2ray run macOS启用代理 我的电脑用Wi-Fi，点开详细信息...，把client信息配入SOCKS代理 如果嫌系统配置繁琐，可以用脚本\n#!/bin/sh ENABLED=$(networksetup -getsocksfirewallproxy Wi-Fi | head -1 | awk '{print $2}') if [[ \"$ENABLED\" == \"No\" ]]; then networksetup -setsocksfirewallproxystate Wi-Fi on pgrep -qf v2ray || v2ray run \u0026 else networksetup -setsocksfirewallproxystate Wi-Fi off kill $(pgrep -f v2ray) fi 如是，全局tcp/udp流量启用。所谓全局指浏览器、应用和类似iCloud的后台服务都会走代理。\n全局代理不够经济实惠。试想，iCloud后台同步数据流量大，走代理即占带宽又降速——国内本来能直连的网站从国外绕了一圈，舍近取远。有些国内网站走代理甚至反而会被墙\n配置路由和DNS规则 目标是:\n只有常用的国外网站走代理 剩余下都直连，不走代理 首先，outbounds应该配置两个出口: direct直连，proxy代理。direct在前，作默认路由。意味着数据流量默认直连，除非匹配proxy对应的规则\n之后配置重点: routing，路由规则。规则从上到下 (数组从前到后)，先匹配先奏效，类似iptables。\"domain\": [\"geosite:geolocation-!cn\"]包含了常用国外网站域名。去往这些域名的流量会走代理\n但实践发现，iCloud的cdn有时会把流量“错误”地导向国外。鉴于苹果的国内服务稳定，要前插一条规则确保苹果流量都直连\n最后是一条通用规则，让没匹配前置规则所有tcp,udp流量都直连\ndns规则是个补充，作用是默认使用电信DNS (114.114.114.114)，只有常用的国外网站用Cloudflare DNS (1.1.1.1)\n{ \"log\": { \"loglevel\": \"warning\" }, \"inbounds\": [ { \"port\": 1080, \"listen\": \"127.0.0.1\", \"protocol\": \"socks\", \"settings\": { \"auth\": \"noauth\", \"udp\": true } } ], \"outbounds\": [ { \"protocol\": \"freedom\", \"tag\": \"direct\" }, { \"protocol\": \"vmess\", \"settings\": { \"vnext\": [ { \"address\": \"serverIp\", \"port\": serverPort, \"users\": [ { \"id\": \"uuid\", \"alterId\": alertId } ] } ] }, \"tag\": \"proxy\" } ], \"routing\": { \"rules\": [ { \"type\": \"field\", \"domain\": [ \"geosite:apple\", \"geosite:cn\" ], \"outboundTag\": \"direct\" }, { \"type\": \"field\", \"domain\": [ \"geosite:geolocation-!cn\" ], \"outboundTag\": \"proxy\" }, { \"type\": \"field\", \"network\": \"tcp,udp\", \"outboundTag\": \"direct\" } ] }, \"dns\": { \"servers\": [ \"114.114.114.114\", { \"address\": \"1.1.1.1\", \"port\": 53, \"domains\": [ \"geosite:geolocation-!cn\" ] } ] } } 最后，注意观察v2ray的console日志，看看流量走向是否符合预期。例如下面日志显示google和github流量走代理，iCloud则没走\n2024/07/27 11:19:55 tcp:127.0.0.1:58714 accepted tcp:www.google.com:443 [proxy] 2024/07/27 11:20:21 tcp:127.0.0.1:58801 accepted tcp:raw.githubusercontent.com:443 [proxy] 2024/07/27 11:20:21 tcp:127.0.0.1:58803 accepted tcp:edge-062.xasha1.icloud-content.com.cn:443 [direct] 注: geosite:microsoft包含github域名。为了加速不配在前置direct规则里\n参考来源:\nRouting路由 路由规则设定方法 关于路由规则的注意事项 ",
+  "wordCount" : "298",
+  "inLanguage": "en",
+  "datePublished": "2024-07-27T07:45:32+08:00",
+  "dateModified": "2024-07-27T07:45:32+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kyzy540.github.io/post/macos_v2ray_client/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "低质量随笔",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kyzy540.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kyzy540.github.io/" accesskey="h" title="低质量随笔 (Alt + H)">低质量随笔</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch">
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kyzy540.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kyzy540.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kyzy540.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      macOS安装v2ray客户端
+    </h1>
+    <div class="post-meta"><span title='2024-07-27 07:45:32 +0800 CST'>July 27, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾</p>
+<h2 id="v2ray介绍和服务端安装">v2ray介绍和服务端安装<a hidden class="anchor" aria-hidden="true" href="#v2ray介绍和服务端安装">#</a></h2>
+<p>v2ray服务端安装之前写过一篇: <a href="../vpnsetup">《VPN Setup》</a>。安装后记录关键配置</p>
+<ul>
+<li><strong>serverIp</strong> (e.g. 20.163.126.10)</li>
+<li><strong>serverPort</strong> (e.g. 35555)</li>
+<li><strong>uuid</strong> (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx)</li>
+<li><strong>alertId</strong> (e.g. 42)</li>
+</ul>
+<h2 id="安装v2ray客户端">安装v2ray客户端<a hidden class="anchor" aria-hidden="true" href="#安装v2ray客户端">#</a></h2>
+<p>v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的<a href="https://github.com/v2fly/v2ray-core">v2fly/v2ray-core</a>最靠谱</p>
+<p>简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务</p>
+<p><img loading="lazy" src="/img/macos_v2ray_client/dataflow.png#center" alt=""  />
+</p>
+<p><em>注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效</em></p>
+<h3 id="brew-install-v2ray">brew install v2ray<a hidden class="anchor" aria-hidden="true" href="#brew-install-v2ray">#</a></h3>
+<p><code>brew</code>是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/bin/zsh -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>然后安装v2ray</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install v2ray
+</span></span></code></pre></div><h2 id="全局代理配置">全局代理配置<a hidden class="anchor" aria-hidden="true" href="#全局代理配置">#</a></h2>
+<p>从最简单开始。这是所有流量都走代理的配置，保存到<code>$HOME/config.json</code></p>
+<p><code>inbounds</code>表示入口 (监听)用<code>socks</code>协议，监听<code>127.0.0.1:1080</code>。不需要认证</p>
+<p><code>outbounds</code>表示出口用<code>vmess</code>协议，<code>vnext</code>下是链接服务端的地址和认证</p>
+<p>意味着client会将发往<code>127.0.0.1:1080</code>的<code>tcp,udp</code>流量通过<code>vmess</code>转发到服务端</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;inbounds&#34;</span>: [{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">1080</span>, <span style="color:#75715e">// v2ray客户端监听端口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">&#34;listen&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>, <span style="color:#75715e">// 只允许本电脑链接
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;socks&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;settings&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;auth&#34;</span>: <span style="color:#e6db74">&#34;noauth&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;udp&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;outbounds&#34;</span>: [{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;vmess&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;settings&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;vnext&#34;</span>: [{
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;serverIp&#34;</span>, <span style="color:#75715e">// v2ray服务器IP
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#960050;background-color:#1e0010">serverPort</span>, <span style="color:#75715e">// 服务端口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#f92672">&#34;users&#34;</span>: [{
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;uuid&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&#34;alterId&#34;</span>: <span style="color:#960050;background-color:#1e0010">alertId</span>
+</span></span><span style="display:flex;"><span>                }]
+</span></span><span style="display:flex;"><span>            }]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>启动client</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 可以先检查配置格式</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># v2ray test</span>
+</span></span><span style="display:flex;"><span>v2ray run
+</span></span></code></pre></div><h2 id="macos启用代理">macOS启用代理<a hidden class="anchor" aria-hidden="true" href="#macos启用代理">#</a></h2>
+<p>我的电脑用Wi-Fi，点开<code>详细信息...</code>，把client信息配入<code>SOCKS代理</code>
+<img loading="lazy" src="/img/macos_v2ray_client/macos_socks_proxy_config.png#center" alt=""  />
+</p>
+<p>如果嫌系统配置繁琐，可以用脚本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>ENABLED<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>networksetup -getsocksfirewallproxy Wi-Fi | head -1 | awk <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span>$ENABLED<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;No&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    networksetup -setsocksfirewallproxystate Wi-Fi on
+</span></span><span style="display:flex;"><span>    pgrep -qf v2ray <span style="color:#f92672">||</span> v2ray run &amp;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    networksetup -setsocksfirewallproxystate Wi-Fi off
+</span></span><span style="display:flex;"><span>    kill <span style="color:#66d9ef">$(</span>pgrep -f v2ray<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span></code></pre></div><p>如是，全局tcp/udp流量启用。所谓全局指浏览器、应用和类似iCloud的后台服务都会走代理。</p>
+<p>全局代理不够经济实惠。试想，iCloud后台同步数据流量大，走代理即占带宽又降速——国内本来能直连的网站从国外绕了一圈，舍近取远。有些国内网站走代理甚至反而会被墙</p>
+<h2 id="配置路由和dns规则">配置路由和DNS规则<a hidden class="anchor" aria-hidden="true" href="#配置路由和dns规则">#</a></h2>
+<p>目标是:</p>
+<ol>
+<li>只有常用的国外网站走代理</li>
+<li>剩余下都直连，不走代理</li>
+</ol>
+<p>首先，<code>outbounds</code>应该配置两个出口: <code>direct</code>直连，<code>proxy</code>代理。<code>direct</code>在前，作默认路由。意味着数据流量默认直连，除非匹配<code>proxy</code>对应的规则</p>
+<p>之后配置重点: <code>routing</code>，路由规则。规则从上到下 (数组从前到后)，先匹配先奏效，类似<code>iptables</code>。<code>&quot;domain&quot;: [&quot;geosite:geolocation-!cn&quot;]</code>包含了常用国外网站域名。去往这些域名的流量会走代理</p>
+<p>但实践发现，iCloud的cdn有时会把流量“错误”地导向国外。鉴于苹果的国内服务稳定，要前插一条规则确保苹果流量都直连</p>
+<p>最后是一条通用规则，让没匹配前置规则所有<code>tcp,udp</code>流量都直连</p>
+<p><code>dns</code>规则是个补充，作用是默认使用电信DNS (114.114.114.114)，只有常用的国外网站用Cloudflare DNS (1.1.1.1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;log&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;loglevel&#34;</span>: <span style="color:#e6db74">&#34;warning&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;inbounds&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">1080</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;listen&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;socks&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;settings&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;auth&#34;</span>: <span style="color:#e6db74">&#34;noauth&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;udp&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;outbounds&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;freedom&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;direct&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;vmess&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;settings&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;vnext&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;serverIp&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#960050;background-color:#1e0010">serverPort</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;users&#34;</span>: [
+</span></span><span style="display:flex;"><span>                            {
+</span></span><span style="display:flex;"><span>                                <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;uuid&#34;</span>,
+</span></span><span style="display:flex;"><span>                                <span style="color:#f92672">&#34;alterId&#34;</span>: <span style="color:#960050;background-color:#1e0010">alertId</span>
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        ]
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;tag&#34;</span>: <span style="color:#e6db74">&#34;proxy&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;routing&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;rules&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;field&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;domain&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;geosite:apple&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;geosite:cn&#34;</span>
+</span></span><span style="display:flex;"><span>                ],
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;outboundTag&#34;</span>: <span style="color:#e6db74">&#34;direct&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;field&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;domain&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;geosite:geolocation-!cn&#34;</span>
+</span></span><span style="display:flex;"><span>                ],
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;outboundTag&#34;</span>: <span style="color:#e6db74">&#34;proxy&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;field&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;network&#34;</span>: <span style="color:#e6db74">&#34;tcp,udp&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;outboundTag&#34;</span>: <span style="color:#e6db74">&#34;direct&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dns&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;servers&#34;</span>: [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;114.114.114.114&#34;</span>,
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;1.1.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">53</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;domains&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;geosite:geolocation-!cn&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>最后，注意观察v2ray的console日志，看看流量走向是否符合预期。例如下面日志显示google和github流量走代理，iCloud则没走</p>
+<pre tabindex="0"><code>2024/07/27 11:19:55 tcp:127.0.0.1:58714 accepted tcp:www.google.com:443 [proxy]
+2024/07/27 11:20:21 tcp:127.0.0.1:58801 accepted tcp:raw.githubusercontent.com:443 [proxy]
+2024/07/27 11:20:21 tcp:127.0.0.1:58803 accepted tcp:edge-062.xasha1.icloud-content.com.cn:443 [direct]
+</code></pre><p><em>注: <code>geosite:microsoft</code>包含github域名。为了加速不配在前置<code>direct</code>规则里</em></p>
+<p>参考来源:</p>
+<ul>
+<li><a href="https://v2raydocs.web.illinois.edu/config/routing.html#routingobject">Routing路由</a></li>
+<li><a href="https://toutyrater.github.io/routing/configurate_rules.html">路由规则设定方法</a></li>
+<li><a href="https://toutyrater.github.io/basic/routing/notice.html">关于路由规则的注意事项</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kyzy540.github.io/tags/it/">It</a></li>
+      <li><a href="https://kyzy540.github.io/tags/macos/">Macos</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
