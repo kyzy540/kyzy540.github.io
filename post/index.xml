@@ -16,14 +16,14 @@
       <description>主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
 v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
 serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
-简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在本地mac上 (client)。client和server通过vmess通讯。client向mac提供socket代理服务
+简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
-brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议将镜像源设置成阿里云。
-/bin/zsh -c &amp;#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&amp;#34; 然后安装v2ray
+brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
+/bin/zsh -c &amp;#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&amp;#34; 安装v2ray
 brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
-inbounds表示入口 (监听)用socks协议，监听127.0.0.1:1080。不需要认证
-outbounds表示出口用vmess协议，vnext下是链接服务端的地址和认证
-意味着client会将发往127.0.0.1:1080的tcp,udp流量通过vmess转发到服务端
+inbounds: 用socks协议监听127.0.0.1:1080
+outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
+意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
 { &amp;#34;inbounds&amp;#34;: [{ &amp;#34;port&amp;#34;: 1080, // v2ray客户端监听端口 &amp;#34;listen&amp;#34;: &amp;#34;127.0.0.1&amp;#34;, // 只允许本电脑链接 &amp;#34;protocol&amp;#34;: &amp;#34;socks&amp;#34;, &amp;#34;settings&amp;#34;: { &amp;#34;auth&amp;#34;: &amp;#34;noauth&amp;#34;, &amp;#34;udp&amp;#34;: true } }], &amp;#34;outbounds&amp;#34;: [{ &amp;#34;protocol&amp;#34;: &amp;#34;vmess&amp;#34;, &amp;#34;settings&amp;#34;: { &amp;#34;vnext&amp;#34;: [{ &amp;#34;address&amp;#34;: &amp;#34;serverIp&amp;#34;, // v2ray服务器IP &amp;#34;port&amp;#34;: serverPort, // 服务端口 &amp;#34;users&amp;#34;: [{ &amp;#34;id&amp;#34;: &amp;#34;uuid&amp;#34;, &amp;#34;alterId&amp;#34;: alertId }] }] } }] } 启动client</description>
     </item>
     <item>
