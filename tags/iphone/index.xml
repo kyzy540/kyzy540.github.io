@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>IPhone on 低质量随笔</title>
+    <link>https://kyzy540.github.io/tags/iphone/</link>
+    <description>Recent content in IPhone on 低质量随笔</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 17 Aug 2024 09:06:01 +0800</lastBuildDate>
+    <atom:link href="https://kyzy540.github.io/tags/iphone/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iPhone位置提醒</title>
+      <link>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</link>
+      <pubDate>Sat, 17 Aug 2024 09:06:01 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</guid>
+      <description>您是否也遇到问题: 《提醒事项的到达位置的提醒不起作用》？
+嘿！那您算来着了！
+想看到位置提醒，不仅要设对位置权限，还要设对 锁屏权限，也就是下图 锁定屏幕外观 -&amp;gt; 显示预览 -&amp;gt; 始终。一定要 始终 才行
+也就是说“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒。但其实这样也不算完美，如果设备处于黑屏，提醒事项依然不会奏效。它很含蓄的，不会自动点亮屏幕 (拳头硬了，设个提醒这么多事)
+还有一点提醒，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查
+备注: 基于当前最新版本 iOS 17.6.1</description>
+    </item>
+  </channel>
+</rss>

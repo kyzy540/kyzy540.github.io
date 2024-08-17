@@ -6,8 +6,42 @@
     <description>Recent content in Posts on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Jul 2024 07:45:32 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 17 Aug 2024 09:06:01 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iPhone位置提醒</title>
+      <link>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</link>
+      <pubDate>Sat, 17 Aug 2024 09:06:01 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</guid>
+      <description>您是否也遇到问题: 《提醒事项的到达位置的提醒不起作用》？
+嘿！那您算来着了！
+想看到位置提醒，不仅要设对位置权限，还要设对 锁屏权限，也就是下图 锁定屏幕外观 -&amp;gt; 显示预览 -&amp;gt; 始终。一定要 始终 才行
+也就是说“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒。但其实这样也不算完美，如果设备处于黑屏，提醒事项依然不会奏效。它很含蓄的，不会自动点亮屏幕 (拳头硬了，设个提醒这么多事)
+还有一点提醒，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查
+备注: 基于当前最新版本 iOS 17.6.1</description>
+    </item>
+    <item>
+      <title>《走走停停》</title>
+      <link>https://kyzy540.github.io/post/gold_or_shit/</link>
+      <pubDate>Wed, 14 Aug 2024 09:39:56 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/gold_or_shit/</guid>
+      <description>没掉眼泪，但确实被打动了。生活的智慧可以很简单，只需停下脚步，听人提醒提醒
+电影我是在手机上看的。看一段，歇一段，花了一周才看完。过程有点像片名😅。故事前半段展开较慢，喜剧桥段主要走尴尬路线。有笑到，但也被尬到不行。尬得我不得不放下手机，平复情绪。“尴尬”不是指演员演技差，相反，是演得太好。那种看着对方说傻话，又无奈，又不想说破的表情，太传神
+但影片后半段我一气呵成看完了。剧本真好，那么多铺垫真是一点没浪费。情感表达也很见功夫。没有大起大落的情感宣泄，只用对话中语气的变化，微表情，动作，就把该传递都传递了。有时，欲言又止反而会呈现更多重量
+看完电影我没哭，也没大笑。但心中确实有块地方，被滋润了</description>
+    </item>
+    <item>
+      <title>《蝙蝠侠：披风战士 第一季》</title>
+      <link>https://kyzy540.github.io/post/batman_cc_s1/</link>
+      <pubDate>Mon, 05 Aug 2024 09:25:10 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/batman_cc_s1/</guid>
+      <description>味儿太正。开心！过瘾！
+流畅的几何线条配上丰富的纹理和光阴，画面一下就对上了电波。再听音乐，悬疑，低沉，美妙。我几乎能闻到哥谭脏乱街道和儿时晚餐的气味
+那么故事呢？可以说是经典内核创新演绎。企鹅阿姨太好了！科波特依旧是玩弄权势的好手，背地运营着庞大黑帮集团。原著中科波特身材矮小，不善拳脚，主要靠跟班和奇巧武器与蝙蝠侠对抗。变成阿姨后即不失本色，又叫人眼前一亮。甚至比矮小侏儒可信度更高
+同样保留神髓并更可信的还有泥人。过往作品里的泥人太强大了，说是演员，实则是变形金刚。92年泥人如浩克般强壮，物理攻击对他无效，还可以化成泥流进下水道逃遁，简直无敌。新版的泥人则不然，他可以塑造外形，不能改变分子结构。他和蝙蝠侠在录影棚里对决，用剑，用斧。被击败后可以被手铐制服。可以说修复了原版一大bug
+92年剧集的本质是黑色侦探。真正故事的核心是每一集的案件和罪犯。那版的反派和故事因此令人印象深刻，难以超越。《披风战士》抓住原作核心魅力，续写了我等待20多年的剧集
+敬候🃟</description>
+    </item>
     <item>
       <title>macOS安装v2ray客户端</title>
       <link>https://kyzy540.github.io/post/macos_v2ray_client/</link>
