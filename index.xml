@@ -6,8 +6,22 @@
     <description>Recent content on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Aug 2024 09:06:01 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 19 Aug 2024 10:18:44 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zsh on macOS</title>
+      <link>https://kyzy540.github.io/post/zsh_on_mac/</link>
+      <pubDate>Mon, 19 Aug 2024 10:18:44 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/zsh_on_mac/</guid>
+      <description>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
+先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
+sh -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&amp;#34; &amp;amp;&amp;amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;amp;&amp;amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
+git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
+ZSH_THEME=&amp;#34;dracula&amp;#34; zstyle &amp;#39;:omz:update&amp;#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
+同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
+希望对每个命令都奏效的环境变量写到~/.zshenv
+# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&amp;#34;$HOME/go&amp;#34; export PATH=&amp;#34;$GOPATH/bin:$PATH&amp;#34; 参考: What should/shouldn&amp;rsquo;t go in .</description>
+    </item>
     <item>
       <title>iPhone位置提醒</title>
       <link>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</link>
@@ -25,7 +39,7 @@
       <link>https://kyzy540.github.io/post/gold_or_shit/</link>
       <pubDate>Wed, 14 Aug 2024 09:39:56 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/gold_or_shit/</guid>
-      <description>没掉眼泪，但确实被打动了。生活的智慧可以很简单，只需停下脚步，听人提醒提醒
+      <description>没掉眼泪，但确实被打动了。生活的智慧可以很简单，只需偶尔停下脚步，听人提醒提醒
 电影我是在手机上看的。看一段，歇一段，花了一周才看完。过程有点像片名😅。故事前半段展开较慢，喜剧桥段主要走尴尬路线。有笑到，但也被尬到不行。尬得我不得不放下手机，平复情绪。“尴尬”不是指演员演技差，相反，是演得太好。那种看着对方说傻话，又无奈，又不想说破的表情，太传神
 但影片后半段我一气呵成看完了。剧本真好，那么多铺垫真是一点没浪费。情感表达也很见功夫。没有大起大落的情感宣泄，只用对话中语气的变化，微表情，动作，就把该传递都传递了。有时，欲言又止反而会呈现更多重量
 看完电影我没哭，也没大笑。但心中确实有块地方，被滋润了</description>
