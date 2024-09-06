@@ -10,15 +10,28 @@
 <meta name="description" content="我想做个简短的软件演示视频
 如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能&#43;ffmpeg凑合
 我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
-1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
+1
+00:00:00,000 --&gt; 00:00:04,000
+hello
+
+2
+00:00:04,000 --&gt; 00:00:07,000
+world
+准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
 录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
-ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
-视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
+ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4
+最后根据视频调整srt字幕，合入视频。大功告成
+ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4
+一点小思考:
+
+视频时长应该尽量短，短视频平台限制14秒时长是有道理的
+一行字幕尽量短；驻留时间应该 &gt;3秒。易读
+字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并
+
+参考:
 Mac OS中利用ffmpeg为视频添加字幕
 在 Mac 上截屏或录屏
-ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕">
+ffmpeg将mov转换为mp4">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/screen_record_macos/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
@@ -66,22 +79,32 @@ ffmpeg将mov转换为mp4
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="macOS 录屏配字幕" />
+</noscript><meta property="og:title" content="macOS 录屏配字幕" />
 <meta property="og:description" content="我想做个简短的软件演示视频
 如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能&#43;ffmpeg凑合
 我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
-1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
+1
+00:00:00,000 --&gt; 00:00:04,000
+hello
+
+2
+00:00:04,000 --&gt; 00:00:07,000
+world
+准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
 录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
-ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
-视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
+ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4
+最后根据视频调整srt字幕，合入视频。大功告成
+ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4
+一点小思考:
+
+视频时长应该尽量短，短视频平台限制14秒时长是有道理的
+一行字幕尽量短；驻留时间应该 &gt;3秒。易读
+字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并
+
+参考:
 Mac OS中利用ffmpeg为视频添加字幕
 在 Mac 上截屏或录屏
-ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕" />
+ffmpeg将mov转换为mp4" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kyzy540.github.io/post/screen_record_macos/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2024-06-06T14:59:51+08:00" />
@@ -92,15 +115,28 @@ ffmpeg将mov转换为mp4
 <meta name="twitter:description" content="我想做个简短的软件演示视频
 如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能&#43;ffmpeg凑合
 我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
-1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
+1
+00:00:00,000 --&gt; 00:00:04,000
+hello
+
+2
+00:00:04,000 --&gt; 00:00:07,000
+world
+准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
 录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
-ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
-视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
+ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4
+最后根据视频调整srt字幕，合入视频。大功告成
+ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4
+一点小思考:
+
+视频时长应该尽量短，短视频平台限制14秒时长是有道理的
+一行字幕尽量短；驻留时间应该 &gt;3秒。易读
+字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并
+
+参考:
 Mac OS中利用ffmpeg为视频添加字幕
 在 Mac 上截屏或录屏
-ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕"/>
+ffmpeg将mov转换为mp4"/>
 
 
 <script type="application/ld+json">
@@ -129,7 +165,7 @@ ffmpeg将mov转换为mp4
   "@type": "BlogPosting",
   "headline": "macOS 录屏配字幕",
   "name": "macOS 录屏配字幕",
-  "description": "我想做个简短的软件演示视频\n如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能+ffmpeg凑合\n我先准备srt字幕再录视频。srt内容很简单，可以当大纲用\n1 00:00:00,000 --\u0026gt; 00:00:04,000 hello 2 00:00:04,000 --\u0026gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制\n录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4\nffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成\nffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:\n视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 \u0026gt;3秒。易读 字幕驻留 \u0026gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:\nMac OS中利用ffmpeg为视频添加字幕\n在 Mac 上截屏或录屏\nffmpeg将mov转换为mp4\n基于ffmpeg给视频添加时间字幕",
+  "description": "我想做个简短的软件演示视频\n如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能+ffmpeg凑合\n我先准备srt字幕再录视频。srt内容很简单，可以当大纲用\n1 00:00:00,000 --\u0026gt; 00:00:04,000 hello 2 00:00:04,000 --\u0026gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制\n录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4\nffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成\nffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:\n视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 \u0026gt;3秒。易读 字幕驻留 \u0026gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:\nMac OS中利用ffmpeg为视频添加字幕\n在 Mac 上截屏或录屏\nffmpeg将mov转换为mp4\n",
   "keywords": [
     "macos"
   ],

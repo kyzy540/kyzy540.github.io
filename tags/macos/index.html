@@ -56,10 +56,7 @@
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="Macos" />
+</noscript><meta property="og:title" content="Macos" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://kyzy540.github.io/tags/macos/" />
@@ -146,11 +143,7 @@
     <p>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
 先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
 sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34; &amp;&amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;&amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
-git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
-ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
-同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
-希望对每个命令都奏效的环境变量写到~/.zshenv
-# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&#34;$HOME/go&#34; export PATH=&#34;$GOPATH/bin:$PATH&#34; 参考: What should/shouldn’t go in ....</p>
+git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes ...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-19 10:18:44 +0800 CST'>August 19, 2024</span></footer>
   <a class="entry-link" aria-label="post link to Zsh on macOS" href="https://kyzy540.github.io/post/zsh_on_mac/"></a>
@@ -169,11 +162,7 @@ serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-x
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
 brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
 /bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 安装v2ray
-brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
-inbounds: 用socks协议监听127.0.0.1:1080
-outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
-意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
-{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client...</p>
+brew install v2ray ...</p>
   </div>
   <footer class="entry-footer"><span title='2024-07-27 07:45:32 +0800 CST'>July 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to macOS安装v2ray客户端" href="https://kyzy540.github.io/post/macos_v2ray_client/"></a>
@@ -196,7 +185,7 @@ ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小
 Mac OS中利用ffmpeg为视频添加字幕
 在 Mac 上截屏或录屏
 ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕</p>
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-06-06 14:59:51 +0800 CST'>June 6, 2024</span></footer>
   <a class="entry-link" aria-label="post link to macOS 录屏配字幕" href="https://kyzy540.github.io/post/screen_record_macos/"></a>
@@ -209,7 +198,8 @@ ffmpeg将mov转换为mp4
   </header>
   <div class="entry-content">
     <p>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
-sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</p>
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator
+</p>
   </div>
   <footer class="entry-footer"><span title='2023-10-12 11:00:52 +0800 CST'>October 12, 2023</span></footer>
   <a class="entry-link" aria-label="post link to macOS Sonoma 关闭光标输入法提示" href="https://kyzy540.github.io/post/disable_input_indicator/"></a>

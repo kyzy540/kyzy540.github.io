@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.133.1"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.134.1"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -58,10 +58,7 @@
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="低质量随笔" />
+</noscript><meta property="og:title" content="低质量随笔" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://kyzy540.github.io/" />
@@ -166,14 +163,15 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p>此书在 豆瓣2023年度推理-悬疑图书 榜单中位列第3。在日本荣获 2023年本格推理BEST10 第1位
+    <p> 此书在 豆瓣2023年度推理-悬疑图书 榜单中位列第3。在日本荣获 2023年本格推理BEST10 第1位
 故事以1978年 人民圣殿教事件 为背景，对震惊世界的惨案给予新的诠释
 然后诠释地不如百度百科
 小说糟糕还不够，“磨铁听书”演绎的 有声书 版本更是往粪坑里扔鞭炮——屎开了花
 俺寻思，原著立项是 创意&gt;设定&gt;情节。读(听)完全书，必须肯定，把“人民圣殿教事件”融入侦探故事是个新颖的叙事手法。但“事件”与其说是背景，不如说是设定。换言之，虽然讲的是那么回事，但情节完全经不起推敲。文风“洒脱”，说啥是啥，豪不自洽
 而比不自洽更难忍受的是，作者还拿了一个历史真实事件当设定。就着真事儿乱编，恶心翻倍
 还不算完。这么一本烂书，经“磨铁听书”演绎后还能百尺竿头更进一步。读书情绪和情节对不上；断句凌乱；胡乱顿挫；莫名其妙的空音轨。听得我咬牙切齿
-一部作品，两股垃圾。领教了</p>
+一部作品，两股垃圾。领教了
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-26 16:30:20 +0800 CST'>August 26, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 《名侦探的献祭》——我想把作者和“磨铁听书”献祭了" href="https://kyzy540.github.io/post/the_detective_massacre/"></a>
@@ -188,11 +186,7 @@
     <p>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
 先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
 sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34; &amp;&amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;&amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
-git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
-ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
-同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
-希望对每个命令都奏效的环境变量写到~/.zshenv
-# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&#34;$HOME/go&#34; export PATH=&#34;$GOPATH/bin:$PATH&#34; 参考: What should/shouldn’t go in ....</p>
+git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes ...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-19 10:18:44 +0800 CST'>August 19, 2024</span></footer>
   <a class="entry-link" aria-label="post link to Zsh on macOS" href="https://kyzy540.github.io/post/zsh_on_mac/"></a>
@@ -207,9 +201,10 @@ ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable
     <p>您是否也遇到问题: 《提醒事项的到达位置的提醒不起作用》？
 嘿！那您算来着了！
 想看到位置提醒，不仅要设对位置权限，还要设对 锁屏权限，也就是下图 锁定屏幕外观 -&gt; 显示预览 -&gt; 始终。一定要 始终 才行
-也就是说“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒。但其实这样也不算完美，如果设备处于黑屏，提醒事项依然不会奏效。它很含蓄的，不会自动点亮屏幕 (拳头硬了，设个提醒这么多事)
-还有一点提醒，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查
-备注: 基于当前最新版本 iOS 17.6.1</p>
+换言之，“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒
+还有，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查
+当前最新版本 iOS 17.6.1
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-17 09:06:01 +0800 CST'>August 17, 2024</span></footer>
   <a class="entry-link" aria-label="post link to iPhone位置提醒" href="https://kyzy540.github.io/post/iphone_reminder_when_arriving/"></a>
@@ -221,10 +216,11 @@ ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable
     </h2>
   </header>
   <div class="entry-content">
-    <p>没掉眼泪，但确实被打动了。生活的智慧可以很简单，只需偶尔停下脚步，听人提醒提醒
+    <p> 没掉眼泪，但确实被打动了。生活的智慧可以很简单，只需偶尔停下脚步，听人提醒提醒
 电影我是在手机上看的。看一段，歇一段，花了一周才看完。过程有点像片名😅。故事前半段展开较慢，喜剧桥段主要走尴尬路线。有笑到，但也被尬到不行。尬得我不得不放下手机，平复情绪。“尴尬”不是指演员演技差，相反，是演得太好。那种看着对方说傻话，又无奈，又不想说破的表情，太传神
 但影片后半段我一气呵成看完了。剧本真好，那么多铺垫真是一点没浪费。情感表达也很见功夫。没有大起大落的情感宣泄，只用对话中语气的变化，微表情，动作，就把该传递都传递了。有时，欲言又止反而会呈现更多重量
-看完电影我没哭，也没大笑。但心中确实有块地方，被滋润了</p>
+看完电影我没哭，也没大笑。但心中确实有块地方，被滋润了
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-14 09:39:56 +0800 CST'>August 14, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 《走走停停》" href="https://kyzy540.github.io/post/gold_or_shit/"></a>
@@ -236,12 +232,13 @@ ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable
     </h2>
   </header>
   <div class="entry-content">
-    <p>味儿太正。开心！过瘾！
+    <p> 味儿太正。开心！过瘾！
 流畅的几何线条配上丰富的纹理和光阴，画面一下就对上了电波。再听音乐，悬疑，低沉，美妙。我几乎能闻到哥谭脏乱街道和儿时晚餐的气味
 那么故事呢？可以说是经典内核创新演绎。企鹅阿姨太好了！科波特依旧是玩弄权势的好手，背地运营着庞大黑帮集团。原著中科波特身材矮小，不善拳脚，主要靠跟班和奇巧武器与蝙蝠侠对抗。变成阿姨后即不失本色，又叫人眼前一亮。甚至比矮小侏儒可信度更高
 同样保留神髓并更可信的还有泥人。过往作品里的泥人太强大了，说是演员，实则是变形金刚。92年泥人如浩克般强壮，物理攻击对他无效，还可以化成泥流进下水道逃遁，简直无敌。新版的泥人则不然，他可以塑造外形，不能改变分子结构。他和蝙蝠侠在录影棚里对决，用剑，用斧。被击败后可以被手铐制服。可以说修复了原版一大bug
 92年剧集的本质是黑色侦探。真正故事的核心是每一集的案件和罪犯。那版的反派和故事因此令人印象深刻，难以超越。《披风战士》抓住原作核心魅力，续写了我等待20多年的剧集
-敬候🃟</p>
+敬候🃟
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-05 09:25:10 +0800 CST'>August 5, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 《蝙蝠侠：披风战士 第一季》" href="https://kyzy540.github.io/post/batman_cc_s1/"></a>
@@ -260,11 +257,7 @@ serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-x
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
 brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
 /bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 安装v2ray
-brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
-inbounds: 用socks协议监听127.0.0.1:1080
-outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
-意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
-{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client...</p>
+brew install v2ray ...</p>
   </div>
   <footer class="entry-footer"><span title='2024-07-27 07:45:32 +0800 CST'>July 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to macOS安装v2ray客户端" href="https://kyzy540.github.io/post/macos_v2ray_client/"></a>
@@ -281,7 +274,8 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
 但就这么简单的食谱我第一次做居然翻车了！食谱源自b站: 《适合手残党的一周三明治计划，一夹一抹，我想边跑边吃》。我头回做的时候没有关注各食材的配比，混了半颗大番茄，半颗洋葱，半颗柠檬，一把香菜。还是用吐司包括，吃起来犹如一坨……还是稀的
 番茄渗水太多，一下就浸透吐司，搞得一手黏腻。香菜味儿太冲，一口咬多了根本尝不出其他食材的味道。偶尔运气好咬到的香菜不多，尝出来的也只有洋葱味儿。至于牛油果？只起到了黏合剂作用，还粘不牢🤮
 第二次尝试时我痛定思痛。1颗牛油果只搭1颗小番茄和1圈洋葱（切成丁）。生抽和黑胡椒下得也很克制。效果令人满意。牛油果虽然还是没啥味道，但绵密的口感配上透出淡淡的咸鲜，一点不腻。偶尔混入的番茄和洋葱丁丰富和口感，味觉上又不喧兵夺主，相隔宜章，恰到好处
-事后回味，我感觉这份食谱的核心是牛油果和生抽。最懒人的版本应该是把牛油果切片，淋少许酱油，夹面包直接塞嘴</p>
+事后回味，我感觉这份食谱的核心是牛油果和生抽。最懒人的版本应该是把牛油果切片，淋少许酱油，夹面包直接塞嘴
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-07-01 17:27:15 +0800 CST'>July 1, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 牛油果三明治" href="https://kyzy540.github.io/post/avocado_sandwich/"></a>
@@ -317,7 +311,7 @@ FF7重置版我是忍着不吐勉强玩通的，星铁就不再忍一遍了
 仔细琢磨后我总结，喜欢P5X的原因是它就是P5。那套10年前的玩法照搬到今天依然有趣
 但氪金系统就像一根针，把免费玩P5的美梦瞬间戳破。如果不花钱，角色练不起来，P5系统玩的再溜也没用。只要花了钱，P5系统一窍不通照样过关
 以人格面具系统为例，P5X还是可以在迷宫中打怪，收集人格面具。面具可以合成，可以培养，可以搭配技能。但都没用，高难度关卡的解法唯一: 抽强力角色，抽专用武器，刷素材把人物升满
-氪金系统让P5X的玩法显得很可笑。玩家可以玩，刀枪棍棒等18班武艺，仍君挑选。但最后想克敌制胜，请买AK47</p>
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-06-27 10:26:35 +0800 CST'>June 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 三二游" href="https://kyzy540.github.io/post/3_service_games_review/"></a>
@@ -346,7 +340,8 @@ Epic总裁 Tim Sweeney 曾讲过3A系列《战争机器》的成本故事。初�
 为什么游戏的制作成本会快速上涨？原因有多方面，人力成本上涨，工程复杂度带来的研发成本上涨，市场竞争带来变高的品质要求，等等。于是，电子游戏市场自2010后逐步分化，仅有资金雄厚的大厂做3A游戏。小工作室和个人开发者转向独立游戏，以创意和低成本开拓小型差异化市场。还有一派，就是以手游为主的服务型游戏
 服务型游戏能降低开发成本。他们先做出游戏的基础框架，然后逐步填充内容。这种方式避免了买断制的孤注一掷。厂家可以先上线一个“凑合能玩”的版本，收第一桶金。之后做内容时也不必从底层重新开始，而只是扩充，收入也会随之扩充。粗略地看，服务型游戏在控制成本的同时，拉长了创收周期。期间公司有更多机会听取玩家反馈，调整游戏
 从玩家角度看呢？囊中羞涩的人可以免费游戏，至少能体验10小时高品质内容，不亏。深度参与的玩家花钱，也可以对游戏提出自己的见解。公司出于服务财主的目的，会偏向性做出调整。某种程度也算被伺候了
-从资本角度看，游戏公司是探索一个极限，一个在不气走财主的极限下，提高利润的极限。这种博弈的结果，就是当下二游的大胜利。毫无疑问这也是资本的胜利，是游戏市场新一轮的繁荣</p>
+从资本角度看，游戏公司是探索一个极限，一个在不气走财主的极限下，提高利润的极限。这种博弈的结果，就是当下二游的大胜利。毫无疑问这也是资本的胜利，是游戏市场新一轮的繁荣
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-06-27 10:22:39 +0800 CST'>June 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 二游迷思" href="https://kyzy540.github.io/post/thoughts_of_service_games/"></a>
@@ -369,7 +364,7 @@ ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小
 Mac OS中利用ffmpeg为视频添加字幕
 在 Mac 上截屏或录屏
 ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕</p>
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-06-06 14:59:51 +0800 CST'>June 6, 2024</span></footer>
   <a class="entry-link" aria-label="post link to macOS 录屏配字幕" href="https://kyzy540.github.io/post/screen_record_macos/"></a>

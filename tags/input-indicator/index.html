@@ -56,10 +56,7 @@
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="Input Indicator" />
+</noscript><meta property="og:title" content="Input Indicator" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://kyzy540.github.io/tags/input-indicator/" />
@@ -144,7 +141,8 @@
   </header>
   <div class="entry-content">
     <p>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
-sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</p>
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator
+</p>
   </div>
   <footer class="entry-footer"><span title='2023-10-12 11:00:52 +0800 CST'>October 12, 2023</span></footer>
   <a class="entry-link" aria-label="post link to macOS Sonoma 关闭光标输入法提示" href="https://kyzy540.github.io/post/disable_input_indicator/"></a>

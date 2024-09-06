@@ -13,12 +13,14 @@
       <link>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</link>
       <pubDate>Sat, 17 Aug 2024 09:06:01 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/iphone_reminder_when_arriving/</guid>
-      <description>您是否也遇到问题: 《提醒事项的到达位置的提醒不起作用》？
-嘿！那您算来着了！
-想看到位置提醒，不仅要设对位置权限，还要设对 锁屏权限，也就是下图 锁定屏幕外观 -&amp;gt; 显示预览 -&amp;gt; 始终。一定要 始终 才行
-也就是说“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒。但其实这样也不算完美，如果设备处于黑屏，提醒事项依然不会奏效。它很含蓄的，不会自动点亮屏幕 (拳头硬了，设个提醒这么多事)
-还有一点提醒，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查
-备注: 基于当前最新版本 iOS 17.6.1</description>
+      <description>&lt;p&gt;您是否也遇到问题: &lt;a href=&#34;https://discussionschinese.apple.com/thread/252559846&#34;&gt;《提醒事项的到达位置的提醒不起作用》&lt;/a&gt;？&lt;/p&gt;
+&lt;p&gt;嘿！那您算来着了！&lt;/p&gt;
+&lt;p&gt;想看到位置提醒，不仅要设对位置权限，还要设对 &lt;strong&gt;锁屏权限&lt;/strong&gt;，也就是下图 &lt;strong&gt;锁定屏幕外观 -&amp;gt; 显示预览 -&amp;gt; 始终&lt;/strong&gt;。一定要 &lt;strong&gt;始终&lt;/strong&gt; 才行&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/ios/reminder_settings.jpeg#center&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;
+&lt;p&gt;换言之，“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒&lt;/p&gt;
+&lt;p&gt;还有，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;当前最新版本 iOS 17.6.1&lt;/em&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

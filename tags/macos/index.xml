@@ -13,58 +13,84 @@
       <link>https://kyzy540.github.io/post/zsh_on_mac/</link>
       <pubDate>Mon, 19 Aug 2024 10:18:44 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/zsh_on_mac/</guid>
-      <description>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
-先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
-sh -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&amp;#34; &amp;amp;&amp;amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;amp;&amp;amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
-git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
-ZSH_THEME=&amp;#34;dracula&amp;#34; zstyle &amp;#39;:omz:update&amp;#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
-同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
-希望对每个命令都奏效的环境变量写到~/.zshenv
-# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&amp;#34;$HOME/go&amp;#34; export PATH=&amp;#34;$GOPATH/bin:$PATH&amp;#34; 参考: What should/shouldn&amp;rsquo;t go in .</description>
+      <description>&lt;p&gt;前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下&lt;/p&gt;
+&lt;p&gt;先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-autosuggestions &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-syntax-highlighting
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再来个Dracula主题&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/dracula/zsh.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/dracula.zsh-theme &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/lib &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>macOS安装v2ray客户端</title>
       <link>https://kyzy540.github.io/post/macos_v2ray_client/</link>
       <pubDate>Sat, 27 Jul 2024 07:45:32 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/macos_v2ray_client/</guid>
-      <description>主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
-v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
-serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
-简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
-注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
-brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
-/bin/zsh -c &amp;#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&amp;#34; 安装v2ray
-brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
-inbounds: 用socks协议监听127.0.0.1:1080
-outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
-意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
-{ &amp;#34;inbounds&amp;#34;: [{ &amp;#34;port&amp;#34;: 1080, // v2ray客户端监听端口 &amp;#34;listen&amp;#34;: &amp;#34;127.0.0.1&amp;#34;, // 只允许本电脑链接 &amp;#34;protocol&amp;#34;: &amp;#34;socks&amp;#34;, &amp;#34;settings&amp;#34;: { &amp;#34;auth&amp;#34;: &amp;#34;noauth&amp;#34;, &amp;#34;udp&amp;#34;: true } }], &amp;#34;outbounds&amp;#34;: [{ &amp;#34;protocol&amp;#34;: &amp;#34;vmess&amp;#34;, &amp;#34;settings&amp;#34;: { &amp;#34;vnext&amp;#34;: [{ &amp;#34;address&amp;#34;: &amp;#34;serverIp&amp;#34;, // v2ray服务器IP &amp;#34;port&amp;#34;: serverPort, // 服务端口 &amp;#34;users&amp;#34;: [{ &amp;#34;id&amp;#34;: &amp;#34;uuid&amp;#34;, &amp;#34;alterId&amp;#34;: alertId }] }] } }] } 启动client</description>
+      <description>&lt;p&gt;主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾&lt;/p&gt;
+&lt;h2 id=&#34;v2ray介绍和服务端安装&#34;&gt;v2ray介绍和服务端安装&lt;/h2&gt;
+&lt;p&gt;v2ray服务端安装之前写过一篇: &lt;a href=&#34;../vpnsetup&#34;&gt;《VPN Setup》&lt;/a&gt;。安装后记录关键配置&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;serverIp&lt;/strong&gt; (e.g. 20.163.126.10)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;serverPort&lt;/strong&gt; (e.g. 35555)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;uuid&lt;/strong&gt; (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;alertId&lt;/strong&gt; (e.g. 42)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装v2ray客户端&#34;&gt;安装v2ray客户端&lt;/h2&gt;
+&lt;p&gt;v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的&lt;a href=&#34;https://github.com/v2fly/v2ray-core&#34;&gt;v2fly/v2ray-core&lt;/a&gt;最靠谱&lt;/p&gt;
+&lt;p&gt;简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/macos_v2ray_client/dataflow.png#center&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;brew-install-v2ray&#34;&gt;brew install v2ray&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;brew&lt;/code&gt;是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/bin/zsh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装v2ray&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install v2ray
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>macOS 录屏配字幕</title>
       <link>https://kyzy540.github.io/post/screen_record_macos/</link>
       <pubDate>Thu, 06 Jun 2024 14:59:51 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/screen_record_macos/</guid>
-      <description>我想做个简短的软件演示视频
-如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能+ffmpeg凑合
-我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
-1 00:00:00,000 --&amp;gt; 00:00:04,000 hello 2 00:00:04,000 --&amp;gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
-录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
-ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
-视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &amp;gt;3秒。易读 字幕驻留 &amp;gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
-Mac OS中利用ffmpeg为视频添加字幕
-在 Mac 上截屏或录屏
-ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕</description>
+      <description>&lt;p&gt;我想做个简短的软件演示视频&lt;/p&gt;
+&lt;p&gt;如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能+ffmpeg凑合&lt;/p&gt;
+&lt;p&gt;我先准备&lt;code&gt;srt&lt;/code&gt;字幕再录视频。&lt;code&gt;srt&lt;/code&gt;内容很简单，可以当大纲用&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1
+00:00:00,000 --&amp;gt; 00:00:04,000
+hello
+
+2
+00:00:04,000 --&amp;gt; 00:00:07,000
+world
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制&lt;/p&gt;
+&lt;p&gt;录制好的文件会被保存城&lt;code&gt;.mov&lt;/code&gt;格式，可以用ffmpeg转换成&lt;code&gt;mp4&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后根据视频调整&lt;code&gt;srt&lt;/code&gt;字幕，合入视频。大功告成&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;一点小思考:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;视频时长应该尽量短，短视频平台限制14秒时长是有道理的&lt;/li&gt;
+&lt;li&gt;一行字幕尽量短；驻留时间应该 &amp;gt;3秒。易读&lt;/li&gt;
+&lt;li&gt;字幕驻留 &amp;gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;参考:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://developer.aliyun.com/article/996308&#34;&gt;Mac OS中利用ffmpeg为视频添加字幕&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://support.apple.com/zh-cn/guide/mac-help/mh26782/mac&#34;&gt;在 Mac 上截屏或录屏&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cloud.tencent.com/developer/information/ffmpeg%E5%B0%86mov%E8%BD%AC%E6%8D%A2%E4%B8%BAmp4-ask&#34;&gt;ffmpeg将mov转换为mp4&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>macOS Sonoma 关闭光标输入法提示</title>
       <link>https://kyzy540.github.io/post/disable_input_indicator/</link>
       <pubDate>Thu, 12 Oct 2023 11:00:52 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/disable_input_indicator/</guid>
-      <description>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
-sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &amp;#34;Add &amp;#39;redesigned_text_cursor:Enabled&amp;#39; bool false&amp;#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</description>
+      <description>&lt;p&gt;Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了&lt;code&gt;AltTab&lt;/code&gt;的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo /usr/libexec/PlistBuddy -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Add &amp;#39;redesigned_text_cursor:Enabled&amp;#39; bool false&amp;#34;&lt;/span&gt; /Library/Preferences/FeatureFlags/Domain/UIKit.plist
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参考: &lt;a href=&#34;https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator&#34;&gt;https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

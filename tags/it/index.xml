@@ -13,120 +13,194 @@
       <link>https://kyzy540.github.io/post/zsh_on_mac/</link>
       <pubDate>Mon, 19 Aug 2024 10:18:44 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/zsh_on_mac/</guid>
-      <description>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
-先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
-sh -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&amp;#34; &amp;amp;&amp;amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;amp;&amp;amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
-git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
-ZSH_THEME=&amp;#34;dracula&amp;#34; zstyle &amp;#39;:omz:update&amp;#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
-同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
-希望对每个命令都奏效的环境变量写到~/.zshenv
-# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&amp;#34;$HOME/go&amp;#34; export PATH=&amp;#34;$GOPATH/bin:$PATH&amp;#34; 参考: What should/shouldn&amp;rsquo;t go in .</description>
+      <description>&lt;p&gt;前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下&lt;/p&gt;
+&lt;p&gt;先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-autosuggestions &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-syntax-highlighting
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再来个Dracula主题&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/dracula/zsh.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/dracula.zsh-theme &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/lib &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>macOS安装v2ray客户端</title>
       <link>https://kyzy540.github.io/post/macos_v2ray_client/</link>
       <pubDate>Sat, 27 Jul 2024 07:45:32 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/macos_v2ray_client/</guid>
-      <description>主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
-v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
-serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
-简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
-注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
-brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
-/bin/zsh -c &amp;#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&amp;#34; 安装v2ray
-brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
-inbounds: 用socks协议监听127.0.0.1:1080
-outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
-意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
-{ &amp;#34;inbounds&amp;#34;: [{ &amp;#34;port&amp;#34;: 1080, // v2ray客户端监听端口 &amp;#34;listen&amp;#34;: &amp;#34;127.0.0.1&amp;#34;, // 只允许本电脑链接 &amp;#34;protocol&amp;#34;: &amp;#34;socks&amp;#34;, &amp;#34;settings&amp;#34;: { &amp;#34;auth&amp;#34;: &amp;#34;noauth&amp;#34;, &amp;#34;udp&amp;#34;: true } }], &amp;#34;outbounds&amp;#34;: [{ &amp;#34;protocol&amp;#34;: &amp;#34;vmess&amp;#34;, &amp;#34;settings&amp;#34;: { &amp;#34;vnext&amp;#34;: [{ &amp;#34;address&amp;#34;: &amp;#34;serverIp&amp;#34;, // v2ray服务器IP &amp;#34;port&amp;#34;: serverPort, // 服务端口 &amp;#34;users&amp;#34;: [{ &amp;#34;id&amp;#34;: &amp;#34;uuid&amp;#34;, &amp;#34;alterId&amp;#34;: alertId }] }] } }] } 启动client</description>
+      <description>&lt;p&gt;主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾&lt;/p&gt;
+&lt;h2 id=&#34;v2ray介绍和服务端安装&#34;&gt;v2ray介绍和服务端安装&lt;/h2&gt;
+&lt;p&gt;v2ray服务端安装之前写过一篇: &lt;a href=&#34;../vpnsetup&#34;&gt;《VPN Setup》&lt;/a&gt;。安装后记录关键配置&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;serverIp&lt;/strong&gt; (e.g. 20.163.126.10)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;serverPort&lt;/strong&gt; (e.g. 35555)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;uuid&lt;/strong&gt; (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;alertId&lt;/strong&gt; (e.g. 42)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装v2ray客户端&#34;&gt;安装v2ray客户端&lt;/h2&gt;
+&lt;p&gt;v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的&lt;a href=&#34;https://github.com/v2fly/v2ray-core&#34;&gt;v2fly/v2ray-core&lt;/a&gt;最靠谱&lt;/p&gt;
+&lt;p&gt;简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/macos_v2ray_client/dataflow.png#center&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;brew-install-v2ray&#34;&gt;brew install v2ray&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;brew&lt;/code&gt;是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/bin/zsh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装v2ray&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install v2ray
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>zkcli</title>
       <link>https://kyzy540.github.io/post/zkcli/</link>
       <pubDate>Sat, 16 Sep 2023 21:06:11 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/zkcli/</guid>
-      <description>2023-09-16
-一个zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
-原版有个问题: deleteall子命令不能递归删除zookeeper node。原因是 代码 没实现递归删除
-鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了deleteall的递归逻辑。安装命令
-go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 zkCli.sh，这个go版本有3点优势
-交互模式支持 tab 自动提示 支持 batch 模式执行命令 方便安装配置，不依赖java zkcli默认会读配置文件$HOME/.config/zkcli.conf，可以避免每条命了都要输入冗长参数。配置文件参考 zkcli.conf。个人常用配置如下
-s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏</description>
+      <description>&lt;p&gt;&lt;em&gt;2023-09-16&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;一个zookeeper cli客户端工具。基于&lt;code&gt;let-us-go/zkcli&lt;/code&gt;改进。原版地址 (内附安装教程): &lt;a href=&#34;https://github.com/let-us-go/zkcli&#34;&gt;https://github.com/let-us-go/zkcli&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原版有个问题: &lt;code&gt;deleteall&lt;/code&gt;子命令不能递归删除zookeeper node。原因是 &lt;a href=&#34;https://github.com/let-us-go/zkcli/blob/master/core/cmd.go#L160&#34;&gt;代码&lt;/a&gt; 没实现递归删除&lt;/p&gt;
+&lt;p&gt;鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了&lt;code&gt;deleteall&lt;/code&gt;的递归逻辑。安装命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;go install github.com/kyzy540/zkcli@latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;相较于zookeeper自带的cli工具 &lt;code&gt;zkCli.sh&lt;/code&gt;，这个go版本有3点优势&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;交互模式支持 &lt;code&gt;tab&lt;/code&gt; 自动提示&lt;/li&gt;
+&lt;li&gt;支持 batch 模式执行命令&lt;/li&gt;
+&lt;li&gt;方便安装配置，不依赖java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;zkcli&lt;/code&gt;默认会读配置文件&lt;code&gt;$HOME/.config/zkcli.conf&lt;/code&gt;，可以避免每条命了都要输入冗长参数。配置文件参考 &lt;a href=&#34;https://github.com/let-us-go/zkcli/blob/master/zkcli.conf&#34;&gt;zkcli.conf&lt;/a&gt;。个人常用配置如下&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;s 127.0.0.1:2181
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;P.S. 这是本人第一次写&lt;code&gt;go&lt;/code&gt;代码，如有问题还请见谅🙏&lt;/p&gt;</description>
     </item>
     <item>
       <title>分析一个Python MongoEngine的多层装饰器</title>
       <link>https://kyzy540.github.io/post/python_decorator/</link>
       <pubDate>Tue, 01 Aug 2023 16:48:08 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/python_decorator/</guid>
-      <description>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
-def handler(event): &amp;#34;&amp;#34;&amp;#34;Signal decorator to allow use of callback functions as class decorators.&amp;#34;&amp;#34;&amp;#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
-signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
-cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
-def decorator(fn): def apply(cls): signals.</description>
+      <description>&lt;p&gt;在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 &lt;a href=&#34;https://github.com/MongoEngine/mongoengine/blob/master/docs/guide/signals.rst&#34;&gt;@update_modified.apply&lt;/a&gt; ，核心代码如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;handler&lt;/span&gt;(event):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;Signal decorator to allow use of callback functions as class decorators.&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;decorator&lt;/span&gt;(fn):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;apply&lt;/span&gt;(cls):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            event&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect(fn, sender&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;cls)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cls
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        fn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;apply &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; apply
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; fn
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; decorator
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@handler&lt;/span&gt;(signals&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;pre_save)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;update_modified&lt;/span&gt;(sender, document):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    document&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;modified &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;utcnow()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@update_modified.apply&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Record&lt;/span&gt;(Document):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    modified &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DateTimeField()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>扩展插件SwitchyOmega</title>
       <link>https://kyzy540.github.io/post/extend_switchyomega/</link>
       <pubDate>Thu, 30 Mar 2023 20:26:29 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/extend_switchyomega/</guid>
-      <description>背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月
-它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯
-所以当我想对它做改动，只能直接修改源代码，自己制作crx了
-需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口
-&amp;lt;span id=&amp;#34;proxy&amp;#34; data-profileName=&amp;#39;demo&amp;#39; data-patterns=&amp;#39;[&amp;#34;192.168.*&amp;#34;]&amp;#39;&amp;gt; HTTP://172.168.1.1:8080 &amp;lt;/span&amp;gt; 工作可以拆分成几步
-学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了
-对了，我没前端经验，也没开发过Chrome插件
-基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点
-插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
-SwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 &amp;ldquo;情景模式&amp;rdquo; (代理配置) 是如何生效的
-首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
-其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
-本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
-bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute &amp;ldquo;git ls-remote &amp;ndash;tags &amp;ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&amp;quot;, exit code of #128 remote: Repository not found.</description>
+      <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;SwitchyOmega是著名Chrome代理插件，&lt;a href=&#34;https://github.com/FelisCatus/SwitchyOmega&#34;&gt;源代码&lt;/a&gt;开源在GitHub，最近release是2018年8月&lt;/p&gt;
+&lt;p&gt;它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯&lt;/p&gt;
+&lt;p&gt;所以当我想对它做改动，只能直接修改源代码，自己制作crx了&lt;/p&gt;
+&lt;p&gt;需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;proxy&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data-profileName&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;demo&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data-patterns&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[&amp;#34;192.168.*&amp;#34;]&amp;#39;&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  HTTP://172.168.1.1:8080
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;工作可以拆分成几步&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;学习Chrome插件基本原理&lt;/li&gt;
+&lt;li&gt;了解SwitchyOmega如何实现代理功能&lt;/li&gt;
+&lt;li&gt;确认需求可否实现&lt;/li&gt;
+&lt;li&gt;学习本地开发和调试&lt;/li&gt;
+&lt;li&gt;着手实现&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了&lt;/p&gt;
+&lt;p&gt;对了，我没前端经验，也没开发过Chrome插件&lt;/p&gt;
+&lt;h2 id=&#34;基础知识&#34;&gt;基础知识&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/&#34;&gt;Chrome Extension development basics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.chrome.com/docs/extensions/reference/proxy/&#34;&gt;chrome.proxy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.runoob.com/angularjs/angularjs-scopes.html&#34;&gt;AngularJS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://coffeescript.org/&#34;&gt;CoffeeScript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/FelisCatus/SwitchyOmega/blob/master/README.md#building-the-project&#34;&gt;Building the project&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在Chrome插件开发基础中主要了解4个点&lt;/p&gt;</description>
     </item>
     <item>
       <title>VPN Setup</title>
       <link>https://kyzy540.github.io/post/vpnsetup/</link>
       <pubDate>Tue, 18 Oct 2022 09:16:11 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/vpnsetup/</guid>
-      <description>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
-文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
-wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod +x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下
-删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务
-# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk &amp;#39;{print $2}&amp;#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray 注意云实例的防火墙也要放行配置中的端口(TCP协议)
-诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
-safari cannot open the page cannot establish a secure connection
-诊断的关键是在 /etc/v2ray/config.</description>
+      <description>&lt;h2 id=&#34;v2ray&#34;&gt;V2Ray&lt;/h2&gt;
+&lt;p&gt;关于V2Ray介绍，请参考 &lt;a href=&#34;https://itlanyan.com/v2ray-tutorial/&#34;&gt;V2Ray简介和搭建教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod +x goV2.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./goV2.sh --version v5.1.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改动点如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;删除&lt;code&gt;v2ctl&lt;/code&gt; 相关代码，&lt;code&gt;v2ctl&lt;/code&gt; 在v2ray v5.1.0 中被移除&lt;/li&gt;
+&lt;li&gt;修改&lt;code&gt;v2ray.service&lt;/code&gt;启动命令，增加了&lt;code&gt;run&lt;/code&gt;子命令和 &lt;code&gt;v2ray.vmess.aead.forced=false&lt;/code&gt; 环境变量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;该脚本集成了配置文件生成，位置在&lt;code&gt;/etc/v2ray/config.json&lt;/code&gt;。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ubuntu 20.02&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;port&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;grep port /etc/v2ray/config.json | awk &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{print $2}&amp;#39;&lt;/span&gt; | cut -d, -f1&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw allow &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;port&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/tcp
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#启用 v2ray服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable v2ray
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start v2ray
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>ERROR: Win32Bridge.Server.exe</title>
       <link>https://kyzy540.github.io/post/windows_bridge_server_error/</link>
       <pubDate>Thu, 28 Apr 2022 09:43:39 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
-      <description>某次系统升级后一登录就报错
-Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.
-简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
-参考链接</description>
+      <description>&lt;p&gt;某次系统升级后一登录就报错&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/windows/bridge_server_error.png&#34; alt=&#34;img&#34;  /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://answers.microsoft.com/en-us/windows/forum/all/win32bridge-server-problem-cant-find/5377d9bc-3e66-415d-b9c1-48968747ea1d?auth=1&#34;&gt;参考链接&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>微软好终端</title>
       <link>https://kyzy540.github.io/post/windows_terminal/</link>
       <pubDate>Thu, 18 Jun 2020 19:05:59 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/windows_terminal/</guid>
-      <description>Windows发展到今日，已非复吴下阿蒙。被诟病多年的&amp;quot;终端难用&amp;quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
-在介绍工具前，读者应了解几点知识:
-掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
-只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
-GOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
-想找出java文件中包含Log关键字最多的前3名？
-PS C:\Users&amp;gt; grep -c Log *.java | sort {[int]$_.split(&amp;#34;:&amp;#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&amp;gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&amp;gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
-另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的
-可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
-choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
-choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
-rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助</description>
+      <description>&lt;p&gt;Windows发展到今日，已非复吴下阿蒙。被诟病多年的&amp;quot;终端难用&amp;quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具&lt;/p&gt;
+&lt;p&gt;在介绍工具前，读者应了解几点知识:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;掌握一种常用SHELL，例如bash,&lt;/li&gt;
+&lt;li&gt;知道终端和SHELL的区别。如果不了解，请读&lt;a href=&#34;https://www.hanselman.com/blog/WhatsTheDifferenceBetweenAConsoleATerminalAndAShell.aspx&#34;&gt;博文&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;知道cygwin，以及它和Linux/Mac下终端的区别&lt;/li&gt;
+&lt;li&gt;知道Gnu和Linux/Unix的区别&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;powershell&#34;&gt;Powershell&lt;/h2&gt;
+&lt;p&gt;Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只能用早期操作系统，例如Windows7&lt;/li&gt;
+&lt;li&gt;没有Administrator权限，无法添加/关闭系统功能&lt;/li&gt;
+&lt;li&gt;机器性能贫瘠，跑cygwin都迟钝&lt;/li&gt;
+&lt;li&gt;SDK或build环境局限于Windows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bmatzelle/gow/wiki&#34;&gt;GOW&lt;/a&gt; (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中&lt;/p&gt;
+&lt;p&gt;想找出java文件中包含Log关键字最多的前3名？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PS C:\Users&amp;gt; grep -c Log *.java | sort {[&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;]$_.split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]} -D | head -n &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;A.java&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;B.java&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C.java&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

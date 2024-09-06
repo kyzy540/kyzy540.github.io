@@ -13,13 +13,23 @@
       <link>https://kyzy540.github.io/post/android_httpserver/</link>
       <pubDate>Thu, 17 Mar 2022 18:36:21 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/android_httpserver/</guid>
-      <description>Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
-办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
-第一步，安装 Termux。进入终端，启用并授权访问存储设备
-termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
-pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
-第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
-http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性</description>
+      <description>&lt;p&gt;Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽&lt;/p&gt;
+&lt;p&gt;办法其实不复杂，&lt;a href=&#34;https://www.npmjs.com/package/http-server&#34;&gt;http-server&lt;/a&gt; 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下&lt;/p&gt;
+&lt;p&gt;第一步，安装 &lt;a href=&#34;https://f-droid.org/packages/com.termux/&#34;&gt;Termux&lt;/a&gt;。进入终端，启用并授权访问存储设备&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;termux-setup-storage
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以&lt;code&gt;pkg install nodejs&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pkg update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pkg install nodejs-lts
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;npm install -g http-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果嫌默认源访问速度慢，可以考虑换用&lt;code&gt;termux-change-repo&lt;/code&gt;切换到清华源。&lt;a href=&#34;https://wiki.termux.com/wiki/Package_Management&#34;&gt;参考链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;第三步，启动http-server。这里&lt;code&gt;storage/dcim/Camera&lt;/code&gt;是服务对外开放的路径。如果写&lt;code&gt;storage/shared&lt;/code&gt;可以开放整个手机存储&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;http-server storage/dcim/Camera
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到服务启动，监听&lt;code&gt;http://30.43.99.138:8080&lt;/code&gt;
+&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;
+&lt;p&gt;同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放
+&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver1.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -9,18 +9,29 @@
 <meta name="keywords" content="windows, terminal, wsl, gow">
 <meta name="description" content="Windows发展到今日，已非复吴下阿蒙。被诟病多年的&quot;终端难用&quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
-掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
-只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
+
+掌握一种常用SHELL，例如bash,
+知道终端和SHELL的区别。如果不了解，请读博文
+知道cygwin，以及它和Linux/Mac下终端的区别
+知道Gnu和Linux/Unix的区别
+
+
+Powershell
+Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
+
+只能用早期操作系统，例如Windows7
+没有Administrator权限，无法添加/关闭系统功能
+机器性能贫瘠，跑cygwin都迟钝
+SDK或build环境局限于Windows
+
+Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
-PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
-另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
-可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
-choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
-choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
-rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助">
+PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3
+A.java:20
+B.java:13
+C.java:7
+其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/windows_terminal/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
@@ -68,24 +79,32 @@ rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据�
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="微软好终端" />
+</noscript><meta property="og:title" content="微软好终端" />
 <meta property="og:description" content="Windows发展到今日，已非复吴下阿蒙。被诟病多年的&quot;终端难用&quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
-掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
-只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
+
+掌握一种常用SHELL，例如bash,
+知道终端和SHELL的区别。如果不了解，请读博文
+知道cygwin，以及它和Linux/Mac下终端的区别
+知道Gnu和Linux/Unix的区别
+
+
+Powershell
+Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
+
+只能用早期操作系统，例如Windows7
+没有Administrator权限，无法添加/关闭系统功能
+机器性能贫瘠，跑cygwin都迟钝
+SDK或build环境局限于Windows
+
+Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
-PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
-另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
-可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
-choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
-choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
-rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助" />
+PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3
+A.java:20
+B.java:13
+C.java:7
+其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kyzy540.github.io/post/windows_terminal/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-18T19:05:59+08:00" />
@@ -95,18 +114,29 @@ rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据�
 <meta name="twitter:title" content="微软好终端"/>
 <meta name="twitter:description" content="Windows发展到今日，已非复吴下阿蒙。被诟病多年的&quot;终端难用&quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具
 在介绍工具前，读者应了解几点知识:
-掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
-只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
+
+掌握一种常用SHELL，例如bash,
+知道终端和SHELL的区别。如果不了解，请读博文
+知道cygwin，以及它和Linux/Mac下终端的区别
+知道Gnu和Linux/Unix的区别
+
+
+Powershell
+Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如
+
+只能用早期操作系统，例如Windows7
+没有Administrator权限，无法添加/关闭系统功能
+机器性能贫瘠，跑cygwin都迟钝
+SDK或build环境局限于Windows
+
+Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解
 GOW (Gnu On Windows)囊获了100&#43;个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中
 想找出java文件中包含Log关键字最多的前3名？
-PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？
-PS C:\Users&gt; which head C: \Program Files (x86)\Gow\bin\grep.EXE PS C:\Users&gt; which head C: \WINDOWS\system32\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务
-另外，Powershell支持history，用户可以很方便地用ctrl&#43;r回溯历史命令，这是cmd所不具备的
-可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨
-choco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例
-choco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳
-ripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高
-rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助"/>
+PS C:\Users&gt; grep -c Log *.java | sort {[int]$_.split(&#34;:&#34;)[1]} -D | head -n 3
+A.java:20
+B.java:13
+C.java:7
+其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？"/>
 
 
 <script type="application/ld+json">
@@ -135,7 +165,7 @@ rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据�
   "@type": "BlogPosting",
   "headline": "微软好终端",
   "name": "微软好终端",
-  "description": "Windows发展到今日，已非复吴下阿蒙。被诟病多年的\u0026quot;终端难用\u0026quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具\n在介绍工具前，读者应了解几点知识:\n掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如\n只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解\nGOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中\n想找出java文件中包含Log关键字最多的前3名？\nPS C:\\Users\u0026gt; grep -c Log *.java | sort {[int]$_.split(\u0026#34;:\u0026#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？\nPS C:\\Users\u0026gt; which head C: \\Program Files (x86)\\Gow\\bin\\grep.EXE PS C:\\Users\u0026gt; which head C: \\WINDOWS\\system32\\sort.EXE 有了GOW，Powershell已经能应付简单的终端任务\n另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的\n可选工具 下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨\nchoco 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例\nchoco install gow ZLocation 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳\nripgrep 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高\nrg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助",
+  "description": "Windows发展到今日，已非复吴下阿蒙。被诟病多年的\u0026quot;终端难用\u0026quot;问题已经有了不错的解决方案。本文分享几个让我受益颇多的工具\n在介绍工具前，读者应了解几点知识:\n掌握一种常用SHELL，例如bash, 知道终端和SHELL的区别。如果不了解，请读博文 知道cygwin，以及它和Linux/Mac下终端的区别 知道Gnu和Linux/Unix的区别 Powershell Powershell早在Windows7时代就被捆绑在系统内，在当代Windows电脑上基本都能用。我不推荐Powershell，但有时条件受限，不得不依仗它，例如\n只能用早期操作系统，例如Windows7 没有Administrator权限，无法添加/关闭系统功能 机器性能贫瘠，跑cygwin都迟钝 SDK或build环境局限于Windows Powershell本身并不差，很多时候用户只因没法在其中使用grep/less/vim等命令，而抱怨不已。但其实这问题有解\nGOW (Gnu On Windows)囊获了100+个常用Gnu命令。它开源、免费，只包含一堆EXE文件，大小18MB左右。我日常用到的Gnu命令都在其中\n想找出java文件中包含Log关键字最多的前3名？\nPS C:\\Users\u0026gt; grep -c Log *.java | sort {[int]$_.split(\u0026#34;:\u0026#34;)[1]} -D | head -n 3 A.java:20 B.java:13 C.java:7 其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？\n",
   "keywords": [
     "windows", "terminal", "wsl", "gow"
   ],

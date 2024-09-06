@@ -10,10 +10,20 @@
 <meta name="description" content="Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
 办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
 第一步，安装 Termux。进入终端，启用并授权访问存储设备
-termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
-pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
+termux-setup-storage
+第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
+pkg update
+pkg install nodejs-lts
+npm install -g http-server
+如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
-http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性">
+http-server storage/dcim/Camera
+可以看到服务启动，监听http://30.43.99.138:8080
+
+
+同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放
+
+">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/android_httpserver/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
@@ -61,17 +71,24 @@ http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="Android http-server" />
+</noscript><meta property="og:title" content="Android http-server" />
 <meta property="og:description" content="Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
 办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
 第一步，安装 Termux。进入终端，启用并授权访问存储设备
-termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
-pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
+termux-setup-storage
+第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
+pkg update
+pkg install nodejs-lts
+npm install -g http-server
+如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
-http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性" />
+http-server storage/dcim/Camera
+可以看到服务启动，监听http://30.43.99.138:8080
+
+
+同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放
+
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kyzy540.github.io/post/android_httpserver/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-03-17T18:36:21+08:00" />
@@ -82,10 +99,20 @@ http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99
 <meta name="twitter:description" content="Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽
 办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下
 第一步，安装 Termux。进入终端，启用并授权访问存储设备
-termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
-pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
+termux-setup-storage
+第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
+pkg update
+pkg install nodejs-lts
+npm install -g http-server
+如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
-http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性"/>
+http-server storage/dcim/Camera
+可以看到服务启动，监听http://30.43.99.138:8080
+
+
+同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放
+
+"/>
 
 
 <script type="application/ld+json">
@@ -114,7 +141,7 @@ http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99
   "@type": "BlogPosting",
   "headline": "Android http-server",
   "name": "Android http-server",
-  "description": "Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽\n办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下\n第一步，安装 Termux。进入终端，启用并授权访问存储设备\ntermux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs\npkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接\n第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储\nhttp-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性",
+  "description": "Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽\n办法其实不复杂，http-server 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下\n第一步，安装 Termux。进入终端，启用并授权访问存储设备\ntermux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs\npkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接\n第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储\nhttp-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 ",
   "keywords": [
     "android"
   ],
