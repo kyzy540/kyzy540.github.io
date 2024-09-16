@@ -22,7 +22,19 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/dracula/zsh.git
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/dracula.zsh-theme &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/lib &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改&lt;code&gt;~/.zshrc&lt;/code&gt;，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ZSH_THEME&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dracula&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;zstyle &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;:omz:update&amp;#39;&lt;/span&gt; mode disabled  &lt;span style=&#34;color:#75715e&#34;&gt;# disable automatic updates&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;plugins&lt;span style=&#34;color:#f92672&#34;&gt;=(&lt;/span&gt;git history zsh-autosuggestions zsh-syntax-highlighting&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;对于常用的&lt;code&gt;alias&lt;/code&gt;，参考&lt;code&gt;.zshrc&lt;/code&gt;备注，写到&lt;code&gt;${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;同理，在&lt;code&gt;custom&lt;/code&gt;目录下写&lt;code&gt;pyenv.zsh&lt;/code&gt;初始化&lt;code&gt;pyenv&lt;/code&gt; (omz的pyenv插件不好使)。写&lt;code&gt;auth.zsh&lt;/code&gt; export 常用认证相关环境变量&lt;/p&gt;
+&lt;p&gt;希望对每个命令都奏效的环境变量写到&lt;code&gt;~/.zshenv&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# read even when Zsh is launched to run a single command&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export COPYFILE_DISABLE&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# go&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export GOPATH&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$HOME&lt;span style=&#34;color:#e6db74&#34;&gt;/go&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export PATH&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$GOPATH&lt;span style=&#34;color:#e6db74&#34;&gt;/bin:&lt;/span&gt;$PATH&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参考: &lt;a href=&#34;https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout&#34;&gt;What should/shouldn&amp;rsquo;t go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout?&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>macOS安装v2ray客户端</title>
@@ -49,7 +61,42 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/bin/zsh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装v2ray&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install v2ray
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;全局代理配置&#34;&gt;全局代理配置&lt;/h2&gt;
+&lt;p&gt;从最简单开始。这是所有流量都走代理的配置，保存到&lt;code&gt;$HOME/config.json&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;inbounds&lt;/strong&gt;: 用&lt;code&gt;socks&lt;/code&gt;协议监听&lt;code&gt;127.0.0.1:1080&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;outbounds&lt;/strong&gt;: 用&lt;code&gt;vmess&lt;/code&gt;协议转发流量，&lt;code&gt;vnext&lt;/code&gt;下是链接服务端的地址和认证&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;意味着client会将发往&lt;code&gt;127.0.0.1:1080&lt;/code&gt;的流量通过&lt;code&gt;vmess&lt;/code&gt;转发到服务端&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;inbounds&amp;#34;&lt;/span&gt;: [{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1080&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// v2ray客户端监听端口
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;listen&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 只允许本电脑链接
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;protocol&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;socks&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;settings&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;auth&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;noauth&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;udp&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;outbounds&amp;#34;&lt;/span&gt;: [{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;protocol&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vmess&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;settings&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;vnext&amp;#34;&lt;/span&gt;: [{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;address&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;serverIp&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// v2ray服务器IP
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;serverPort&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 服务端口
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;users&amp;#34;&lt;/span&gt;: [{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;uuid&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;alterId&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;alertId&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                }]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;启动client&lt;/p&gt;</description>
     </item>
     <item>
       <title>macOS 录屏配字幕</title>
@@ -80,7 +127,8 @@ world
 &lt;p&gt;参考:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://developer.aliyun.com/article/996308&#34;&gt;Mac OS中利用ffmpeg为视频添加字幕&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://support.apple.com/zh-cn/guide/mac-help/mh26782/mac&#34;&gt;在 Mac 上截屏或录屏&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://cloud.tencent.com/developer/information/ffmpeg%E5%B0%86mov%E8%BD%AC%E6%8D%A2%E4%B8%BAmp4-ask&#34;&gt;ffmpeg将mov转换为mp4&lt;/a&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;a href=&#34;https://cloud.tencent.com/developer/information/ffmpeg%E5%B0%86mov%E8%BD%AC%E6%8D%A2%E4%B8%BAmp4-ask&#34;&gt;ffmpeg将mov转换为mp4&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/a486259/article/details/133718711&#34;&gt;基于ffmpeg给视频添加时间字幕&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>macOS Sonoma 关闭光标输入法提示</title>

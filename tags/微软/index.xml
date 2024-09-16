@@ -51,7 +51,22 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;A.java&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;B.java&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C.java&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？&lt;/p&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中grep和head来自GOW，sort来自Powershell。如何确定这些命令的来源？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PS C:\Users&amp;gt; which head
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C: \Program Files (x86)\Gow\bin\grep.EXE
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PS C:\Users&amp;gt; which head
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C: \WINDOWS\system32\sort.EXE
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有了GOW，Powershell已经能应付简单的终端任务&lt;/p&gt;
+&lt;p&gt;另外，Powershell支持history，用户可以很方便地用ctrl+r回溯历史命令，这是cmd所不具备的&lt;/p&gt;
+&lt;h3 id=&#34;可选工具&#34;&gt;可选工具&lt;/h3&gt;
+&lt;p&gt;下面介绍的工具可能不适合所有人，只是我比较常用，不装也无妨&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://chocolatey.org/&#34;&gt;choco&lt;/a&gt; 是Windows下包管理工具，运行在终端内，类似apt和yum。推荐给爱尝鲜新软件的读者。以安装GOW为例&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bat&#34; data-lang=&#34;bat&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;choco install gow
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/vors/ZLocation&#34;&gt;ZLocation&lt;/a&gt; 类似autojump，是一款目录导航工具，可以理解为cd命令的补充。它能让用户在常用目录间左右横跳&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/BurntSushi/ripgrep&#34;&gt;ripgrep&lt;/a&gt; 是更好用的grep，用于文本搜索。我认为其性能和易用性都优于grep。例如下面命令会递归搜索当前目录下 .java和 .properties 文件，找 Log 关键词。rg会自动排查隐藏文件和二进制文件 (.class和.jar)，搜索效率很高&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bat&#34; data-lang=&#34;bat&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rg -tjava Log
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/stedolan/jq&#34;&gt;jq&lt;/a&gt; 是个JSON解析工具，对于经常写脚本解析JSON数据的朋友有帮助&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

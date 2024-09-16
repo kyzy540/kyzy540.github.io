@@ -151,6 +151,40 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">《第二十条》
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 艺谋近几年最好的作品。终于不矫情了
+影片前半部节奏有点慢，剧情有点尬。像《走走停停》，得倍速播放忍过去。到范伟出场以后，故事一气呵成，不赖
+跟导演以往的作品类似，影片有明确的主题。上情绪，上价值，一样没少。但影片把要表达的内容掰开融入生活的细枝末节里，琐碎，但不敷衍。哪怕只是一段小卖部的喜剧桥段，都情理皆在，很可贵
+更难得的是，影片在最后高潮部分收束的非常巧妙。作为一部春节档电影，气氛够好。但由于收束过程非常生硬，影片整体基调又偏现实主义，反而让人玩味。如果观众往现实主义方向臆想，也恰当。把思考空间留给观众，是影片点睛之笔，甚妙
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-09-14 17:33:59 +0800 CST'>September 14, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 《第二十条》" href="https://kyzy540.github.io/post/article_20/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">高中清晨的闹铃
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>我高中时过了2年住校生活。每天早上6点半，宿舍喇叭会准时放闹铃。不知道其他学校是否如此，我们高中的闹铃是歌曲串烧。歌单不知道是谁定的。有2首给我留下了印象
+胆小鬼 城市泪痕 说来惭愧，那会儿不咋听歌。这两首我头一次听就是在学校清晨的闹铃。那会儿的广播杂音多，听不清歌词。《城市泪痕》我是在近二十年后才搜到了原曲。袁娟都改名袁娅维重现火了一把。唏嘘光阴荏苒
+当然，能记住这两首歌的主要原因还是好听，杂音都盖不住的好听
+每当听到熟悉的旋律，脑海里都会浮现出往昔画面。上铺的室友神采奕奕地猴窜下来，摇醒宁死不起的我。起床在我，如舍身取义，万般痛苦。但苦味已经被时光冲逝，留下的只有室友灿烂的笑容和柔软的日光
+高中的生活辛苦，每天都要榨干脑力和精力。甚至为了课间补觉，不惜憋一泡45分钟的尿。倘若当年没有身边那些可爱的同学，高中给我留下的回忆不会美好
+感谢他们，感谢有缘相遇，带给我朝阳般的青春
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-09-07 07:16:31 +0800 CST'>September 7, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 高中清晨的闹铃" href="https://kyzy540.github.io/post/high_school_ringtone/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">《名侦探的献祭》——我想把作者和“磨铁听书”献祭了
     </h2>
   </header>
@@ -178,7 +212,12 @@
     <p>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
 先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
 sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34; &amp;&amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;&amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
-git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes ...</p>
+git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
+ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
+同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
+希望对每个命令都奏效的环境变量写到~/.zshenv
+# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&#34;$HOME/go&#34; export PATH=&#34;$GOPATH/bin:$PATH&#34; 参考: What should/shouldn’t go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout?
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-08-19 10:18:44 +0800 CST'>August 19, 2024</span></footer>
   <a class="entry-link" aria-label="post link to Zsh on macOS" href="https://kyzy540.github.io/post/zsh_on_mac/"></a>
@@ -249,7 +288,12 @@ serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-x
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
 brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
 /bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 安装v2ray
-brew install v2ray ...</p>
+brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
+inbounds: 用socks协议监听127.0.0.1:1080
+outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
+意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
+{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client
+...</p>
   </div>
   <footer class="entry-footer"><span title='2024-07-27 07:45:32 +0800 CST'>July 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to macOS安装v2ray客户端" href="https://kyzy540.github.io/post/macos_v2ray_client/"></a>
@@ -303,63 +347,11 @@ FF7重置版我是忍着不吐勉强玩通的，星铁就不再忍一遍了
 仔细琢磨后我总结，喜欢P5X的原因是它就是P5。那套10年前的玩法照搬到今天依然有趣
 但氪金系统就像一根针，把免费玩P5的美梦瞬间戳破。如果不花钱，角色练不起来，P5系统玩的再溜也没用。只要花了钱，P5系统一窍不通照样过关
 以人格面具系统为例，P5X还是可以在迷宫中打怪，收集人格面具。面具可以合成，可以培养，可以搭配技能。但都没用，高难度关卡的解法唯一: 抽强力角色，抽专用武器，刷素材把人物升满
-...</p>
+氪金系统让P5X的玩法显得很可笑。玩家可以玩，刀枪棍棒等18班武艺，仍君挑选。但最后想克敌制胜，请买AK47
+</p>
   </div>
   <footer class="entry-footer"><span title='2024-06-27 10:26:35 +0800 CST'>June 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 三二游" href="https://kyzy540.github.io/post/3_service_games_review/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">二游迷思
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>所谓“二游”，画面风格偏日式动漫，靠抽卡创收。抽卡包含角色、装备等。游戏重视剧情演出和单人体验。经常没有联机内容
-但我觉得“二游”的这个分类不能准确描述这类游戏，他们更像“服务型单机游戏”。除了抽卡，游戏的玩法特征跟一般JRPG似乎没啥区别。致于“抽卡”付费模式，虽然饱受诟病，但我觉得也有它流行的道理。国产游戏经过20年探索，经历了买断制、订阅制 (月卡)到现在抽卡。是摸索总结出来的产物
-“抽卡”大致把玩家分3档: 免费&lt;月卡&lt;无上限消费。这种模式可以平衡多样的玩家群体，同时让商家赚取丰厚利润
-以星铁为例，我浅玩了10小时，没花一分钱，体验比一些JRPG大作甚至更好。如果1款单机游戏能提供10小时优质内容，那它在steam上卖80元不过分。而这游戏分文不收，可谓良心。但如果继续往后玩儿，我估计会在某个关键剧情节点遇到难度陡增，卡关，必须大幅强化角色才能通过。这就是隐晦地告诉玩家：“该充钱了”。如上所述，玩家有3档选择
-免费 免费玩家可以像传统JRPG一样刷怪，但会受“体力”限制，效率很低。所谓“体力”，可以理解为行动点数。玩家每刷一轮怪必须支出“体力”，耗尽后不可再刷。而“体力”只有2个途径获得：等上一天自动恢复，或花钱充“体力”。因此，即便玩家有时间有精力，游戏也不允许玩了，必须干等。这如鲠在喉的设计会隐形引导玩家消费。当然，只有限制还不够。游戏公司会预告内容更新周期，定期推出新故事和玩法。如果玩家按“免费“档的体力配给，每天提升的强度很难跟上内容推出速度。造成前有萝卜，后有鞭子的局面。当然，毕竟这档玩家没交钱，游戏也没逼人玩儿，被怎么安排都无话可说
-月卡 月卡玩家待遇相对好点，但好得有限。所谓月卡，指玩家消费30元，每天在游戏内领取特殊货币，可以购买”体力“。月卡玩家还是要刷怪，还是要付出时间成本，才能强化角色强度，体验更多内容。而且月卡的特殊货币按日发放，玩家每天只能领取三十分之一。简单说，免费玩家如果天天刷，强化角色需要2周，那月卡玩家只不过把时间缩短到了1周。但结合游戏新内容的生产周期，月卡玩家只要跟上班似的每天完成”日常任务“，就可以顺畅跟上节奏
-无上限 无上限玩家，俗称氪金大佬，指可以一掷千金 (648元)买游戏内货币的玩家。他们可以即刻获得大量“体力”，几分钟内完成角色强化，坦平“难关”。当然，游戏的“难关”不止一层，一掷千金不够的话还得多掷几次
-合理吗？不合理 如果把服务型游戏内容拆成付费前和付费后，大多游戏的付费前内容都做的很好。也正因此，当游戏推进到“该交钱”的时候，给玩家负反馈很明显。受阻的大部分玩家会优先在游戏内摸索，寻找解决办法，等全试过一通后才认识到，只有“硬肝”和“氪金”两条出路。这时往往顽疾会有种被欺骗的感觉。游戏讲究沉浸感，越沉浸越爱。氪金门槛会强势打破玩家沉浸感，将人从游戏中抽离，提醒他们面对“现实”。沉得越深的玩家受伤越重。而且抽卡游戏是没有明码标价的。该充值多少没数，充完后啥时候再会撞上氪金墙也没数
-好比观众被邀请去看一场免费话剧。第一幕甚是精彩，到了第二幕故事高潮前所有演员突然停止表演，板着脸伸手向观众要钱。他们心里有数，但嘴上不说要钱，也不说要多少。观众给不够数不演，给多了不退，照单全收。很难让人不扫兴
-当然，批评抽卡收费模式的论点还有很多，我就不赘述了
-合理吗？也不是没道理 相比传统买断制，抽卡收费方式更灵活。下至免费，上不封顶。这种付费方式更像购买传统服务: 用户先体验服务，如果满意再付费。付费分多个档次，对应不同服务质量。当然，这里的“质量”不是“加服务”，而是“少费劲”，也就是少花精力练角色。显然，这种抠抠索索、欲迎还拒的嘴脸会让部分人即使付钱了，也不舒服。那为什么游戏公司要从买断转向抽卡？
-首先，抽卡收费对游戏公司更有利。这种有利不是“从少变多”，而是“从亏变富”
-Epic总裁 Tim Sweeney 曾讲过3A系列《战争机器》的成本故事。初代《战争机器》成本为1200万美元，获利1亿美元。但续作的成本逐步提升，到四代预计开发成本就要1亿美元，而利润只缩不涨。Sweeny说：“利润不断缩减的情况下，即便《战争机器4》大卖，那也顶多和成本打平，况且只要有任何疏失我们就可能赔得一蹋糊涂”。须知Epic做完3部战争机器后已经跻身一线3A工作室，但亏损1亿美元也足以让他们濒临破产
-因此，不断上涨制作成本让传统买断制碰壁了。大公司必须下重注做3A才能挤入头部市场的竞争，而竞争的结果是要么小赚，要么破产
-为什么游戏的制作成本会快速上涨？原因有多方面，人力成本上涨，工程复杂度带来的研发成本上涨，市场竞争带来变高的品质要求，等等。于是，电子游戏市场自2010后逐步分化，仅有资金雄厚的大厂做3A游戏。小工作室和个人开发者转向独立游戏，以创意和低成本开拓小型差异化市场。还有一派，就是以手游为主的服务型游戏
-服务型游戏能降低开发成本。他们先做出游戏的基础框架，然后逐步填充内容。这种方式避免了买断制的孤注一掷。厂家可以先上线一个“凑合能玩”的版本，收第一桶金。之后做内容时也不必从底层重新开始，而只是扩充，收入也会随之扩充。粗略地看，服务型游戏在控制成本的同时，拉长了创收周期。期间公司有更多机会听取玩家反馈，调整游戏
-从玩家角度看呢？囊中羞涩的人可以免费游戏，至少能体验10小时高品质内容，不亏。深度参与的玩家花钱，也可以对游戏提出自己的见解。公司出于服务财主的目的，会偏向性做出调整。某种程度也算被伺候了
-从资本角度看，游戏公司是探索一个极限，一个在不气走财主的极限下，提高利润的极限。这种博弈的结果，就是当下二游的大胜利。毫无疑问这也是资本的胜利，是游戏市场新一轮的繁荣
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-06-27 10:22:39 +0800 CST'>June 27, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 二游迷思" href="https://kyzy540.github.io/post/thoughts_of_service_games/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">macOS 录屏配字幕
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我想做个简短的软件演示视频
-如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能&#43;ffmpeg凑合
-我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
-1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
-录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
-ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
-视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
-Mac OS中利用ffmpeg为视频添加字幕
-在 Mac 上截屏或录屏
-ffmpeg将mov转换为mp4
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-06-06 14:59:51 +0800 CST'>June 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to macOS 录屏配字幕" href="https://kyzy540.github.io/post/screen_record_macos/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

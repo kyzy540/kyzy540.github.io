@@ -33,7 +33,25 @@ AngularJS
 CoffeeScript
 Building the project
 
-在Chrome插件开发基础中主要了解4个点">
+在Chrome插件开发基础中主要了解4个点
+
+插件的主要构成。包含前端、后端、manifest、options
+插件前后端通信机制
+Chrome代理相关API
+SwitchyOmega如何基于配置调用Chrome API实现代理
+
+SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程
+下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的
+
+
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试
+构建
+开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+
+bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;, exit code of #128 remote: Repository not found. fatal: Authentication failed for &lsquo;https://github.com/Jimdo/angular-spectrum-colorpicker.git/&#39;">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/extend_switchyomega/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
@@ -108,7 +126,25 @@ AngularJS
 CoffeeScript
 Building the project
 
-在Chrome插件开发基础中主要了解4个点" />
+在Chrome插件开发基础中主要了解4个点
+
+插件的主要构成。包含前端、后端、manifest、options
+插件前后端通信机制
+Chrome代理相关API
+SwitchyOmega如何基于配置调用Chrome API实现代理
+
+SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程
+下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的
+
+
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试
+构建
+开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+
+bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;, exit code of #128 remote: Repository not found. fatal: Authentication failed for &lsquo;https://github.com/Jimdo/angular-spectrum-colorpicker.git/&#39;" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kyzy540.github.io/post/extend_switchyomega/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-03-30T20:26:29+08:00" />
@@ -142,7 +178,25 @@ AngularJS
 CoffeeScript
 Building the project
 
-在Chrome插件开发基础中主要了解4个点"/>
+在Chrome插件开发基础中主要了解4个点
+
+插件的主要构成。包含前端、后端、manifest、options
+插件前后端通信机制
+Chrome代理相关API
+SwitchyOmega如何基于配置调用Chrome API实现代理
+
+SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)
+SwitchyOmega配置代理流程
+下图展示了在SwitchyOmega 选项页面里创建一个 &ldquo;情景模式&rdquo; (代理配置) 是如何生效的
+
+
+首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现
+其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options
+本地开发和调试
+构建
+开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错
+
+bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;, exit code of #128 remote: Repository not found. fatal: Authentication failed for &lsquo;https://github.com/Jimdo/angular-spectrum-colorpicker.git/&#39;"/>
 
 
 <script type="application/ld+json">
@@ -171,7 +225,7 @@ Building the project
   "@type": "BlogPosting",
   "headline": "扩展插件SwitchyOmega",
   "name": "扩展插件SwitchyOmega",
-  "description": "背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月\n它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯\n所以当我想对它做改动，只能直接修改源代码，自己制作crx了\n需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口\n\u0026lt;span id=\u0026#34;proxy\u0026#34; data-profileName=\u0026#39;demo\u0026#39; data-patterns=\u0026#39;[\u0026#34;192.168.*\u0026#34;]\u0026#39;\u0026gt; HTTP://172.168.1.1:8080 \u0026lt;/span\u0026gt; 工作可以拆分成几步\n学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了\n对了，我没前端经验，也没开发过Chrome插件\n基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点\n",
+  "description": "背景 SwitchyOmega是著名Chrome代理插件，源代码开源在GitHub，最近release是2018年8月\n它很健全，但算不上完美。截止写本文的2023年3月，GitHub仍有新issue提交，但开发者已经了无音讯\n所以当我想对它做改动，只能直接修改源代码，自己制作crx了\n需求是: 任意网页上，如果出现了如下span，SwitchyOmega可以一键载入代理服务器的地址和端口\n\u0026lt;span id=\u0026#34;proxy\u0026#34; data-profileName=\u0026#39;demo\u0026#39; data-patterns=\u0026#39;[\u0026#34;192.168.*\u0026#34;]\u0026#39;\u0026gt; HTTP://172.168.1.1:8080 \u0026lt;/span\u0026gt; 工作可以拆分成几步\n学习Chrome插件基本原理 了解SwitchyOmega如何实现代理功能 确认需求可否实现 学习本地开发和调试 着手实现 我不想发布这个模改的插件，毕竟它仅对个人有用。所以到这就差不多了\n对了，我没前端经验，也没开发过Chrome插件\n基础知识 Chrome Extension development basics chrome.proxy AngularJS CoffeeScript Building the project 在Chrome插件开发基础中主要了解4个点\n插件的主要构成。包含前端、后端、manifest、options 插件前后端通信机制 Chrome代理相关API SwitchyOmega如何基于配置调用Chrome API实现代理 SwitchyOmega代码 76.7% 是 CoffeeScript，用到了AngularJS框架。依赖 NodeJS/npm/Grunt/bower 构建 (build)\nSwitchyOmega配置代理流程 下图展示了在SwitchyOmega 选项页面里创建一个 \u0026ldquo;情景模式\u0026rdquo; (代理配置) 是如何生效的\n首先，SwitchyOmega本身没实现代理功能。它实现了一套界面，让用户可以方便使用Chrome代理API。Chrome内部完成了具体的代理实现\n其次，SwitchyOmega在后台保存了一份核心数据结构options，其会被转译并导入chrome.proxy.settings。SwitchyOmega的前后端设计都围绕着维护options数据结构设计。要实现点击span加载配置，重点就在于搞明白如何将页面数据导入options\n本地开发和调试 构建 开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 npm run deps 阶段遇到如下报错\nbower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute \u0026ldquo;git ls-remote \u0026ndash;tags \u0026ndash;heads https://github.com/Jimdo/angular-spectrum-colorpicker.git\u0026quot;, exit code of #128 remote: Repository not found. fatal: Authentication failed for \u0026lsquo;https://github.com/Jimdo/angular-spectrum-colorpicker.git/'\n",
   "keywords": [
     "it"
   ],

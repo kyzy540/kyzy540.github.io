@@ -146,7 +146,8 @@
 termux-setup-storage 第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以pkg install nodejs
 pkg update pkg install nodejs-lts npm install -g http-server 如果嫌默认源访问速度慢，可以考虑换用termux-change-repo切换到清华源。参考链接
 第三步，启动http-server。这里storage/dcim/Camera是服务对外开放的路径。如果写storage/shared可以开放整个手机存储
-http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 ...</p>
+http-server storage/dcim/Camera 可以看到服务启动，监听http://30.43.99.138:8080 同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放 题外话: 为啥不用python http.server? python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性
+</p>
   </div>
   <footer class="entry-footer"><span title='2022-03-17 18:36:21 +0800 CST'>March 17, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Android http-server" href="https://kyzy540.github.io/post/android_httpserver/"></a>

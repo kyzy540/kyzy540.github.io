@@ -29,7 +29,9 @@
 &lt;/p&gt;
 &lt;p&gt;同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放
 &lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver1.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;</description>
+&lt;/p&gt;
+&lt;h3 id=&#34;题外话-为啥不用python-httpserver&#34;&gt;题外话: 为啥不用python http.server?&lt;/h3&gt;
+&lt;p&gt;python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

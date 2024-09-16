@@ -8,14 +8,43 @@
 <title>TaskFlow学习笔记 | 低质量随笔</title>
 <meta name="keywords" content="python, taskflow">
 <meta name="description" content="Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client&amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用
-设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
+
+
+设计理念
+从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
 这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。
-分布式工作流样例 Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
-构建工作流meta data数据库 发布job: 将工作流meta data宣告到zookeeper conductor从zookeeper承接job conductor从数据库获悉工作流meta data conductor调用make_bottles实例化工作流并执行完成 conductor删除zookeeper中的job，完成job Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
+分布式工作流样例
+Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
+
+构建工作流meta data数据库
+发布job: 将工作流meta data宣告到zookeeper
+conductor从zookeeper承接job
+conductor从数据库获悉工作流meta data
+conductor调用make_bottles实例化工作流并执行完成
+conductor删除zookeeper中的job，完成job
+
+
+
+Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
 至此，读者认识了由若干陌生名词堆砌而成的一张流程图，同时收获了一头雾水。不要紧，接下来将逐步分解
-自顶向下 一个job的生命周期包括: 发布(post) -&gt; 承接(require) -&gt; 执行(execute) -&gt; 完成(done) 。Jobboard就是发布和承接的中心
-Jobboard 打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民 poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
-lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#34;song-from-%s&#34; % my_name, uuidutils.generate_uuid()) lb.add(fd) with contextlib.closing(persist_backend.get_connection()) as conn: conn.">
+自顶向下
+一个job的生命周期包括: 发布(post) -&gt; 承接(require) -&gt; 执行(execute) -&gt; 完成(done) 。Jobboard就是发布和承接的中心
+Jobboard
+打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民
+
+
+poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
+lb = models.LogBook(&#34;post-from-%s&#34; % my_name)
+fd = models.FlowDetail(&#34;song-from-%s&#34; % my_name, uuidutils.generate_uuid())
+lb.add(fd)
+with contextlib.closing(persist_backend.get_connection()) as conn:
+    conn.save_logbook(lb)
+    engines.save_factory_details(fd, make_bottles, 
+                                 [HOW_MANY_BOTTLES], {}, 
+                                 backend=persist_backend)
+# Post, and be done with it!
+jb = job_backend.post(&#34;song-from-%s&#34; % my_name, book=lb)
+那么Conductor如何通过这么少的数据来承接job呢？答案是查Persistence (数据库)">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/post/taskflow_note/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
@@ -63,19 +92,45 @@ lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#3
         }
 
     </style>
-</noscript>
-  
-
-<meta property="og:title" content="TaskFlow学习笔记" />
+</noscript><meta property="og:title" content="TaskFlow学习笔记" />
 <meta property="og:description" content="Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client&amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用
-设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
+
+
+设计理念
+从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
 这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。
-分布式工作流样例 Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
-构建工作流meta data数据库 发布job: 将工作流meta data宣告到zookeeper conductor从zookeeper承接job conductor从数据库获悉工作流meta data conductor调用make_bottles实例化工作流并执行完成 conductor删除zookeeper中的job，完成job Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
+分布式工作流样例
+Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
+
+构建工作流meta data数据库
+发布job: 将工作流meta data宣告到zookeeper
+conductor从zookeeper承接job
+conductor从数据库获悉工作流meta data
+conductor调用make_bottles实例化工作流并执行完成
+conductor删除zookeeper中的job，完成job
+
+
+
+Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
 至此，读者认识了由若干陌生名词堆砌而成的一张流程图，同时收获了一头雾水。不要紧，接下来将逐步分解
-自顶向下 一个job的生命周期包括: 发布(post) -&gt; 承接(require) -&gt; 执行(execute) -&gt; 完成(done) 。Jobboard就是发布和承接的中心
-Jobboard 打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民 poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
-lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#34;song-from-%s&#34; % my_name, uuidutils.generate_uuid()) lb.add(fd) with contextlib.closing(persist_backend.get_connection()) as conn: conn." />
+自顶向下
+一个job的生命周期包括: 发布(post) -&gt; 承接(require) -&gt; 执行(execute) -&gt; 完成(done) 。Jobboard就是发布和承接的中心
+Jobboard
+打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民
+
+
+poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
+lb = models.LogBook(&#34;post-from-%s&#34; % my_name)
+fd = models.FlowDetail(&#34;song-from-%s&#34; % my_name, uuidutils.generate_uuid())
+lb.add(fd)
+with contextlib.closing(persist_backend.get_connection()) as conn:
+    conn.save_logbook(lb)
+    engines.save_factory_details(fd, make_bottles, 
+                                 [HOW_MANY_BOTTLES], {}, 
+                                 backend=persist_backend)
+# Post, and be done with it!
+jb = job_backend.post(&#34;song-from-%s&#34; % my_name, book=lb)
+那么Conductor如何通过这么少的数据来承接job呢？答案是查Persistence (数据库)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/post/taskflow_note/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-09-05T14:51:44+08:00" />
@@ -84,14 +139,43 @@ lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#3
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="TaskFlow学习笔记"/>
 <meta name="twitter:description" content="Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client&amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用
-设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
+
+
+设计理念
+从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构
 这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。
-分布式工作流样例 Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
-构建工作流meta data数据库 发布job: 将工作流meta data宣告到zookeeper conductor从zookeeper承接job conductor从数据库获悉工作流meta data conductor调用make_bottles实例化工作流并执行完成 conductor删除zookeeper中的job，完成job Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
+分布式工作流样例
+Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：
+
+构建工作流meta data数据库
+发布job: 将工作流meta data宣告到zookeeper
+conductor从zookeeper承接job
+conductor从数据库获悉工作流meta data
+conductor调用make_bottles实例化工作流并执行完成
+conductor删除zookeeper中的job，完成job
+
+
+
+Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data
 至此，读者认识了由若干陌生名词堆砌而成的一张流程图，同时收获了一头雾水。不要紧，接下来将逐步分解
-自顶向下 一个job的生命周期包括: 发布(post) -&gt; 承接(require) -&gt; 执行(execute) -&gt; 完成(done) 。Jobboard就是发布和承接的中心
-Jobboard 打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民 poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
-lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#34;song-from-%s&#34; % my_name, uuidutils.generate_uuid()) lb.add(fd) with contextlib.closing(persist_backend.get_connection()) as conn: conn."/>
+自顶向下
+一个job的生命周期包括: 发布(post) -&gt; 承接(require) -&gt; 执行(execute) -&gt; 完成(done) 。Jobboard就是发布和承接的中心
+Jobboard
+打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民
+
+
+poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了
+lb = models.LogBook(&#34;post-from-%s&#34; % my_name)
+fd = models.FlowDetail(&#34;song-from-%s&#34; % my_name, uuidutils.generate_uuid())
+lb.add(fd)
+with contextlib.closing(persist_backend.get_connection()) as conn:
+    conn.save_logbook(lb)
+    engines.save_factory_details(fd, make_bottles, 
+                                 [HOW_MANY_BOTTLES], {}, 
+                                 backend=persist_backend)
+# Post, and be done with it!
+jb = job_backend.post(&#34;song-from-%s&#34; % my_name, book=lb)
+那么Conductor如何通过这么少的数据来承接job呢？答案是查Persistence (数据库)"/>
 
 
 <script type="application/ld+json">
@@ -120,7 +204,7 @@ lb = models.LogBook(&#34;post-from-%s&#34; % my_name) fd = models.FlowDetail(&#3
   "@type": "BlogPosting",
   "headline": "TaskFlow学习笔记",
   "name": "TaskFlow学习笔记",
-  "description": "Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client\u0026amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用\n设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构\n这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。\n分布式工作流样例 Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：\n构建工作流meta data数据库 发布job: 将工作流meta data宣告到zookeeper conductor从zookeeper承接job conductor从数据库获悉工作流meta data conductor调用make_bottles实例化工作流并执行完成 conductor删除zookeeper中的job，完成job Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data\n至此，读者认识了由若干陌生名词堆砌而成的一张流程图，同时收获了一头雾水。不要紧，接下来将逐步分解\n自顶向下 一个job的生命周期包括: 发布(post) -\u0026gt; 承接(require) -\u0026gt; 执行(execute) -\u0026gt; 完成(done) 。Jobboard就是发布和承接的中心\nJobboard 打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民 poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了\nlb = models.LogBook(\u0026#34;post-from-%s\u0026#34; % my_name) fd = models.FlowDetail(\u0026#34;song-from-%s\u0026#34; % my_name, uuidutils.generate_uuid()) lb.add(fd) with contextlib.closing(persist_backend.get_connection()) as conn: conn.",
+  "description": "Taskflow是一个Python库，用于构建工作流。它可以处理异步操作、分布式部署和错误跟踪。相比 Airflow 它更轻量，不需要部署client\u0026amp;server架构。代码引入taskflow库，配合外部存储，就可以实现分布式工作流应用\n设计理念 从官方设计理念 可以看出，taskflow将 可靠性 (Resilience，即故障处理和恢复) 放在首位。设计文档和使用文档都是从最小可恢复单元 (atom) 讲起，自底向上地介绍整个架构\n这个介绍方式很好，但对于初衷就是想用taskflow实现分布式工作流的开发者来说，读起来可能有点冗长。我想换个方式，把它分成了两部分，第一部分是介绍如何使用taskflow，第二部分是如何使用taskflow来实现分布式工作流应用。\n分布式工作流样例 Conductor running 99 bottles of beer song requests 是一个典型例子，只要把代码中的sqlite数据库改成mysql就能实现分布式。但为了方便对照代码，本文还是以sqlite为例做介绍。整个流程分6步：\n构建工作流meta data数据库 发布job: 将工作流meta data宣告到zookeeper conductor从zookeeper承接job conductor从数据库获悉工作流meta data conductor调用make_bottles实例化工作流并执行完成 conductor删除zookeeper中的job，完成job Conductor 是工作流的核心，实例化和执行工作流都由他完成。剩下部分都是辅助它完成工作。例如，poster的作用是宣告job，供Conductor认领。Persistence是用来存储job的meta data，Conductor 要维护meta data\n至此，读者认识了由若干陌生名词堆砌而成的一张流程图，同时收获了一头雾水。不要紧，接下来将逐步分解\n自顶向下 一个job的生命周期包括: 发布(post) -\u0026gt; 承接(require) -\u0026gt; 执行(execute) -\u0026gt; 完成(done) 。Jobboard就是发布和承接的中心\nJobboard 打个比方，Jobboard是《巫师》世界里的公告板，job是委托，Conductor是承接委托的猎魔人 (可能有多位)，poster是发布委托的村民 poster发布到Jobboard的数据很少。读者可以先运行run_poster，然后暂停，看看zookeeper里的job数据。只包含了poster id、和 uuid。从代码也可以看出确实没别的信息了\nlb = models.LogBook(\u0026#34;post-from-%s\u0026#34; % my_name) fd = models.FlowDetail(\u0026#34;song-from-%s\u0026#34; % my_name, uuidutils.generate_uuid()) lb.add(fd) with contextlib.closing(persist_backend.get_connection()) as conn: conn.save_logbook(lb) engines.save_factory_details(fd, make_bottles, [HOW_MANY_BOTTLES], {}, backend=persist_backend) # Post, and be done with it! jb = job_backend.post(\u0026#34;song-from-%s\u0026#34; % my_name, book=lb) 那么Conductor如何通过这么少的数据来承接job呢？答案是查Persistence (数据库)\n",
   "keywords": [
     "python", "taskflow"
   ],

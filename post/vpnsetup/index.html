@@ -25,7 +25,22 @@ sudo ufw allow ${port}/tcp
 #启用 v2ray服务
 sudo systemctl enable v2ray
 sudo systemctl start v2ray
-">
+注意云实例的防火墙也要放行配置中的端口(TCP协议)
+诊断V2Ray代理
+在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
+
+safari cannot open the page cannot establish a secure connection
+
+诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务
+{
+  &#34;log&#34;: {
+    &#34;access&#34;: &#34;/var/www/v2ray/access.log&#34;,
+    &#34;error&#34;: &#34;/var/www/v2ray/error.log&#34;,
+    &#34;loglevel&#34;:&#34;info&#34;
+  },
+  &#34;inbounds&#34;: ...
+}
+重启后再测试，看到日志有如下">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/vpnsetup/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
@@ -92,7 +107,22 @@ sudo ufw allow ${port}/tcp
 #启用 v2ray服务
 sudo systemctl enable v2ray
 sudo systemctl start v2ray
-" />
+注意云实例的防火墙也要放行配置中的端口(TCP协议)
+诊断V2Ray代理
+在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
+
+safari cannot open the page cannot establish a secure connection
+
+诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务
+{
+  &#34;log&#34;: {
+    &#34;access&#34;: &#34;/var/www/v2ray/access.log&#34;,
+    &#34;error&#34;: &#34;/var/www/v2ray/error.log&#34;,
+    &#34;loglevel&#34;:&#34;info&#34;
+  },
+  &#34;inbounds&#34;: ...
+}
+重启后再测试，看到日志有如下" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kyzy540.github.io/post/vpnsetup/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-10-18T09:16:11+08:00" />
@@ -118,7 +148,22 @@ sudo ufw allow ${port}/tcp
 #启用 v2ray服务
 sudo systemctl enable v2ray
 sudo systemctl start v2ray
-"/>
+注意云实例的防火墙也要放行配置中的端口(TCP协议)
+诊断V2Ray代理
+在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
+
+safari cannot open the page cannot establish a secure connection
+
+诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务
+{
+  &#34;log&#34;: {
+    &#34;access&#34;: &#34;/var/www/v2ray/access.log&#34;,
+    &#34;error&#34;: &#34;/var/www/v2ray/error.log&#34;,
+    &#34;loglevel&#34;:&#34;info&#34;
+  },
+  &#34;inbounds&#34;: ...
+}
+重启后再测试，看到日志有如下"/>
 
 
 <script type="application/ld+json">
@@ -147,7 +192,7 @@ sudo systemctl start v2ray
   "@type": "BlogPosting",
   "headline": "VPN Setup",
   "name": "VPN Setup",
-  "description": "V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程\n文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取\nwget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod +x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下\n删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务\n# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk \u0026#39;{print $2}\u0026#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray ",
+  "description": "V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程\n文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取\nwget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod +x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下\n删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务\n# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk \u0026#39;{print $2}\u0026#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray 注意云实例的防火墙也要放行配置中的端口(TCP协议)\n诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似\nsafari cannot open the page cannot establish a secure connection\n诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务\n{ \u0026#34;log\u0026#34;: { \u0026#34;access\u0026#34;: \u0026#34;/var/www/v2ray/access.log\u0026#34;, \u0026#34;error\u0026#34;: \u0026#34;/var/www/v2ray/error.log\u0026#34;, \u0026#34;loglevel\u0026#34;:\u0026#34;info\u0026#34; }, \u0026#34;inbounds\u0026#34;: ... } 重启后再测试，看到日志有如下\n",
   "keywords": [
     "it"
   ],
