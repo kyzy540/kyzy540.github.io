@@ -240,18 +240,8 @@
 &lt;h3 id=&#34;诊断v2ray代理&#34;&gt;诊断V2Ray代理&lt;/h3&gt;
 &lt;p&gt;在未配置 &lt;code&gt;v2ray.vmess.aead.forced=false&lt;/code&gt; 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;safari cannot open the page cannot establish a secure connection&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;诊断的关键是在 &lt;code&gt;/etc/v2ray/config.json&lt;/code&gt; 加入日志配置，并重启v2ray服务&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;log&amp;#34;&lt;/span&gt;: {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;access&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/var/www/v2ray/access.log&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;error&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/var/www/v2ray/error.log&amp;#34;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;loglevel&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;info&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  },
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;inbounds&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;重启后再测试，看到日志有如下&lt;/p&gt;</description>
+&lt;p&gt;safari cannot open the page cannot establish a secure connection&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;诊断的关键是在 &lt;code&gt;/etc/v2ray/config.json&lt;/code&gt; 加入日志配置，并重启v2ray服务&lt;/p&gt;</description>
     </item>
     <item>
       <title>ERROR: Win32Bridge.Server.exe</title>
@@ -260,8 +250,7 @@
       <guid>https://kyzy540.github.io/post/windows_bridge_server_error/</guid>
       <description>&lt;p&gt;某次系统升级后一登录就报错&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;Windows cannot find &amp;lsquo;C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64&amp;hellip;\Win32Bridge.Server.exe&amp;rsquo;. Make sure you typed the name correctly, and the try again.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好&lt;/p&gt;
 &lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/windows/bridge_server_error.png&#34; alt=&#34;img&#34;  /&gt;
 &lt;/p&gt;

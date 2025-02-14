@@ -366,8 +366,7 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 <h3 id="构建">构建<a hidden class="anchor" aria-hidden="true" href="#构建">#</a></h3>
 <p>开发的第一步，是走通原有的构建流程，在Chrome里试用正常。如果参考构建文档，会在 <code>npm run deps</code> 阶段遇到如下报错</p>
 <blockquote>
-<p>bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads <a href="https://github.com/Jimdo/angular-spectrum-colorpicker.git%22">https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;</a>, exit code of #128 remote: Repository not found. fatal: Authentication failed for &lsquo;<a href="https://github.com/Jimdo/angular-spectrum-colorpicker.git/'">https://github.com/Jimdo/angular-spectrum-colorpicker.git/'</a></p>
-</blockquote>
+<p>bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;git ls-remote &ndash;tags &ndash;heads <a href="https://github.com/Jimdo/angular-spectrum-colorpicker.git%22">https://github.com/Jimdo/angular-spectrum-colorpicker.git&quot;</a>, exit code of #128 remote: Repository not found. fatal: Authentication failed for &lsquo;<a href="https://github.com/Jimdo/angular-spectrum-colorpicker.git/'">https://github.com/Jimdo/angular-spectrum-colorpicker.git/'</a></p></blockquote>
 <p>报错原因是 <a href="https://www.npmjs.com/package/angular-spectrum-colorpicker">angular-spectrum-colorpicker</a> GitHub 已经被删除了，bower校验失败。我试过用其他fork仓库替代，但后续还会遇到其他麻烦事儿。最简单的办法是拿现成的js库塞入代码库，删除bower依赖配置</p>
 <p>先从Chrome应用商店安装发布版SwitchyOmega，从中提取 <code>angular-spectrum-colorpicker.min.js</code>，保存到 <code>omega-web/lib/angular-spectrum-colorpicker/angular-spectrum-colorpicker.min.js</code></p>
 <p><img loading="lazy" src="/img/extend_switchyomega/angular-spectrum-colorpicker.png#center" alt=""  />
@@ -643,7 +642,7 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+    <span>&copy; 2025 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
