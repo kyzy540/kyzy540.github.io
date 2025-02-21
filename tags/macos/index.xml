@@ -6,8 +6,25 @@
     <description>Recent content in Macos on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Aug 2024 10:18:44 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 20 Feb 2025 14:05:23 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>brew 降级</title>
+      <link>https://kyzy540.github.io/post/brew_downgrade/</link>
+      <pubDate>Thu, 20 Feb 2025 14:05:23 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/brew_downgrade/</guid>
+      <description>&lt;p&gt;参考: &lt;a href=&#34;https://stackoverflow.com/questions/3987683/homebrew-install-specific-version-of-formula&#34;&gt;Homebrew install specific version of formula?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以&lt;a href=&#34;https://formulae.brew.sh/cask/alt-tab&#34;&gt;alt-tab&lt;/a&gt;为例，从7.20.0 (有bug会崩溃) 降级到7.19.1&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开 &lt;a href=&#34;https://formulae.brew.sh/cask/alt-tab&#34;&gt;https://formulae.brew.sh/cask/alt-tab&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;跳转 &lt;a href=&#34;https://github.com/Homebrew/homebrew-cask/blob/0ef28d3335279b043b131ffd4d5cfb3759837912/Casks/a/alt-tab.rb&#34;&gt;Cask code on GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;点开 &lt;a href=&#34;https://github.com/Homebrew/homebrew-cask/commits/master/Casks/a/alt-tab.rb&#34;&gt;alt-tab.rb History&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;找到要目标版本 (要降低到的版本)，点&lt;code&gt;View code at this point&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;下载 &lt;a href=&#34;https://github.com/Homebrew/homebrew-cask/blob/cbdcf50a724cb180d1c64719d331c9b70d85eca5/Casks/a/alt-tab.rb&#34;&gt;alt-tab.rb 7.19.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;控制台进alt-tab.rb所在目录，执行&lt;code&gt;brew rnstall alt-tab.rb&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;该方法虽然麻烦，但通用。如果软件预备了多版本，例如 &lt;a href=&#34;https://formulae.brew.sh/formula/mysql-client&#34;&gt;mysql-client&lt;/a&gt;，可以通过&lt;code&gt;brew install mysql-client@8.4&lt;/code&gt;切版本，相对方便&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Zsh on macOS</title>
       <link>https://kyzy540.github.io/post/zsh_on_mac/</link>

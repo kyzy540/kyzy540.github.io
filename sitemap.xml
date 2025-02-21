@@ -2,16 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://kyzy540.github.io/post/brew_downgrade/</loc>
+    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/it/</loc>
+    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/macos/</loc>
+    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
+  </url><url>
     <loc>https://kyzy540.github.io/post/</loc>
-    <lastmod>2025-02-13T10:35:42+08:00</lastmod>
+    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/</loc>
-    <lastmod>2025-02-13T10:35:42+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/post/guanyue_temple_quanzhou/</loc>
-    <lastmod>2025-02-13T10:35:42+08:00</lastmod>
+    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/</loc>
+    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/post/guanyue_temple_quanzhou/</loc>
     <lastmod>2025-02-13T10:35:42+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/%E7%94%9F%E6%B4%BB/</loc>
@@ -46,12 +55,6 @@
   </url><url>
     <loc>https://kyzy540.github.io/tags/%E4%B9%A6/</loc>
     <lastmod>2024-08-26T16:30:20+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/it/</loc>
-    <lastmod>2024-08-19T10:18:44+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/macos/</loc>
-    <lastmod>2024-08-19T10:18:44+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/zsh_on_mac/</loc>
     <lastmod>2024-08-19T10:18:44+08:00</lastmod>
