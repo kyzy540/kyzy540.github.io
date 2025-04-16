@@ -2,23 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://kyzy540.github.io/post/transformers_one/</loc>
-    <lastmod>2025-04-14T16:17:00+08:00</lastmod>
-  </url><url>
     <loc>https://kyzy540.github.io/post/</loc>
-    <lastmod>2025-04-14T16:17:00+08:00</lastmod>
+    <lastmod>2025-04-15T11:11:37+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/</loc>
-    <lastmod>2025-04-14T16:17:00+08:00</lastmod>
+    <lastmod>2025-04-15T11:11:37+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</loc>
+    <lastmod>2025-04-15T11:11:37+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/</loc>
+    <lastmod>2025-04-15T11:11:37+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/post/burge_v2/</loc>
+    <lastmod>2025-04-15T11:11:37+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2025-04-15T11:11:37+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/post/transformers_one/</loc>
     <lastmod>2025-04-14T16:17:00+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/%E7%94%B5%E5%BD%B1/</loc>
     <lastmod>2025-04-14T16:17:00+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2025-04-10T10:01:03+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/thoughts_of_live_streaming/</loc>
     <lastmod>2025-04-10T10:01:03+08:00</lastmod>
@@ -91,9 +97,6 @@
   </url><url>
     <loc>https://kyzy540.github.io/post/macos_v2ray_client/</loc>
     <lastmod>2024-07-27T07:45:32+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</loc>
-    <lastmod>2024-07-01T17:27:15+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/avocado_sandwich/</loc>
     <lastmod>2024-07-01T17:27:15+08:00</lastmod>
