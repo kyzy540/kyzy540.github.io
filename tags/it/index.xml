@@ -6,8 +6,59 @@
     <description>Recent content in It on 低质量随笔</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Feb 2025 14:05:23 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 May 2025 13:48:54 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>pyenv迁移uv</title>
+      <link>https://kyzy540.github.io/post/pyenv_to_uv/</link>
+      <pubDate>Thu, 15 May 2025 13:48:54 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/pyenv_to_uv/</guid>
+      <description>&lt;p&gt;pyenv和uv是俩python工具，都可以管理版本。只不过后者还提供管理项目的功能。看他们github介绍可见一斑&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/pyenv/pyenv&#34;&gt;pyenv&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Simple Python version management&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/astral-sh/uv&#34;&gt;uv&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;An extremely fast Python package and project manager, written in Rust.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;uv所谓的项目管理，包含构建、测试、发布等功能。传统软件工程的老几样。显然管辖范围比pyenv大。在uv之前python的项目管理工具还有poetry、pdm等。综合比较项目活跃度、易用性、性能后，uv是其中较好的一款工具&lt;/p&gt;
+&lt;p&gt;关于项目管理不展开说，仅介绍如何从pyenv迁移到uv。这对开发者来说通常是绕不开的第一步&lt;/p&gt;
+&lt;p&gt;如果有耐心，可以先看&lt;a href=&#34;https://docs.astral.sh/uv/getting-started/#using-uv-build&#34;&gt;uv官方文档&lt;/a&gt;。下面是实操&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;安装uv，在macos下用brew&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install uv
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;进入项目目录，初始化项目&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;uv init
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;此时，uv会创建&lt;code&gt;.python-version&lt;/code&gt;、&lt;code&gt;main.py&lt;/code&gt;、&lt;code&gt;pyproject.toml&lt;/code&gt;等文件，和&lt;code&gt;.venv&lt;/code&gt;目录，对应未初始化的虚拟环境。对于已有项目的迁移，程序入口和 Python 版本通常已经明确，可以保留 &lt;code&gt;pyproject.toml&lt;/code&gt; 和 &lt;code&gt;.venv&lt;/code&gt;，其余删除&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;编辑&lt;code&gt;pyproject.toml&lt;/code&gt;，指定python版本和pyenv一致&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;导入依赖包&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;uv add -r requirements.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;虽然导依赖只有一行命令，但它其实做了3件事: 用指定python版本真正初始化&lt;code&gt;.venv&lt;/code&gt;虚拟环境 -&amp;gt; 修改&lt;code&gt;pyproject.toml&lt;/code&gt;文件添加依赖 -&amp;gt; 安装依赖包。如果第一次运行且依赖多。这里可能会多花些时间&lt;/p&gt;
+&lt;p&gt;顺带一提，uv是多线程装包，速度比pyenv+pip快得多&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;删除pyenv初始化配置，通常在&lt;code&gt;.zshrc&lt;/code&gt;等地方。记得 &lt;strong&gt;重启shell&lt;/strong&gt;。否则&lt;code&gt;source .venv/bin/activate&lt;/code&gt;可能会失效。这也是我放弃pyenv的原因之一。它可能引入冲突，难以排查&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#eval &amp;#34;$(pyenv init -)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#eval &amp;#34;$(pyenv virtualenv-init -)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;到这其实迁移已完成。为了方便，可以加点佐料&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;7. 安装direnv&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install direnv
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;8. 启用direnv和python的oh-my-zsh插件&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# vi ~/.zshrc&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;plugins&lt;span style=&#34;color:#f92672&#34;&gt;=(&lt;/span&gt;... python direnv&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PYTHON_VENV_NAME&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.venv&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PYTHON_AUTO_VRUN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;true
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;source $ZSH/oh-my-zsh.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;direnv方便自动设环境变量 (如&lt;code&gt;PYTHONPATH&lt;/code&gt;)，写在&lt;code&gt;.envrc&lt;/code&gt;里即可。python插件可以自动启用/退出虚拟环境，注意&lt;code&gt;PYTHON_VENV_NAME&lt;/code&gt;和&lt;code&gt;PYTHON_AUTO_VRUN&lt;/code&gt;，必须在&lt;code&gt;source $ZSH/oh-my-zsh.sh&lt;/code&gt;前声明&lt;/p&gt;</description>
+    </item>
     <item>
       <title>brew 降级</title>
       <link>https://kyzy540.github.io/post/brew_downgrade/</link>

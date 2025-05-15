@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://kyzy540.github.io/tags/it/</loc>
+    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
+  </url><url>
     <loc>https://kyzy540.github.io/post/</loc>
-    <lastmod>2025-04-27T16:01:45+08:00</lastmod>
+    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/post/pyenv_to_uv/</loc>
+    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/</loc>
-    <lastmod>2025-04-27T16:01:45+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</loc>
-    <lastmod>2025-04-27T16:01:45+08:00</lastmod>
+    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/</loc>
+    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</loc>
     <lastmod>2025-04-27T16:01:45+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/oysters_grilled/</loc>
@@ -45,9 +51,6 @@
     <lastmod>2025-03-18T16:33:21+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/brew_downgrade/</loc>
-    <lastmod>2025-02-20T14:05:23+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/it/</loc>
     <lastmod>2025-02-20T14:05:23+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/macos/</loc>
