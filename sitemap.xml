@@ -2,19 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://kyzy540.github.io/post/doloc_town/</loc>
+    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/post/</loc>
+    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/</loc>
+    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/</loc>
+    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+  </url><url>
     <loc>https://kyzy540.github.io/tags/it/</loc>
     <lastmod>2025-05-15T13:48:54+08:00</lastmod>
   </url><url>
-    <loc>https://kyzy540.github.io/post/</loc>
-    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
-  </url><url>
     <loc>https://kyzy540.github.io/post/pyenv_to_uv/</loc>
-    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/</loc>
-    <lastmod>2025-05-15T13:48:54+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/</loc>
     <lastmod>2025-05-15T13:48:54+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/%E4%B8%8B%E5%8E%A8/</loc>
@@ -27,9 +33,6 @@
     <lastmod>2025-04-27T16:01:45+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/zzz_tired/</loc>
-    <lastmod>2025-04-24T16:12:47+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2025-04-24T16:12:47+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/burge_v2/</loc>
