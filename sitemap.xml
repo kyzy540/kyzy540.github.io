@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://kyzy540.github.io/post/doloc_town/</loc>
-    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+    <loc>https://kyzy540.github.io/post/babel_the_novel/</loc>
+    <lastmod>2025-06-19T09:44:59+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/</loc>
-    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+    <lastmod>2025-06-19T09:44:59+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/</loc>
-    <lastmod>2025-05-16T09:45:16+08:00</lastmod>
+    <lastmod>2025-06-19T09:44:59+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/tags/%E4%B9%A6/</loc>
+    <lastmod>2025-06-19T09:44:59+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/</loc>
+    <lastmod>2025-06-19T09:44:59+08:00</lastmod>
+  </url><url>
+    <loc>https://kyzy540.github.io/post/doloc_town/</loc>
     <lastmod>2025-05-16T09:45:16+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</loc>
@@ -84,9 +90,6 @@
     <lastmod>2024-09-07T07:16:31+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/the_detective_massacre/</loc>
-    <lastmod>2024-08-26T16:30:20+08:00</lastmod>
-  </url><url>
-    <loc>https://kyzy540.github.io/tags/%E4%B9%A6/</loc>
     <lastmod>2024-08-26T16:30:20+08:00</lastmod>
   </url><url>
     <loc>https://kyzy540.github.io/post/zsh_on_mac/</loc>
