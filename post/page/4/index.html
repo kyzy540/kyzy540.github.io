@@ -151,6 +151,30 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">macOS 录屏配字幕
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>我想做个简短的软件演示视频
+如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能&#43;ffmpeg凑合
+我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
+1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
+录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
+ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
+ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
+视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
+Mac OS中利用ffmpeg为视频添加字幕
+在 Mac 上截屏或录屏
+ffmpeg将mov转换为mp4
+基于ffmpeg给视频添加时间字幕
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-06-06 14:59:51 +0800 CST'>June 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to macOS 录屏配字幕" href="https://kyzy540.github.io/post/screen_record_macos/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">《未来之城》
     </h2>
   </header>
@@ -315,20 +339,6 @@ Extra库提供上百款体量各异口碑佳作，让选游戏难题迎刃而解
   </div>
   <footer class="entry-footer"><span title='2024-01-01 08:44:59 +0800 CST'>January 1, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 黄焖鸡" href="https://kyzy540.github.io/post/chicken_braised_in_brown_sauce/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">macOS Sonoma 关闭光标输入法提示
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了AltTab的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效
-sudo mkdir -p /Library/Preferences/FeatureFlags/Domain sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34; /Library/Preferences/FeatureFlags/Domain/UIKit.plist 参考: https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-10-12 11:00:52 +0800 CST'>October 12, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to macOS Sonoma 关闭光标输入法提示" href="https://kyzy540.github.io/post/disable_input_indicator/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
