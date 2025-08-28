@@ -20,7 +20,6 @@ alertId (e.g. 42)
 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
 简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
 
-
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
 brew install v2ray
 brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
@@ -65,7 +64,7 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
 启动client">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/macos_v2ray_client/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.1b8bb53f0cf8333d1b717272ef38c2e44b15088172e0d8a1c3a5a8974912bbbd.css" integrity="sha256-G4u1Pwz4Mz0bcXJy7zjC5EsVCIFy4Nihw6Wol0kSu70=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e4b212206468fd5178689925465d81a2a9b128c03ef32d2f84e73848581cf619.css" integrity="sha256-5LISIGRo/VF4aJklRl2BoqmxKMA&#43;8y0vhOc4SFgc9hk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -110,70 +109,30 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
         }
 
     </style>
-</noscript><meta property="og:title" content="macOS安装v2ray客户端" />
-<meta property="og:description" content="主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
-v2ray介绍和服务端安装
-v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
-
-serverIp (e.g. 20.163.126.10)
-serverPort (e.g. 35555)
-uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
-alertId (e.g. 42)
-
-安装v2ray客户端
-v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
+</noscript><meta property="og:url" content="https://kyzy540.github.io/post/macos_v2ray_client/">
+  <meta property="og:site_name" content="低质量随笔">
+  <meta property="og:title" content="macOS安装v2ray客户端">
+  <meta property="og:description" content="主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
+v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
+serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
 简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
-
-
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
-brew install v2ray
-brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
-/bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34;
-安装v2ray
-brew install v2ray
-全局代理配置
-从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
-
-
+brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
+/bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 安装v2ray
+brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
 inbounds: 用socks协议监听127.0.0.1:1080
-
-
 outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
-
-
 意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
-{
-    &#34;inbounds&#34;: [{
-        &#34;port&#34;: 1080, // v2ray客户端监听端口
-        &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接
-        &#34;protocol&#34;: &#34;socks&#34;,
-        &#34;settings&#34;: {
-            &#34;auth&#34;: &#34;noauth&#34;,
-            &#34;udp&#34;: true
-        }
-    }],
-    &#34;outbounds&#34;: [{
-        &#34;protocol&#34;: &#34;vmess&#34;,
-        &#34;settings&#34;: {
-            &#34;vnext&#34;: [{
-                &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP
-                &#34;port&#34;: serverPort, // 服务端口
-                &#34;users&#34;: [{
-                    &#34;id&#34;: &#34;uuid&#34;,
-                    &#34;alterId&#34;: alertId
-                }]
-            }]
-        }
-    }]
-}
-启动client" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://kyzy540.github.io/post/macos_v2ray_client/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2024-07-27T07:45:32+08:00" />
-<meta property="article:modified_time" content="2024-07-27T07:45:32+08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="macOS安装v2ray客户端"/>
+{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-07-27T07:45:32+08:00">
+    <meta property="article:modified_time" content="2024-07-27T07:45:32+08:00">
+    <meta property="article:tag" content="It">
+    <meta property="article:tag" content="Macos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="macOS安装v2ray客户端">
 <meta name="twitter:description" content="主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
 v2ray介绍和服务端安装
 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
@@ -187,7 +146,6 @@ alertId (e.g. 42)
 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
 简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
 
-
 注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
 brew install v2ray
 brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
@@ -229,7 +187,7 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
         }
     }]
 }
-启动client"/>
+启动client">
 
 
 <script type="application/ld+json">
@@ -300,7 +258,7 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
         <div class="logo">
             <a href="https://kyzy540.github.io/" accesskey="h" title="低质量随笔 (Alt + H)">低质量随笔</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -320,8 +278,6 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch">
-                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -367,8 +323,7 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
 <h2 id="安装v2ray客户端">安装v2ray客户端<a hidden class="anchor" aria-hidden="true" href="#安装v2ray客户端">#</a></h2>
 <p>v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的<a href="https://github.com/v2fly/v2ray-core">v2fly/v2ray-core</a>最靠谱</p>
 <p>简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯</p>
-<p><img loading="lazy" src="/img/macos_v2ray_client/dataflow.png#center" alt=""  />
-</p>
+<p><img loading="lazy" src="/img/macos_v2ray_client/dataflow.png#center"></p>
 <p><em>注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效</em></p>
 <h3 id="brew-install-v2ray">brew install v2ray<a hidden class="anchor" aria-hidden="true" href="#brew-install-v2ray">#</a></h3>
 <p><code>brew</code>是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。</p>
@@ -416,8 +371,7 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
 </span></span><span style="display:flex;"><span>v2ray run
 </span></span></code></pre></div><h2 id="macos启用代理">macOS启用代理<a hidden class="anchor" aria-hidden="true" href="#macos启用代理">#</a></h2>
 <p>以Wi-Fi为例，点开<code>详细信息...</code>，<code>SOCKS代理</code>配client信息
-<img loading="lazy" src="/img/macos_v2ray_client/macos_socks_proxy_config.png#center" alt=""  />
-</p>
+<img loading="lazy" src="/img/macos_v2ray_client/macos_socks_proxy_config.png#center"></p>
 <p>嫌繁琐也可以用脚本</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
@@ -544,7 +498,8 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
     </main>
     
 <footer class="footer">
-    <span>&copy; 2025 <a href="https://kyzy540.github.io/">低质量随笔</a></span>
+        <span>&copy; 2025 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
+
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

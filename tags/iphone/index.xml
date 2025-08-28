@@ -4,7 +4,7 @@
     <title>IPhone on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/iphone/</link>
     <description>Recent content in IPhone on 低质量随笔</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.149.0</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 17 Aug 2024 09:06:01 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/iphone/index.xml" rel="self" type="application/rss+xml" />
@@ -16,8 +16,7 @@
       <description>&lt;p&gt;您是否也遇到问题: &lt;a href=&#34;https://discussionschinese.apple.com/thread/252559846&#34;&gt;《提醒事项的到达位置的提醒不起作用》&lt;/a&gt;？&lt;/p&gt;
 &lt;p&gt;嘿！那您算来着了！&lt;/p&gt;
 &lt;p&gt;想看到位置提醒，不仅要设对位置权限，还要设对 &lt;strong&gt;锁屏权限&lt;/strong&gt;，也就是下图 &lt;strong&gt;锁定屏幕外观 -&amp;gt; 显示预览 -&amp;gt; 始终&lt;/strong&gt;。一定要 &lt;strong&gt;始终&lt;/strong&gt; 才行&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/ios/reminder_settings.jpeg#center&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/ios/reminder_settings.jpeg#center&#34;&gt;&lt;/p&gt;
 &lt;p&gt;换言之，“提醒事项”app不仅要在后台获悉设备位置，还要有权限在锁屏页上显示提醒&lt;/p&gt;
 &lt;p&gt;还有，“提醒事项”的位置提醒基于苹果自带的“地图”app，后者在中国可能定位不准。设坐标时最好反复检查&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;当前最新版本 iOS 17.6.1&lt;/em&gt;&lt;/p&gt;</description>
@@ -43,11 +42,9 @@
 &lt;p&gt;简单说，就是渠道商 (富士康或Bright Star) 提供的机器。这些机器 &lt;strong&gt;没有官方质保&lt;/strong&gt;，良莠不齐。好的有官方预备的换货机，跟行货无异，差也有生产过程中的瑕疵品。但价格比行货 &lt;strong&gt;便宜近千元&lt;/strong&gt;，商家一般也支持7天无理由退货。对自己运气有信心又愿意花心思检验的朋友可以尝试&lt;/p&gt;
 &lt;p&gt;辨别渠道机不难，网上搜 &amp;ldquo;iphone imei activation date&amp;rdquo; 之类的关键字能查到很多免费鉴别的第三方网站。国内也有微信公众号提供此类服务，不过要钱的居多&lt;/p&gt;
 &lt;p&gt;提供一个样例参考，打开 &lt;a href=&#34;https://iunlocker.com/check_imei.php&#34;&gt;https://iunlocker.com/check_imei.php&lt;/a&gt; ，输入手机序列号，即可看到如下信息&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/buy_iphone/2023-01-31_11-17.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/buy_iphone/2023-01-31_11-17.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;公众号上查到的信息类似&lt;/p&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/buy_iphone/IMG_1375.jpeg&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/buy_iphone/IMG_1375.jpeg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;重点关注3项&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;手机颜色和存储容量&lt;/li&gt;

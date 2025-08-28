@@ -4,7 +4,7 @@
     <title>Android on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/android/</link>
     <description>Recent content in Android on 低质量随笔</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.149.0</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 17 Mar 2022 18:36:21 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
@@ -25,11 +25,9 @@
 &lt;p&gt;第三步，启动http-server。这里&lt;code&gt;storage/dcim/Camera&lt;/code&gt;是服务对外开放的路径。如果写&lt;code&gt;storage/shared&lt;/code&gt;可以开放整个手机存储&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;http-server storage/dcim/Camera
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到服务启动，监听&lt;code&gt;http://30.43.99.138:8080&lt;/code&gt;
-&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放
-&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver1.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;img loading=&#34;lazy&#34; src=&#34;https://kyzy540.github.io/img/android_httpserver/android_httpserver1.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;题外话-为啥不用python-httpserver&#34;&gt;题外话: 为啥不用python http.server?&lt;/h3&gt;
 &lt;p&gt;python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还是得把整个文件下载到本地才能播。串流播放是需要服务端支持的，关键在于既要读取请求headers里的range，并以http code 206返回视频文件的切分段。浏览器只有得到http code 206才会以串流形式处理视频。另外浏览器要支持HTML5，老版本没有这个特性&lt;/p&gt;</description>
     </item>
