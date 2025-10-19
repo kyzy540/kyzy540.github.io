@@ -296,6 +296,7 @@ wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV
 诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
 safari cannot open the page cannot establish a secure connection
 诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务
+{ &#34;log&#34;: { &#34;access&#34;: &#34;/var/www/v2ray/access.log&#34;, &#34;error&#34;: &#34;/var/www/v2ray/error.log&#34;, &#34;loglevel&#34;:&#34;info&#34; }, &#34;inbounds&#34;: ... } 重启后再测试，看到日志有如下
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
