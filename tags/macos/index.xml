@@ -6,8 +6,43 @@
     <description>Recent content in Macos on 低质量随笔</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Feb 2025 14:05:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Oct 2025 17:36:04 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iTerm2 &#43; Ollama启用AI功能</title>
+      <link>https://kyzy540.github.io/post/iterm2_ai_plugin/</link>
+      <pubDate>Tue, 28 Oct 2025 17:36:04 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/iterm2_ai_plugin/</guid>
+      <description>&lt;p&gt;iTerm2 3.5后提供了AI功能，有2种用法:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Command + Shift + .&lt;/code&gt;打开&lt;strong&gt;composer&lt;/strong&gt;，输入自然语言后&lt;code&gt;Command + y&lt;/code&gt;生成shell命令&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Command + Shift + y&lt;/code&gt;打开&lt;strong&gt;AI chat&lt;/strong&gt;，关联iterm2 session作为上下文，和大模型问答&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自然语言生成shell命令挺方便，不用去浏览器打开大模型网站，提问、复制、粘贴。安装步骤不复杂，参考文章:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://voipnuggets.com/2024/11/29/maximize-productivity-with-iterm2-ai-features/&#34;&gt;《Maximize Productivity with iTerm2 AI Features with Ollama 100% free》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;也有别家文章介绍iTerm2 AI其他配法，例如输入API Key远程调用Dashscope。但我推荐Ollama，重点是数据安全&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ollama是开源软件，本地运行大模型，数据不会上传云端&lt;/li&gt;
+&lt;li&gt;Ollama支持多个大模型，如llama、qwen、deepseek等，可自行选择&lt;/li&gt;
+&lt;li&gt;除下载模型外，不依赖互联网&lt;/li&gt;
+&lt;li&gt;100%免费&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当然，Ollama也非完美，有些功能没法用，例如&lt;code&gt;AI Completion&lt;/code&gt;也就是命令自动补全。但我毕竟最优先考虑数据安全和免费，功能缺点也就凑合了。退一步想，如果生成shell命令足够快，自动补没有也罢&lt;/p&gt;
+&lt;p&gt;说完有的没的，聊具体安装。我基于上面博文做了些调整&lt;/p&gt;
+&lt;p&gt;用brew安装iTerm2 AI Plugin和ollama-app更方便&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install --cask itermai
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install --cask ollama-app
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装ollama-app图方便。不必每次敲&lt;code&gt;ollama serve&lt;/code&gt;，还占一个session&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Configure AI Models Manually&lt;/em&gt; 重点配置和文章一样，区别是模型选&lt;strong&gt;deepseek-coder:1.7b&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;API: Llama&lt;/p&gt;
+&lt;p&gt;API URL: http://localhost:11434/api/chat&lt;/p&gt;
+&lt;p&gt;Model: deepseek-coder:1.7b&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我测试了几个模型: qwen2.5:3b/codellama:7b/qwen2.5-coder:1.5b/qwen3:4b/deepseek-r1:1.5b/deepseek-coder:1.7b。 &lt;strong&gt;deepseek-coder:1.7b&lt;/strong&gt; 最好用。生成命令一般5秒左右，慢也不超过10秒。如上所说，快才好使，不然就开浏览器得了&lt;/p&gt;
+&lt;p&gt;次优选是 &lt;em&gt;qwen2.5-coder:1.5b&lt;/em&gt;，10~20秒生成命令。deepseek-r1和qwen3默认启用thinking，耗时超过1分钟，iTerm2会超时报错 (我没找到禁用thinking的方法，也许禁用后性能会不一样)&lt;/p&gt;
+&lt;p&gt;至于生成命令的质量，说实话每个模型都不如意。复杂的任务还得找云端大模型&lt;/p&gt;</description>
+    </item>
     <item>
       <title>brew 降级</title>
       <link>https://kyzy540.github.io/post/brew_downgrade/</link>
