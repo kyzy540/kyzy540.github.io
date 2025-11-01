@@ -149,6 +149,38 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">分析一个Python MongoEngine的多层装饰器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
+def handler(event): &#34;&#34;&#34;Signal decorator to allow use of callback functions as class decorators.&#34;&#34;&#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
+signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
+cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
+def decorator(fn): def apply(cls): signals.pre_save.connect(fn, sender=cls) return cls fn.apply = apply return fn 装饰器decorator有点特别，它没直接返回内部函数apply，而是将apply赋值给传入函数fn.apply后返回fn。Python中函数是一等公民，即函数也是对象，fn.apply = apply 就使用了这一特性
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 16:48:08 +0800 CST'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 分析一个Python MongoEngine的多层装饰器" href="https://kyzy540.github.io/post/python_decorator/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">《满江红》这电影吧……
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>精忠报国刻在背上很酷，但刻脑门儿上就有点尴尬。
+3小时的电影，前2.5小时很过瘾。但最0.5小时，一言难尽。
+不是说它不好，是不敢说它不好
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-05-05 08:49:43 +0800 CST'>May 5, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 《满江红》这电影吧……" href="https://kyzy540.github.io/post/manjianghong/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">跟拍《秘境探险: 失落的遗产》
     </h2>
   </header>
@@ -313,44 +345,6 @@ bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-re
   </div>
   <footer class="entry-footer"><span title='2023-02-14 16:43:58 +0800 CST'>February 14, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 《灵魂摆渡人》吊了一口长气" href="https://kyzy540.github.io/post/spiritfarer/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">做3杯奶茶
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我家的玻璃杯250ml，做3杯奶茶的配料包括
-一块黑糖 (例如严选的原味黑糖) 100ml 黑白淡奶 (大约) 川宁乌龙茶/锡兰红茶 茶包*3袋 600ml 开水 制作流程
-把3袋茶包的纸标签🏷️剪掉，和黑糖一起下锅，下开水，盖锅盖泡15分钟 开最小火，煮20分钟，关火。大概煮到能闻到茶香后，再继续煮一会儿关火 关火后别开锅盖，静置15分钟 捞出茶包，如果包破口的话要过滤一下茶叶渣 加黑白淡奶，具体量看个人口味。我通常加100ml左右 这是我总结的奶茶做法，味道比较接近港式茶餐厅的丝袜奶茶。操作相对简单，没有拿滤网撞茶的步骤。所谓撞茶就是拿跟长筒丝袜一样长的滤网，反复用热水冲茶叶，据说可以最大程度冲出茶叶的香味。如果读者搜丝袜奶茶制作视频，大多都有撞茶。毕竟丝袜奶茶就是因撞茶而得名 (长滤网经过浓茶反复重刷变成褐色，看起来很像丝袜)
-但我懒得弄，一则操作费劲，二则长滤网难清洁，除了做奶茶也没其他用途。因此我宁愿多花点时间浸泡茶叶，实际效果也差不多
-对于配料我试过几种替换，效果都不理想
-不能用红糖替代黑糖。红糖不厚重，带腻，甜度有余苦味不足
-不能用鲜奶替代黑白淡奶。黑白淡奶是经过提纯的牛奶，奶茶醇厚的口感来源于此。用鲜奶口感不“醇”，这感觉比较抽象，但喝过就知道区别明显，是奶茶的灵魂。如果做出来的成品喝着不像店里卖的，不妨多加点黑白淡奶再尝尝
-茶包可以根据个人喜好选择，大部分教程都推荐锡兰红茶，但我偏爱乌龙茶，香
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-02-03 15:48:45 +0800 CST'>February 3, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to 做3杯奶茶" href="https://kyzy540.github.io/post/milktea_hk_style/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">抹茶拿铁制作小记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我喝不了咖啡，哪怕一包速溶雀巢都能让我尿频，狂上厕所，并且第二天口腔溃疡。于是当我想去星巴克装逼的时候抹茶拿铁就成了不二之选。能做热饮，量大管饱，一点不影响晚上睡眠。随着时间推移，我自然而然地 (因为抠门)想，能不能自制抹茶拿铁？
-打开淘宝，搜索抹茶粉，那结果……令人寒心。即便用鲜奶配优质抹茶粉，一杯抹茶拿铁的成本也不到8元，星巴克直接卖我30多！？人家果然卖的还是逼格啊
-如果只求味道，不求口感的话，抹茶拿铁制作起来非常简单。以200ml为例
-准备100ml鲜奶，加热到温。烧100ml开水，兑到温奶里，加2g抹茶粉、3g白糖，搅匀收工。跟泡速溶就没啥区别
-想稍微讲究点呢，可以先打茶: 准备一个独立碗，以把抹茶粉(2g)、白糖(3g)勺里面。加 80ºC 水(100ml)后用茶筅打匀。然后兑温奶。打茶可以让茶汤更均匀。80ºC的水温能保留绿茶最好的风味
-如果还想再进一步，追求奶泡。可以买一个电动打泡器，先把温奶打出泡后倒在茶汤上面。不嫌土的话，也可以随便找个密闭容器，例如空矿泉水瓶，把温奶倒里面猛摇，也能成奶泡。奶泡就是让奶和容器充分融合，利用奶的脂肪包裹住气泡不会立刻溶解形成。只要能让空气混进奶里，手段不限。电动打泡器的价值在于可以打出比较均匀的奶泡，装逼效果也更好
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-02-01 17:11:19 +0800 CST'>February 1, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to 抹茶拿铁制作小记" href="https://kyzy540.github.io/post/matcha_latte/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

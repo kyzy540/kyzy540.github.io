@@ -149,6 +149,37 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">删除ROG奥创中心手柄映射配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ROG的奥创中心可以为每个游戏设独立的键位映射，但有个缺陷: 每个游戏的映射都会被保存下来，罗列在映射模版列表里。该如何删除自定义映射模版?
+先找到模版文件目录
+C:\Users\MyName\AppData\Local\Packages\B9ECED6F.ArmouryCrateSE_qmba6cd70vzyy\LocalState\GamepadCustomize 其中MyName是本地用户名。B9ECED6F.ArmouryCrateSE_qmba6cd70vzyy前后两串码我不确定是否随机，反正中间ArmouryCrateSE是一定的
+目录的Profiles和Templates里有若干&lt;uuid&gt;.json文件，里面包含了模版名。删除json文件即可
+注意，模版文件一式两份，两个目录下都要删除
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-01 21:44:47 +0800 CST'>November 1, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 删除ROG奥创中心手柄映射配置" href="https://kyzy540.github.io/post/rog_armory_crate_template/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mermaid图展示Python类方法重载
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>class GrandParent: @classmethod def show(cls): print(&#34;GrandParent show&#34;) cls.age() @classmethod def age(cls): print(&#34;Age: 60&#34;) class Parent(GrandParent): @classmethod def show(cls): print(&#34;Parent show&#34;) super().show() @classmethod def age(cls): print(&#34;Age: 40&#34;) class Child(Parent): @classmethod def show(cls): print(&#34;Child show&#34;) super().show() @classmethod def age(cls): print(&#34;Age: 20&#34;) if __name__ == &#34;__main__&#34;: Child.show() 上面的python代码输出
+Child show Parent show GrandParent show Age: 20 解释一下。虽然在 GrandParent.show() 中调用的是 cls.age()，但由于是在 Child 上下文中执行，所以实际调用的是 Child.age()，因此最终输出的是 “Age: 20” 而不是 “Age: 60”
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-01 10:51:28 +0800 CST'>November 1, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Mermaid图展示Python类方法重载" href="https://kyzy540.github.io/post/python_overload_mermaid/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">iTerm2 &#43; Ollama启用AI功能
     </h2>
   </header>
@@ -405,56 +436,6 @@ DLC当然是个不坏的选择，但此时此刻，我们更想先做一款黑�
   </div>
   <footer class="entry-footer"><span title='2025-08-14 15:50:07 +0800 CST'>August 14, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 《漫长的季节》" href="https://kyzy540.github.io/post/the_long_season/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">《F1》
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-感谢媳妇儿，百忙之中抽空带我看了这部电影。没她带，这片我估计连盗版资源都懒得看。要真那样，就错过了今年近年好莱坞最技术创新的作品
-好看，得去影院，得选杜比厅。音乐和音效特棒，能让座椅颤动的那种棒
-严谨地说，片子把“竞速”的沉浸感拉到了历史级的新高度
-它给我的感觉特像第一次玩《GT赛车》。不是激素飙升的快感，而是魅力，是浪漫，是直击灵魂的机械美。必须“身临其境”才能体悟
-我不爱车，也没觉得现实中的F1比赛好看。这也是之前不关注这片的原因。赛车运动没劲。看别人开车，无趣。自己开，嫌晃，不敢快，怂
-但电影不同。他提供了第一人称视角，全速飞飙。引擎轰鸣声被推到极致，反而令人望我，令人沉浸
-感官体验是不好形容的，只有看了电影才明白
-当然，影片也不是完美无缺。剧情有点油腻，明显伺候中老年和皮特爱好者。媳妇儿喜欢皮特，她能打满分100。我没那么喜欢，就顶多打90。不过剧情还是比较完整，没硬伤。作为商业片合格
-最后再次强调，一定要杜比厅。票价里的每一分钱都值得
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-06-30 09:44:45 +0800 CST'>June 30, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 《F1》" href="https://kyzy540.github.io/post/f1_the_movie/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">《巴别塔》
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>豆瓣链接🔗
-比字典易读，比小说乏味
-大白话：难看，别读
-我算是想通为啥不喜欢科幻小说了: 大段抽象的知识介绍穿插在故事间，破坏叙事节奏。没有连贯的心流，带不起情绪
-《巴别塔》的故事其实很简单，点子新奇。如果篇幅浓缩到十分之一，估计会好看不少。换句话，十分之九的内容都无聊。讲点翻译知识，说点世界格局。带点校园生活，伴点家长里短。还参杂着“独在异乡为异客”的成长烦恼
-作者大概攒了一摞日记和随笔，拿了个虚构故事串了串
-为了一缸醋，包了一个饺子
-为啥我如此诋毁作者？只消看一眼她的履历就知道
-R. F. Kuang (匡灵秀)。1996年出生于中国广东，剑桥大学哲学硕士，牛津大学理学硕士，目前在耶鲁大学的东亚语言与文学系攻读博士
-当然，人家也有技巧。故事开场非常棒：死亡、魔法、孤儿、教授…… 你要说她没读过《哈利波特》谁信
-在后续篇幅中，类似即视感也屡见不鲜。一章节所有内容都在讲校园生活。临结尾，突然来一个跟主线相关的“悬念”。猛吊一下读者兴致——哇！终于要入题，我倒要看看故事会怎么展开
-然后下一篇又是生活琐事，自怨自哀。周而复始
-等我读完半本，才发现着了作者的道。这种“叙事诡计”没完没了。活活给我整生气了！读罢全本。我可以负责地说主线就是没内容。啰嗦才是核心
-书里另一个令人反感的部分是关于国际关系的讨论。格局太大，思考太少。读着像初中思政课作业。我觉得这种观感也能用作者写动机解释。她以日记杂谈为核心成书，对国际关系缺乏研究。想到哪儿写到哪儿
-总之，《巴别塔》有个不赖的科幻点子，除此之外一无是处
-以后看见星云奖获奖作品我得绕着走了
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-06-19 09:44:59 +0800 CST'>June 19, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 《巴别塔》" href="https://kyzy540.github.io/post/babel_the_novel/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

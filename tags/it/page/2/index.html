@@ -134,6 +134,43 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">VPN Setup
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
+文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
+wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod &#43;x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下
+删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务
+# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk &#39;{print $2}&#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray 注意云实例的防火墙也要放行配置中的端口(TCP协议)
+诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
+safari cannot open the page cannot establish a secure connection
+诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务
+{ &#34;log&#34;: { &#34;access&#34;: &#34;/var/www/v2ray/access.log&#34;, &#34;error&#34;: &#34;/var/www/v2ray/error.log&#34;, &#34;loglevel&#34;:&#34;info&#34; }, &#34;inbounds&#34;: ... } 重启后再测试，看到日志有如下
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to VPN Setup" href="https://kyzy540.github.io/post/vpnsetup/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ERROR: Win32Bridge.Server.exe
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>某次系统升级后一登录就报错
+Windows cannot find ‘C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64…\Win32Bridge.Server.exe’. Make sure you typed the name correctly, and the try again.
+简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
+参考链接
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-04-28 09:43:39 +0800 CST'>April 28, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to ERROR: Win32Bridge.Server.exe" href="https://kyzy540.github.io/post/windows_bridge_server_error/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">微软好终端
     </h2>
   </header>

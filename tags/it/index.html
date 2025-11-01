@@ -134,6 +134,37 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">删除ROG奥创中心手柄映射配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ROG的奥创中心可以为每个游戏设独立的键位映射，但有个缺陷: 每个游戏的映射都会被保存下来，罗列在映射模版列表里。该如何删除自定义映射模版?
+先找到模版文件目录
+C:\Users\MyName\AppData\Local\Packages\B9ECED6F.ArmouryCrateSE_qmba6cd70vzyy\LocalState\GamepadCustomize 其中MyName是本地用户名。B9ECED6F.ArmouryCrateSE_qmba6cd70vzyy前后两串码我不确定是否随机，反正中间ArmouryCrateSE是一定的
+目录的Profiles和Templates里有若干&lt;uuid&gt;.json文件，里面包含了模版名。删除json文件即可
+注意，模版文件一式两份，两个目录下都要删除
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-01 21:44:47 +0800 CST'>November 1, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 删除ROG奥创中心手柄映射配置" href="https://kyzy540.github.io/post/rog_armory_crate_template/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mermaid图展示Python类方法重载
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>class GrandParent: @classmethod def show(cls): print(&#34;GrandParent show&#34;) cls.age() @classmethod def age(cls): print(&#34;Age: 60&#34;) class Parent(GrandParent): @classmethod def show(cls): print(&#34;Parent show&#34;) super().show() @classmethod def age(cls): print(&#34;Age: 40&#34;) class Child(Parent): @classmethod def show(cls): print(&#34;Child show&#34;) super().show() @classmethod def age(cls): print(&#34;Age: 20&#34;) if __name__ == &#34;__main__&#34;: Child.show() 上面的python代码输出
+Child show Parent show GrandParent show Age: 20 解释一下。虽然在 GrandParent.show() 中调用的是 cls.age()，但由于是在 Child 上下文中执行，所以实际调用的是 Child.age()，因此最终输出的是 “Age: 20” 而不是 “Age: 60”
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-01 10:51:28 +0800 CST'>November 1, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Mermaid图展示Python类方法重载" href="https://kyzy540.github.io/post/python_overload_mermaid/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">iTerm2 &#43; Ollama启用AI功能
     </h2>
   </header>
@@ -305,43 +336,6 @@ bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-re
   </div>
   <footer class="entry-footer"><span title='2023-03-30 20:26:29 +0800 CST'>March 30, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 扩展插件SwitchyOmega" href="https://kyzy540.github.io/post/extend_switchyomega/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">VPN Setup
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>V2Ray 关于V2Ray介绍，请参考 V2Ray简介和搭建教程
-文章写得很好，我仅做点补充: 文中的安装脚本 (goV2.sh) 在2022年11月7日报错。我仅针对报错修改了一下脚本，可自取
-wget https://raw.githubusercontent.com/kyzy540/blogdraft/main/static/scripts/goV2.sh chmod &#43;x goV2.sh sudo ./goV2.sh --version v5.1.0 改动点如下
-删除v2ctl 相关代码，v2ctl 在v2ray v5.1.0 中被移除 修改v2ray.service启动命令，增加了run子命令和 v2ray.vmess.aead.forced=false 环境变量 该脚本集成了配置文件生成，位置在/etc/v2ray/config.json。其中的uuid和端口均自动生成。安装完成后参考配置放行端口，启用服务
-# ubuntu 20.02 port=$(grep port /etc/v2ray/config.json | awk &#39;{print $2}&#39; | cut -d, -f1) sudo ufw allow ${port}/tcp #启用 v2ray服务 sudo systemctl enable v2ray sudo systemctl start v2ray 注意云实例的防火墙也要放行配置中的端口(TCP协议)
-诊断V2Ray代理 在未配置 v2ray.vmess.aead.forced=false 环境变量时V2Ray代理虽然能链接，但Safari打不开任何网页，报错类似
-safari cannot open the page cannot establish a secure connection
-诊断的关键是在 /etc/v2ray/config.json 加入日志配置，并重启v2ray服务
-{ &#34;log&#34;: { &#34;access&#34;: &#34;/var/www/v2ray/access.log&#34;, &#34;error&#34;: &#34;/var/www/v2ray/error.log&#34;, &#34;loglevel&#34;:&#34;info&#34; }, &#34;inbounds&#34;: ... } 重启后再测试，看到日志有如下
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-10-18 09:16:11 +0800 CST'>October 18, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to VPN Setup" href="https://kyzy540.github.io/post/vpnsetup/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">ERROR: Win32Bridge.Server.exe
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>某次系统升级后一登录就报错
-Windows cannot find ‘C:\Program Files\Microsoft.549981C3F5F10_4.2203.4603.0_x64…\Win32Bridge.Server.exe’. Make sure you typed the name correctly, and the try again.
-简单来说就是Cortana (小娜)的问题，参考下图在配置里重置就好
-参考链接
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-04-28 09:43:39 +0800 CST'>April 28, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to ERROR: Win32Bridge.Server.exe" href="https://kyzy540.github.io/post/windows_bridge_server_error/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
