@@ -4,10 +4,67 @@
     <title>低质量随笔</title>
     <link>https://kyzy540.github.io/</link>
     <description>Recent content on 低质量随笔</description>
-    <generator>Hugo -- 0.151.2</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Nov 2025 21:44:47 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 12 Nov 2025 10:58:24 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Siri接大模型唠嗑</title>
+      <link>https://kyzy540.github.io/post/ios_shortcut_chatai/</link>
+      <pubDate>Wed, 12 Nov 2025 10:58:24 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/ios_shortcut_chatai/</guid>
+      <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;创建一个 &lt;em&gt;快捷指令&lt;/em&gt; 供Siri使用。快捷指令会循环听用户问题，通过API发给大模型，后朗读回答。可以多轮问答，包含上下文&lt;/p&gt;
+&lt;p&gt;API使用阿里云百炼，可以改成其他兼容OpenAI标准的&lt;/p&gt;
+&lt;p&gt;必须提供API Key。&lt;strong&gt;不免费&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;用法&#34;&gt;用法&lt;/h2&gt;
+&lt;p&gt;下载快捷指令: &lt;a href=&#34;https://www.icloud.com/shortcuts/fc956f86a62044e08a9c89bec49e6be8&#34;&gt;唠嗑&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;将&lt;code&gt;Bearer sk-xxx&lt;/code&gt;替换成有效的API Key。具体获取方法参考接口提供方文档，例如&lt;a href=&#34;https://bailian.console.aliyun.com/?tab=api#/api/?type=model&amp;amp;url=2712195&#34;&gt;阿里云获取API Key&lt;/a&gt;。就可以使用了&lt;/p&gt;
+&lt;p&gt;以下参数可以按需调整&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;model_name&lt;/code&gt;: 默认&lt;code&gt;qwen-flash&lt;/code&gt;，可以改成其他模型，如&lt;code&gt;qwen-plus&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;URL: 兼容OpenAI标准的endpoint&lt;/li&gt;
+&lt;li&gt;重复&lt;code&gt;3&lt;/code&gt;次: 控制问答轮次，默认最多3轮。控制轮次是为了节约Token。由于问答包含上下文，轮次越多携带上下文越多，Token消耗越多&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enable_search: True&lt;/code&gt;: 允许模型推理过程中联网，默认开启。模型更好回答时效性问题。代价是会多消耗些许Token&lt;/li&gt;
+&lt;li&gt;prompt &lt;code&gt;Answer briefly, under 40 words&lt;/code&gt;: 提示词。建议限制字数，否则回答可能很冗长。提示词也算Token，其本身不建议写长&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;费用&#34;&gt;费用&lt;/h2&gt;
+&lt;p&gt;价格请以服务商官网实时报价为准。本文价格基于2025-11-12阿里云官网。&lt;code&gt;qwen-flash&lt;/code&gt;报价为&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;单次请求的输入Token数&lt;/th&gt;
+          &lt;th&gt;输入单价（每千Token）&lt;/th&gt;
+          &lt;th&gt;输出单价（每千Token）&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;0&amp;lt;Token≤128K&lt;/td&gt;
+          &lt;td&gt;0.00015元&lt;/td&gt;
+          &lt;td&gt;0.00015元&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;128K&amp;lt;Token≤256K&lt;/td&gt;
+          &lt;td&gt;0.0006元&lt;/td&gt;
+          &lt;td&gt;0.006元&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;256K&amp;lt;Token≤1M&lt;/td&gt;
+          &lt;td&gt;0.0012元&lt;/td&gt;
+          &lt;td&gt;0.012元&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;1个Token通常对应一个汉字，或一个英语单词。看起来不贵，但实际计费不仅按问题的字数算，还有提示词、搜索网络等其他计费项&lt;/p&gt;
+&lt;p&gt;如果觉得不好算，实践更直观。为了确保不少算，我把提示词限制升到80个单词: &lt;code&gt;Answer briefly, under 80 words&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3轮问答消耗消耗11K Tokens (输出10.5K, 输入0.5K)。请求Token数匹配最低档位，因此花费 0.0015 * 10.5 + 0.00015 * 0.5 = 0.015825元&lt;/p&gt;
+&lt;p&gt;如果还不够直观，再加个时间视角: 10元可以跑630次快捷指令，每次问满3轮。均摊到一年折合每天可跑1.7次&lt;/p&gt;
+&lt;p&gt;再次说明，问答包含上下文，因此每轮Token数会累积变大，例如第3轮输入包含了前2轮的问题和回答。如果把回答限制到40个单词，只问2轮，消耗的Token可以降到5K或更低&lt;/p&gt;
+&lt;p&gt;总结: 偶尔用的话，10元管一年&lt;/p&gt;
+&lt;h2 id=&#34;实现&#34;&gt;实现&lt;/h2&gt;
+&lt;p&gt;功能其实很简单，碍于没法把快捷指令导出成文本，只好用等效python代码展示逻辑&lt;/p&gt;</description>
+    </item>
     <item>
       <title>删除ROG奥创中心手柄映射配置</title>
       <link>https://kyzy540.github.io/post/rog_armory_crate_template/</link>
