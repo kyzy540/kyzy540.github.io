@@ -14,7 +14,7 @@
       <pubDate>Wed, 12 Nov 2025 10:58:24 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/ios_shortcut_chatai/</guid>
       <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
-&lt;p&gt;创建一个 &lt;em&gt;快捷指令&lt;/em&gt; 供Siri使用。快捷指令会循环听用户问题，通过API发给大模型，后朗读回答。可以多轮问答，包含上下文&lt;/p&gt;
+&lt;p&gt;创建一个快捷指令供Siri使用。快捷指令会循环听用户问题，通过API发给大模型，后朗读回答。可以多轮问答，包含上下文&lt;/p&gt;
 &lt;p&gt;API使用阿里云，可以改成其他兼容OpenAI标准的&lt;/p&gt;
 &lt;p&gt;必须提供API Key。&lt;strong&gt;不免费&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;用法&#34;&gt;用法&lt;/h2&gt;
