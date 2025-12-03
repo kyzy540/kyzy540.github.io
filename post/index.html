@@ -149,6 +149,50 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">如何中断Taskflow工作流
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>taskflow的poster&#43;conductor架构下，conductor以多线程并发运行job。线程池被封装在内部。因此一旦conductor开始执行任务，想中断它就很麻烦。通常要重启整个conductor线程池
+是否有更优雅的办法中断conductor正在执行的任务？
+不可行——JobBoard.abandon()/trash() JobBoard的abandon和trash方法不能终止job。前者只删除job.lock，后者会把job数据拷贝到/taskflow/.trash/下再删除job node。二者都没解决核心问题: 阻止工作流继续执行下一步骤。
+不推荐——修改数据库atomdetails状态 设想: 修改taskflow persistence数据库(如postresql) flowdetails和atomdetails表。把RUNNING和PENDING的步骤都UPDATE成REVERTED。期望工作流在进入下一个task时会异常自动中断
+测试结果: taskflow会检查任务状态 合法性。一个步骤SUCCESS，但后续步骤状态是FAILURE或REVERTED会被识别为状态非法。这会导致conductor异常退出，影响其他线程。此外，taskflow会将失败任务的failure字段转换成dict。写入的数据结构必须也合法，否则任务无法被重试
+同理state设为REVERT_FAILURE或SUCCESS可以中断工作流，但也会报错状态非法
+总之方案可行，但不高效
+可行——kill conductor进程 每个conductor都只维护一个线程，在更上层用 进程 维护多个conductor。这样就可通过kill conductor进程。但代价是任务的revert方法不会被执行。如果所有任务完全幂等，没有资源泄漏风险，是可行的
+但不推荐这个方案。它实际上提高了任务设计难度，也不符合taskflow的设计理念
+推荐——execute()装饰器 示例代码如下
+from threading import Event from taskflow import task cancel_event = Event() class CancelableTask(task.Task): def __init_subclass__(cls, **kwargs): super().__init_subclass__(**kwargs) if hasattr(cls, &#34;execute&#34;) and callable(cls.execute): original_execute = cls.execute def wrapped_execute(self, *args, **kwargs): if cancel_event and cancel_event.is_set(): raise Exception(&#34;Flow cancelled at start&#34;) result = original_execute(self, *args, **kwargs) if cancel_event and cancel_event.is_set(): raise Exception(&#34;Flow cancelled after execution&#34;) return result cls.execute = wrapped_execute class DownloadTask(CancelableTask): def execute(self, url, **kwargs): print(f&#34;Downloading {url}...&#34;) for i in range(10): print(f&#34;Progress: {i*10}%&#34;) return f&#34;Downloaded {url}&#34; def revert(self, result, *args, **kwargs): pass # TODO 清理工作 __init_subclass__是Python 3.6引入的特性，在子类初始化时执行。赋予父类修改子类方法的能力。示例代码中，DownloadTask继承了CancelableTask，它的execute方法被 透明 地封装了一层装饰器。如果检测到cancel_event会抛出异常。这种抛异常方式是taskflow可以处理的，DownloadTask的revert方法随后会被调用，完成清理工作
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-03 16:55:28 +0800 CST'>December 3, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 如何中断Taskflow工作流" href="https://kyzy540.github.io/post/taskflow_stop_a_flow/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Taskflow自定义Conductor
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor
+什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job
+过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job
+from taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(&#34;gpu&#34;) if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml
+[project.entry-points.&#34;taskflow.conductors&#34;] gpu = &#34;custom_conductor.gpu_conductor:GpuConductor&#34; 编辑安装包
+pip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到
+安装验证
+from stevedore.extension import ExtensionManager em = ExtensionManager(&#34;taskflow.conductors&#34;) print([e.name for e in em.extensions]) # 应包含 &#34;gpu&#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装
+Job post 发布Job时，需要指定details
+job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-03 13:44:42 +0800 CST'>December 3, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Taskflow自定义Conductor" href="https://kyzy540.github.io/post/taskflow_inherit_conductor/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">《中国式相亲》
     </h2>
   </header>
@@ -298,79 +342,6 @@ Model: deepseek-coder:1.7b
   </div>
   <footer class="entry-footer"><span title='2025-10-19 19:26:29 +0800 CST'>October 19, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 《城防十六计》和《帝国最后的三幕戏》" href="https://kyzy540.github.io/post/sixteen_ways_to_defend_a_walled_city/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">大阪流水账
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>国庆假期去大阪旅游了一趟，趁记忆还有余温，记录三两句
-其实这是第二次去日本。头回去的是东京，7年前。相比之下，第一次日本行的心情要激动得多，感想也丰富。毕竟越新鲜越来劲。但遗憾的是那次回国后没及时记录，到现在细节都忘了，光剩回味情绪。那会儿我觉得好比朝圣回忆，大作文，得拿腔拿调好好写。结果就是一拖再拖，直到今日
-装逼失关东。我决定痛改前非，流水记关西。好赖留点字儿
-旅行5天，2天住京都，3天住大阪。虽然住大阪的天数多，但实际呆城里的时间少。一天跑奈良，一天神户。只有最后半天去大阪水族馆，看了眼大阪城
-行程是媳妇儿安排的。有一说一，很好。景点挑选讲究。自然人文为主，都市为辅。节奏张弛有度，7分有规划，3分随心情。计划内的景儿，有超出预期的美。计划外的，有妙手偶得的喜。旅行愉快得很有层次感。5天功夫拍了2000张照片
-我盘了盘，京都2天拍照800张，奈良1天500。这俩地儿确实令我印象深刻
-奈良 奈良的鹿太热情，不用寻，出地铁商圈后到处都是。我听说过奈良鹿多，但没想到都泛滥了。它们真是拿游客当衣食父母，会主动凑到人身边找鹿饼（当地贩卖的鹿粮）。我去的那天有只鹿心急，一番讨食不得，直接啃我衣角，留了俩孔
-不过不要误会，除了俩孔，鹿没有进一步“攻击性”了。相反它们很温顺，每只都可以亲近，抚摸。0距离接触散养鹿是我从未有过的体验。它们很讨人爱
-奈良传说鹿是天神派到人间的使者。那儿寺院多，看着小鹿在庙宇间闲庭信步，确实会令人肃然起敬
-我们原计划先逛公园和边上的东大寺、春日大社，然后就离开。但赶巧，从东大寺走往春日神社路上发现了一片广袤翠绿的小山披。写这篇文章的时候我才知道那是若草山，去的时候完全不知道。但那片小坡确实非常美丽，只消看一眼就俘获了我们一家
-随性的部分来了，媳妇儿毫不犹豫地带我们开始爬山。山不高，半小时就登顶了。登顶那刻又是一次震撼。山顶也是一片连绵的草坪。平整，广袤，像是被刻意被修剪过一般。翠绿的地毯似蔓延开去，铺向远处的深山
-我们去的时候正是雨过天未晴。站在山顶辽阔的草坪上，面前是新洗的奈良街道，背后是云雾缭绕的深山。当我们望山远眺，从草坪和山峦的地平线上缓缓走出一只雄鹿。有种《幽灵公主》照进现实时的错觉，如梦似幻
-当然，不是啥神鹿，后续也没戏剧化展开。我们只是玩了一会儿，下山。旅途中偶遇美景，确实令人愉悦
-京都 人少。充其量就杭州西湖日常人流量，毫无压力。临行前其实我和媳妇儿都做好思想准备，要穿越拥挤的人潮。没想到备的是奥数，考的是加减法
-清水寺、二年坂、稻荷神社、金阁寺，人流量差不多。不排队，但也不能横着走
-就这人流里，中国游客还不是主力。韩国、白种人、南亚人、日本秋游学生，比例差不多。大家交流不顺畅，都只会些礼貌用语。反而整得气氛融洽，世界人民大团结。挺有意思
-赶上我媳妇儿爱唠嗑，给她乐得不行。早晨碰到日本小学生，问人家上几年级。看见前头老外背包贴巴西国旗，问人家是不是从巴西来的。一个人旅游的黑人胖大姐，跑来请我们帮她拍照。拍完她看着片，一边夸good，一边教把镜头拉远点再拍一张，这样她人显小……
-有回乘地铁，上来一日本爸爸，怀里抱着两岁的小女儿。小姑娘爱看我媳妇儿，媳妇儿一做鬼脸，给她逗乐了。两家人相视一笑，到站下车还bye了bye👋
-聊吃 这次旅行几乎每顿吃的都不一样，有好，也有一般。几顿下来，我发现相比异国美味，“廉价”更容易令我欢喜。细琢磨后，我觉得是源于意外的喜悦。过往东京行给我落下一个印象: 日本吃饭贵，不肯花钱吃不着像样饭。这次关西行打破了我的错误印象。发现只是特定品类贵，不是普遍现象
-藏寿司(KURA)一碟6元人民币，两例寿司。三文鱼、金枪鱼、牛肉都一个价。比国内还便宜。这我着实没想到。不仅价格便宜，藏寿司其他方面也很好。店面大，座位多，饭点不用排队。而且回转寿司嘛，坐下直接能开吃。店里座位宽敞，聊天不用控制音量。有当地人也带小孩在店里吃。于是我们带娃进去没压力，不拘束，放松，敞开吃
-类似食其家、吉野家的牛肉盖饭虽贵点，但能承受，三十多碗。自动贩卖机的饮料5元一瓶
-意料之外的便宜。有种掉进夜市美食街的感觉，花小钱品尝异国风味，美滋滋
-当然也不是所有东西都物美价廉。面食意外的贵。一碗味千拉面规格的日式面要50元。哪怕只是早餐一碗咖喱面也要35。
-这就不能提咱著名品牌杨国福，麻辣烫一碗卖到60多！门口还排大队呢……为啥？它也卖面啊。既然日本市场接受面食高定价，商家顺应市场赚取高利润何尝不可？中餐出海两开花
-同样思路，我也能理解科技公司近年积极推动产品出海。他们不求和头部竞品拼刺刀。只要能分到微薄的市场份额，利润可能比内卷的国内市场还高
-任天堂 由于孩子小，他也不喜欢主题公园。我们的行程没安排大阪环球影城。任天堂博物馆也早被预约满
-但也许是心诚则灵😆。乘机场大巴去京都的路上，车在下高架后的一个红绿灯路口停下，等🚥。我随头望眼窗外，就看到Nintendo招牌，挂在那座似曾相识、纯白、方正的大楼上。我立马掏出手机拍了一张，大巴也同时起步了🚥
-我还以为他们楼应该在某个大软件园的核心位置呢，没想到就是加油站对面的一座楼。低调得令人意外
-后来在京都大丸百货8楼转悠的时候，媳妇儿正寻思找哪家店吃午餐。一抬头，看到招牌上
-←Nintendo Kyoto
-“吃啥一会儿再说，我要先去那儿！”——不期而遇，分外欣喜
-当然，激动归激动，消费我还是比较克制。买了《王国之泪》的勾玉盲盒 (开出水勾玉)，马里奥冰箱贴盲盒 (开出3D世界)，和一件胸口映着&#34;Nintendo Kyoto&#34;大红T恤
-回国后媳妇儿问我T恤产地哪里，我一看，Made in China。安心了，质量肯定没问题。真的，水洗一点儿色儿不掉。穿上后，那叫个舒坦
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-10 10:14:45 +0800 CST'>October 10, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 大阪流水账" href="https://kyzy540.github.io/post/travel_of_osaka/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">直播有没可能是小餐馆的出路？
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本文是《西贝垃圾话》的后续随想，随便唠唠
-上文书说到餐饮业想赚钱，连锁预制菜比较靠谱。其核心是在中央厨房流水线生产，保品质下限。又因大批量而降低成本。科技成就物美价廉
-反观小餐馆，虽然有“烟火气”，但相应要付出诸多代价：服务、环境还有最重要的利润
-消费者的需求其实很无赖——全都要。小餐馆如果要同时保障品质、服务和就餐环境，必须提高成本。为服务员提供有竞争力的薪资，做时尚店面装潢。潜心修炼厨艺的人很难同时精通人事管理和建筑设计。哪怕有那心，也没那力。一天炒几十分菜就够累人了，哪还有功夫搞其他
-为啥有“烟火气”的往往都是苍蝇小馆？一家小店，两人张罗，确保食物好吃就是他们的极限了。其他部分能省则省，才能维系利润。买卖才能延续。当然，某些店极具特色，无法复制，可以改走精致路线，让消费者买单。但这种店太少，门槛高不可攀，不多讨论
-那有没一种可能，让小餐馆只付出较少的精力，就能提高利润，从而让他们从苍蝇小馆再往前进化点？
-也许直播和外卖是条出路
-这不是我原创的想法。当下已经有些人在实践了。模式说来简单，还是俩人张罗小店，只不过在旁边架上手机，开直播，获取一些网络流量。只不过这品类很小众，做的人少，还缺一个成功案例
-说回赚钱，小店走的都是薄利多销路线，必须牺牲除餐食外其他元素。上面也说了，没得选，为的是保住利润。直播的商业价值是什么？——流量和利润 (打赏)。正是小店最需要的
-不做全职直播，设备投入成本几乎为零。如果只是架手机拍摄厨房，运营成本几乎也是零。当下做这类直播的店现状如此。有收益，但不高
-如果小店主们能更进一步呢？——为观众提供情绪价值。忙完手头厨活儿，坐下来，拿手机对着脸，跟网友唠唠嗑。不用长篇大论，整点儿类似吃播的家常里短就行。聊聊对厨艺的理解，店铺经营，主打一个真诚，陪伴感
-或者反过来，有能说会道的新时代青年，本来就懂点直播门道儿，但没绝活儿。找不到工作可以学厨啊，好歹餐馆能带来基本收入，保个下限
-试想，同样是养成系，看小年轻朴实无华，艰苦奋斗，诚信经营，匠人精神，独立创业，多正能量啊。再能聊两句，拉近距离，赚点观众打赏是有可能的
-这样，小店就可以不被成本定价两头堵的难题困死，用第三条路，直播，创收。有收益，有人气，实体经济就能走下去
-到这，额，差一嘴，有外卖什么事儿？说实话，不搞外卖也行。只是外卖餐饮有几个优点
-能结合直播形式，观众情绪到了不必人肉跑到线下店，可以外卖下单 直播看着自己的订餐一步步从原材料变到成品，再送到自己手上。观众安心。同时可以观看劳动有成果的过程，有第一层娱乐。成果收获到自己手里，虚拟联系现实，是第二层娱乐 观众吃着开心，直播里发个弹幕夸一嘴，是最好的广告，还免费 降低实体店门槛。仅做外卖的店面比主打堂食的要便宜的多，更适合小买卖 最后最后，我得再次声明，这是我脑子一热想出的点子。不成熟，但感觉至少自洽。如果有兴趣尝试的朋友，祝好运🍀
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-08 16:10:25 +0800 CST'>October 8, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 直播有没可能是小餐馆的出路？" href="https://kyzy540.github.io/post/cooking_broadcast/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

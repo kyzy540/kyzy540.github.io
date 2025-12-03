@@ -134,6 +134,42 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">zkcli
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2023-09-16
+一个zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
+原版有个问题: deleteall子命令不能递归删除zookeeper node。原因是 代码 没实现递归删除
+鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了deleteall的递归逻辑。安装命令
+go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 zkCli.sh，这个go版本有3点优势
+交互模式支持 tab 自动提示 支持 batch 模式执行命令 方便安装配置，不依赖java zkcli默认会读配置文件$HOME/.config/zkcli.conf，可以避免每条命了都要输入冗长参数。配置文件参考 zkcli.conf。个人常用配置如下
+s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-16 21:06:11 +0800 CST'>September 16, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to zkcli" href="https://kyzy540.github.io/post/zkcli/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">分析一个Python MongoEngine的多层装饰器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
+def handler(event): &#34;&#34;&#34;Signal decorator to allow use of callback functions as class decorators.&#34;&#34;&#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
+signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
+cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
+def decorator(fn): def apply(cls): signals.pre_save.connect(fn, sender=cls) return cls fn.apply = apply return fn 装饰器decorator有点特别，它没直接返回内部函数apply，而是将apply赋值给传入函数fn.apply后返回fn。Python中函数是一等公民，即函数也是对象，fn.apply = apply 就使用了这一特性
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 16:48:08 +0800 CST'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 分析一个Python MongoEngine的多层装饰器" href="https://kyzy540.github.io/post/python_decorator/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">扩展插件SwitchyOmega
     </h2>
   </header>

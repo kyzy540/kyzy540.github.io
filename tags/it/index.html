@@ -134,6 +134,50 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">如何中断Taskflow工作流
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>taskflow的poster&#43;conductor架构下，conductor以多线程并发运行job。线程池被封装在内部。因此一旦conductor开始执行任务，想中断它就很麻烦。通常要重启整个conductor线程池
+是否有更优雅的办法中断conductor正在执行的任务？
+不可行——JobBoard.abandon()/trash() JobBoard的abandon和trash方法不能终止job。前者只删除job.lock，后者会把job数据拷贝到/taskflow/.trash/下再删除job node。二者都没解决核心问题: 阻止工作流继续执行下一步骤。
+不推荐——修改数据库atomdetails状态 设想: 修改taskflow persistence数据库(如postresql) flowdetails和atomdetails表。把RUNNING和PENDING的步骤都UPDATE成REVERTED。期望工作流在进入下一个task时会异常自动中断
+测试结果: taskflow会检查任务状态 合法性。一个步骤SUCCESS，但后续步骤状态是FAILURE或REVERTED会被识别为状态非法。这会导致conductor异常退出，影响其他线程。此外，taskflow会将失败任务的failure字段转换成dict。写入的数据结构必须也合法，否则任务无法被重试
+同理state设为REVERT_FAILURE或SUCCESS可以中断工作流，但也会报错状态非法
+总之方案可行，但不高效
+可行——kill conductor进程 每个conductor都只维护一个线程，在更上层用 进程 维护多个conductor。这样就可通过kill conductor进程。但代价是任务的revert方法不会被执行。如果所有任务完全幂等，没有资源泄漏风险，是可行的
+但不推荐这个方案。它实际上提高了任务设计难度，也不符合taskflow的设计理念
+推荐——execute()装饰器 示例代码如下
+from threading import Event from taskflow import task cancel_event = Event() class CancelableTask(task.Task): def __init_subclass__(cls, **kwargs): super().__init_subclass__(**kwargs) if hasattr(cls, &#34;execute&#34;) and callable(cls.execute): original_execute = cls.execute def wrapped_execute(self, *args, **kwargs): if cancel_event and cancel_event.is_set(): raise Exception(&#34;Flow cancelled at start&#34;) result = original_execute(self, *args, **kwargs) if cancel_event and cancel_event.is_set(): raise Exception(&#34;Flow cancelled after execution&#34;) return result cls.execute = wrapped_execute class DownloadTask(CancelableTask): def execute(self, url, **kwargs): print(f&#34;Downloading {url}...&#34;) for i in range(10): print(f&#34;Progress: {i*10}%&#34;) return f&#34;Downloaded {url}&#34; def revert(self, result, *args, **kwargs): pass # TODO 清理工作 __init_subclass__是Python 3.6引入的特性，在子类初始化时执行。赋予父类修改子类方法的能力。示例代码中，DownloadTask继承了CancelableTask，它的execute方法被 透明 地封装了一层装饰器。如果检测到cancel_event会抛出异常。这种抛异常方式是taskflow可以处理的，DownloadTask的revert方法随后会被调用，完成清理工作
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-03 16:55:28 +0800 CST'>December 3, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 如何中断Taskflow工作流" href="https://kyzy540.github.io/post/taskflow_stop_a_flow/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Taskflow自定义Conductor
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor
+什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job
+过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job
+from taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(&#34;gpu&#34;) if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml
+[project.entry-points.&#34;taskflow.conductors&#34;] gpu = &#34;custom_conductor.gpu_conductor:GpuConductor&#34; 编辑安装包
+pip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到
+安装验证
+from stevedore.extension import ExtensionManager em = ExtensionManager(&#34;taskflow.conductors&#34;) print([e.name for e in em.extensions]) # 应包含 &#34;gpu&#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装
+Job post 发布Job时，需要指定details
+job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-03 13:44:42 +0800 CST'>December 3, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Taskflow自定义Conductor" href="https://kyzy540.github.io/post/taskflow_inherit_conductor/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Siri接大模型唠嗑
     </h2>
   </header>
@@ -296,42 +340,6 @@ outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和�
   </div>
   <footer class="entry-footer"><span title='2024-07-27 07:45:32 +0800 CST'>July 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to macOS安装v2ray客户端" href="https://kyzy540.github.io/post/macos_v2ray_client/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">zkcli
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>2023-09-16
-一个zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
-原版有个问题: deleteall子命令不能递归删除zookeeper node。原因是 代码 没实现递归删除
-鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了deleteall的递归逻辑。安装命令
-go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 zkCli.sh，这个go版本有3点优势
-交互模式支持 tab 自动提示 支持 batch 模式执行命令 方便安装配置，不依赖java zkcli默认会读配置文件$HOME/.config/zkcli.conf，可以避免每条命了都要输入冗长参数。配置文件参考 zkcli.conf。个人常用配置如下
-s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-09-16 21:06:11 +0800 CST'>September 16, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to zkcli" href="https://kyzy540.github.io/post/zkcli/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">分析一个Python MongoEngine的多层装饰器
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 @update_modified.apply ，核心代码如下
-def handler(event): &#34;&#34;&#34;Signal decorator to allow use of callback functions as class decorators.&#34;&#34;&#34; def decorator(fn): def apply(cls): event.connect(fn, sender=cls) return cls fn.apply = apply return fn return decorator @handler(signals.pre_save) def update_modified(sender, document): document.modified = datetime.utcnow() @update_modified.apply class Record(Document): modified = DateTimeField() 上述代码实现等同如下代码的功能，核心目的是让 event/fn/cls 都可以组装。但……这个嵌套装饰器具体是如何生效的?
-signals.pre_save.connect(update_modified, sender=Record) 参考 《如何理解python装饰器》 可知道如下关系:
-cls = Record fn = update_modified event = signals.pre_save 用 handler 装饰 update_modified 返回了装饰器decorator，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器
-def decorator(fn): def apply(cls): signals.pre_save.connect(fn, sender=cls) return cls fn.apply = apply return fn 装饰器decorator有点特别，它没直接返回内部函数apply，而是将apply赋值给传入函数fn.apply后返回fn。Python中函数是一等公民，即函数也是对象，fn.apply = apply 就使用了这一特性
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-08-01 16:48:08 +0800 CST'>August 1, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to 分析一个Python MongoEngine的多层装饰器" href="https://kyzy540.github.io/post/python_decorator/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
