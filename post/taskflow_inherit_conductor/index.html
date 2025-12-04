@@ -45,7 +45,8 @@ job_backend = job_backends.fetch(name, conf, persistence=persist_backend)
 
 details = {&#34;gpu&#34;: True}
 job_backend.post(flow_name, logbook, details)
-">
+补充
+额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下">
 <meta name="author" content="">
 <link rel="canonical" href="https://kyzy540.github.io/post/taskflow_inherit_conductor/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.5c0f21e25c3551fd5c4685517c592eb41f5073118ce154d59fa4fd79f71c15c3.css" integrity="sha256-XA8h4lw1Uf1cRoVRfFkutB9QcxGM4VTVn6T9efccFcM=" rel="preload stylesheet" as="style">
@@ -105,7 +106,7 @@ pip install -e . 注意，必须安装后stevedore才能在环境的分发元数
 安装验证
 from stevedore.extension import ExtensionManager em = ExtensionManager(&#34;taskflow.conductors&#34;) print([e.name for e in em.extensions]) # 应包含 &#34;gpu&#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装
 Job post 发布Job时，需要指定details
-job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) ">
+job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) 补充 额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -152,7 +153,8 @@ job_backend = job_backends.fetch(name, conf, persistence=persist_backend)
 
 details = {&#34;gpu&#34;: True}
 job_backend.post(flow_name, logbook, details)
-">
+补充
+额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下">
 
 
 <script type="application/ld+json">
@@ -181,12 +183,12 @@ job_backend.post(flow_name, logbook, details)
   "@type": "BlogPosting",
   "headline": "Taskflow自定义Conductor",
   "name": "Taskflow自定义Conductor",
-  "description": "Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor\n什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job\n过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job\nfrom taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(\u0026#34;gpu\u0026#34;) if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml\n[project.entry-points.\u0026#34;taskflow.conductors\u0026#34;] gpu = \u0026#34;custom_conductor.gpu_conductor:GpuConductor\u0026#34; 编辑安装包\npip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到\n安装验证\nfrom stevedore.extension import ExtensionManager em = ExtensionManager(\u0026#34;taskflow.conductors\u0026#34;) print([e.name for e in em.extensions]) # 应包含 \u0026#34;gpu\u0026#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装\nJob post 发布Job时，需要指定details\njob_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {\u0026#34;gpu\u0026#34;: True} job_backend.post(flow_name, logbook, details) ",
+  "description": "Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor\n什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job\n过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job\nfrom taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(\u0026#34;gpu\u0026#34;) if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml\n[project.entry-points.\u0026#34;taskflow.conductors\u0026#34;] gpu = \u0026#34;custom_conductor.gpu_conductor:GpuConductor\u0026#34; 编辑安装包\npip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到\n安装验证\nfrom stevedore.extension import ExtensionManager em = ExtensionManager(\u0026#34;taskflow.conductors\u0026#34;) print([e.name for e in em.extensions]) # 应包含 \u0026#34;gpu\u0026#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装\nJob post 发布Job时，需要指定details\njob_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {\u0026#34;gpu\u0026#34;: True} job_backend.post(flow_name, logbook, details) 补充 额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下\n",
   "keywords": [
     "taskflow"
   ],
-  "articleBody": "Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor\n什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job\n过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job\nfrom taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(\"gpu\") if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml\n[project.entry-points.\"taskflow.conductors\"] gpu = \"custom_conductor.gpu_conductor:GpuConductor\" 编辑安装包\npip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到\n安装验证\nfrom stevedore.extension import ExtensionManager em = ExtensionManager(\"taskflow.conductors\") print([e.name for e in em.extensions]) # 应包含 \"gpu\" 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装\nJob post 发布Job时，需要指定details\njob_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {\"gpu\": True} job_backend.post(flow_name, logbook, details) ",
-  "wordCount" : "88",
+  "articleBody": "Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor\n什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job\n过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job\nfrom taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(\"gpu\") if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml\n[project.entry-points.\"taskflow.conductors\"] gpu = \"custom_conductor.gpu_conductor:GpuConductor\" 编辑安装包\npip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到\n安装验证\nfrom stevedore.extension import ExtensionManager em = ExtensionManager(\"taskflow.conductors\") print([e.name for e in em.extensions]) # 应包含 \"gpu\" 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装\nJob post 发布Job时，需要指定details\njob_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {\"gpu\": True} job_backend.post(flow_name, logbook, details) 补充 额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下\ndef notify(self, event_type, details): # 省略上文 try: listener(event_type, details.copy()) except Exception: LOG.warning(\"Failure calling listener %s to notify about event\" \" %s, details: %s\", listener, event_type, details, exc_info=True) 另一个补充点是Conductor不是非要通过stevedore实例化，直接实例化也行。用stevedore是最佳实线，如此可以通过配置方便地修改Conductor类型。更灵活\n",
+  "wordCount" : "120",
   "inLanguage": "en",
   "datePublished": "2025-12-03T13:44:42+08:00",
   "dateModified": "2025-12-03T13:44:42+08:00",
@@ -314,7 +316,18 @@ job_backend.post(flow_name, logbook, details)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>details <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;gpu&#34;</span>: <span style="color:#66d9ef">True</span>}
 </span></span><span style="display:flex;"><span>job_backend<span style="color:#f92672">.</span>post(flow_name, logbook, details)
-</span></span></code></pre></div>
+</span></span></code></pre></div><h1 id="补充">补充<a hidden class="anchor" aria-hidden="true" href="#补充">#</a></h1>
+<p>额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似<code>conductor.notifier.register(cond.notifier.ANY, callback)</code>。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">notify</span>(self, event_type, details):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 省略上文</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        listener(event_type, details<span style="color:#f92672">.</span>copy())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>        LOG<span style="color:#f92672">.</span>warning(<span style="color:#e6db74">&#34;Failure calling listener </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> to notify about event&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34; </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, details: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span>, listener, event_type,
+</span></span><span style="display:flex;"><span>                    details, exc_info<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span></code></pre></div><p>另一个补充点是Conductor不是非要通过<code>stevedore</code>实例化，直接实例化也行。用<code>stevedore</code>是最佳实线，如此可以通过配置方便地修改Conductor类型。更灵活</p>
+
 
   </div>
 

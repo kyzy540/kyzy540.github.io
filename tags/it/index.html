@@ -170,7 +170,8 @@ pip install -e . 注意，必须安装后stevedore才能在环境的分发元数
 安装验证
 from stevedore.extension import ExtensionManager em = ExtensionManager(&#34;taskflow.conductors&#34;) print([e.name for e in em.extensions]) # 应包含 &#34;gpu&#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装
 Job post 发布Job时，需要指定details
-job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) </p>
+job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) 补充 额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下
+...</p>
   </div>
   <footer class="entry-footer"><span title='2025-12-03 13:44:42 +0800 CST'>December 3, 2025</span></footer>
   <a class="entry-link" aria-label="post link to Taskflow自定义Conductor" href="https://kyzy540.github.io/post/taskflow_inherit_conductor/"></a>
