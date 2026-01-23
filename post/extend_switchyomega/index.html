@@ -408,7 +408,7 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {}
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 直接连接
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    fallbackProxy = [{
+</span></span></span><span style="display:flex;"><span>    fallbackProxy = [{
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;scheme&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">scheme</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">port</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">host</span>
@@ -445,8 +445,8 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;revision&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">generateRevision</span>(),
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fallbackProxy&#34;</span><span style="color:#f92672">:</span> {
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;scheme&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">scheme</span>, <span style="color:#75715e"># http
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">port</span>, <span style="color:#75715e"># int
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">host</span>
+</span></span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">port</span>, <span style="color:#75715e"># int
+</span></span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">host</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  }]
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">patch</span>
@@ -475,7 +475,7 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {}
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 增/删/改 auto switch都要加 _t: &#34;a&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rules</span>[<span style="color:#e6db74">&#34;_t&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a&#34;</span>
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span>[<span style="color:#e6db74">&#34;_t&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a&#34;</span>
 </span></span><span style="display:flex;"><span>    switchPatch = {
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;rules&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">rules</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;revision&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;oldRevision&#34;</span>, <span style="color:#a6e22e">generateRevision</span>()]
@@ -485,9 +485,9 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>showAlert = <span style="color:#a6e22e">(message, error) -&gt;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">error</span>
 </span></span><span style="display:flex;"><span>      bgColor = <span style="color:#e6db74">&#34;rgba(231, 76, 60, 0.8)&#34;</span>; <span style="color:#75715e"># 半透明红色
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span>
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
 </span></span><span style="display:flex;"><span>      bgColor =  <span style="color:#e6db74">&#34;rgba(39, 174, 96, 0.8)&#34;</span> <span style="color:#75715e"># 绿色半透明
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    div = document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>)
+</span></span></span><span style="display:flex;"><span>    div = document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>)
 </span></span><span style="display:flex;"><span>    div.style.position = <span style="color:#e6db74">&#34;fixed&#34;</span>
 </span></span><span style="display:flex;"><span>    div.style.top = <span style="color:#e6db74">&#34;50%&#34;</span>
 </span></span><span style="display:flex;"><span>    div.style.left = <span style="color:#e6db74">&#34;50%&#34;</span>
@@ -505,7 +505,7 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>proxyUrlElement = document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;proxy&#34;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># click发起代理配置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">proxyUrlElement</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addEventListener</span> <span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">(event) -&gt;</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">proxyUrlElement</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">addEventListener</span> <span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">(event) -&gt;</span>
 </span></span><span style="display:flex;"><span>  proxyUrlElement = <span style="color:#a6e22e">event</span><span style="color:#f92672">?</span>.<span style="color:#a6e22e">target</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">srcElement</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> <span style="color:#a6e22e">proxyUrlElement</span><span style="color:#f92672">?</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;fail to get element in click event&#34;</span>)
@@ -517,10 +517,10 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;no profileName&#34;</span>)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 从 data-patterns读auto switch规则
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  patterns = <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">proxyUrlElement</span>.<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">patterns</span>)
+</span></span></span><span style="display:flex;"><span>  patterns = <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">proxyUrlElement</span>.<span style="color:#a6e22e">dataset</span>.<span style="color:#a6e22e">patterns</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 读现有配置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">sendMessage</span>({
+</span></span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">sendMessage</span>({
 </span></span><span style="display:flex;"><span>    method: <span style="color:#e6db74">&#34;getAll&#34;</span>
 </span></span><span style="display:flex;"><span>    args: []
 </span></span><span style="display:flex;"><span>  }, <span style="color:#a6e22e">(response) -&gt;</span>
@@ -533,12 +533,12 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
 </span></span><span style="display:flex;"><span>      [<span style="color:#a6e22e">protocal</span>, <span style="color:#a6e22e">rawIp</span>, <span style="color:#a6e22e">proxyPort</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxyUrl</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;:&#34;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>      <span style="color:#75715e">#TODO 检查合法性
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      scheme = <span style="color:#a6e22e">protocal</span>.<span style="color:#a6e22e">toLowerCase</span>()
+</span></span></span><span style="display:flex;"><span>      scheme = <span style="color:#a6e22e">protocal</span>.<span style="color:#a6e22e">toLowerCase</span>()
 </span></span><span style="display:flex;"><span>      ip = <span style="color:#a6e22e">rawIp</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;//&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">trim</span>()
 </span></span><span style="display:flex;"><span>      port = parseInt(<span style="color:#a6e22e">proxyPort</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 增/改profile patch
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      profileKey = <span style="color:#a6e22e">nameToKey</span>(<span style="color:#a6e22e">profileName</span>)
+</span></span></span><span style="display:flex;"><span>      profileKey = <span style="color:#a6e22e">nameToKey</span>(<span style="color:#a6e22e">profileName</span>)
 </span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">profileKey</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">options</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;existing profile </span><span style="color:#e6db74">#{</span><span style="color:#a6e22e">profileName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span><span style="display:flex;"><span>        patch = <span style="color:#a6e22e">diffProfile</span>(<span style="color:#a6e22e">options</span>[<span style="color:#a6e22e">profileKey</span>], <span style="color:#a6e22e">scheme</span>, <span style="color:#a6e22e">ip</span>, <span style="color:#a6e22e">port</span>)
@@ -606,7 +606,7 @@ bower angular-spectrum-colorpicker#~1.3.5      ECMDERR Failed to execute &ldquo;
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
+        <span>&copy; 2026 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
 
     <span>
         Powered by

@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.152.2"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.154.5"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -153,6 +153,56 @@
 </div>
 
     </footer>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Kombu &#43; Redis的Worker发现
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果
+一种经典解决方案是心跳和注册中心模式：
+心路广播: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息 存活判定（TTL）: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典 自动剔除: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线 Python中可以基于Kombu和Redis实现：worker.py上报心跳，proxy.py是注册中心（将计算任务代理给worker执行）
+import time from kombu import Connection, Exchange def run_worker(): with Connection(&#34;redis://127.0.0.1:6379&#34;) as conn: heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;) producer = conn.Producer() worker_ip = &#34;127.0.0.1&#34; print(f&#34;[*] Worker {worker_ip} started...&#34;) while True: payload = {&#34;ip&#34;: worker_ip, &#34;ts&#34;: time.time()} producer.publish( payload, exchange=heartbeat_exchange, declare=[heartbeat_exchange], # 不加declare proxy收不到消息 serializer=&#34;json&#34;, ) print(f&#34;[#] Heartbeat sent: {time.ctime()}&#34;) time.sleep (5) if __name__ == &#34;__main__&#34;: run_worker() import time import socket from kombu import Connection, Exchange, Queue def start_proxy(): active_workers = {} timeout_threshold = 15 conn = Connection(&#34;redis://127.0.0.1:6379&#34;) heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;) # 注意：如果不指定名字 Kombu 会随机生成一个 discovery_queue = Queue(&#34;example&#34;, exchange=heartbeat_exchange, exclusive-True) def process_message(body, message): ip = body.get(&#34;ip&#34;) active_workers[ip] = body.get(&#34;ts&#34;) print(f&#34;[&#43;] Discovered/Updated worker: {ip}&#34;) message.ack() print(&#34;[*] Proxy is listening for heartbeats...&#34;) with conn.Consumer(queues=[discovery_queue], callbacks=[process_message]): last_check = time.time() while True: try: conn.drain_events(timeout=1) except socket.timeout: # 即使没有收到消息也定期检查 worker 存活状态 pass # 每隔 5 秒打印一次当前在线列表 if time.time() - last_check &gt; 5: now = time.time() # 清理超时 Worker dead_workers = [ ip for ip, ts in active workers.items() if now - ts &gt; timeout_threshold ] for ip in dead_workers: del active_workers[ip] print(f&#34;[-] Worker {ip} timed out.&#34;) print(f&#34;Current Online: {list(active_workers.keys())}&#34;) last_check = time.time() if __name__ == &#34;__main__&#34;: try: start_proxy() except KeyboardInterrupt: print(&#34;Exit.&#34;) fanout交换机 Exchange(type=&#34;fanout&#34;)是广播交换机，对应AMOP中topic广播概念，对应《Redis Pub/sub》。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-01-23 21:35:55 +0800 CST'>January 23, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Kombu &#43; Redis的Worker发现" href="https://kyzy540.github.io/post/kombu_redis_heartbeat/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">乱读报告: 2025年11月, 咱还消费低迷吗?
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2025 年 11 月 24 日，美国银行证券 (BofA Securities) 发布了一篇报告: 《China Consumer（H/A）：Is China still under-consuming? Myth vs. truth》。直译是《中国还消费低迷吗? 臆想vs.真相》
+文章是全英文。大致内容是说中国消费近3年确有下行，但并没有特糟。中国市场的特点是消量大，价格低，只看消费额有失偏颇。食品、日用品、电器、骑车等商品在中国的售价显著低于发达国家。处世界前列。医疗、教育等社会保障也可称优秀
+另外，作为证券报告，文中还指出中国在文化、体育、娱乐、高端服务等方面还有很大上升空间。还说中国企业当下最好的增长机遇是出海。最后结合前文推荐了几只股票 (泡泡玛特/腾讯/美的/大麦等)
+总的来说是典型的市场调研和投资建议报告。投资部分我不关心，市场调研部分还挺有意思
+用“量大价低”定义市场，而非只看总金额，角度新颖 文章数据来源于多个权威机构 (联合国粮农组织、世界银行等)，并经过思考整合，有说服力 报告结论大致上跟生活观察吻合，合情合理 想看更多报告翻译的 ，B站上有人做了视频 (也没原文) 美国银行证券解读中国真的在“低消费”吗？迷思与真相
+我只想写点我感兴趣的
+用&#34;物本位&#34;调整视角 这是报告的最大亮点。核心观点是别看中国人均消费总额低，那是低物价导致的假象。世界工厂的低成本低物价是特殊国情。如果从物本位观察，中国的人均消费实际超过部分发达国家水平
+例如，中国的粮食消费高于美国，包括肉、卡路里、蔬菜。同时，中国的粮食、服装、餐饮、交通、水电、网络都比美国低50%以上。人均居住面积比法国和英国大。
+生活观察和数字吻合。一线城市的生活质量已不落后发达国家。同样商品国内比日韩便宜得多。餐饮行业冠绝全球。许多去西方一线城市留学生也表示租房比国内昂贵得多
+但数字和观察一致就代表真相吗？在我看来不完全是。转换的不是真相，而是视角。“钱本位”视角也很重要。想对齐账还得算钱。如果说中国一年总产值100亿，国内消费20亿。那意味着另外80亿产值必须由出口消化掉。否则就得通缩
+所以物本位看，国内消费水平够得上发达国家。但按钱本位看，消费确实低迷。但没完全进入通缩周期
+2022-2024我国经济在通缩线上下徘徊 2022年疫情放开后，消费经历了短暂的报复性增长，随后开始下滑。但，是不是逐年递减，已至通缩了呢？是缩了，但没一路下坡
+CPI(消费者价格指数)衡量消费品价格变动，2025年12月CPI同比上涨0.8% PPI(生产者价格指数)衡量企业产品价格变动，2025年12月PPI同比下降1.9% “CPI强, PPI弱”意味着消费有需求，但企业商品价格受制于产能或外需，有通缩压力
+还不算太糟。国补没白贴
+企业内卷和出海谋生 报告提供的出路是企业应积极开展出口贸易
+中国是世界工厂，有独特的成本优势。同时也指出相同产品在国内售价低廉。对消费者来说是好事，商品物美价廉。但对企业来说很惨，市场竞争激烈，成本上涨，却难以提高售价
+企业利润降低，裁员。消费者愈发谨慎消费，对售价更加敏感。这也符合生活观察
+出海是企业谋求更高利润的机会。很多国货即使抬高价格，到海外依然有很强竞争力。所幸很多企业有远见，很早就采取行动，甚至已经收获一定成果。TODO: 2025第三季度我国出口上涨6.6%，该成绩令国内外都感到惊喜
+这也和生活观察吻合。世博会期间去日本，杨国福麻辣烫一碗卖60多门口还排大队
+游戏行业也是。从《原神》到《黑猴》，到2025年的《鸣潮》、《烟云十六声》，国产游戏不缺国际市场名利双收的案例
+还有泡泡玛特的拉布布，开到纽约的雪王，去日本竞争k-car的比亚迪，等等
+就写这么多吧。读市场调研报告很有趣。数字对照生活，看得才真切。澡堂子里人人都是经济学家，风言风语，扑朔迷离。当有些印象被反复提及，总会让人纳闷，是已经达成了广泛认同，还是仅仅是谣言传播效果好？其中又有哪些是被夸大的？还是得拿数字照一照，比较明了
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-20 21:15:38 +0800 CST'>December 20, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 乱读报告: 2025年11月, 咱还消费低迷吗?" href="https://kyzy540.github.io/post/2025_consuming_report/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -324,45 +374,6 @@ C:\Users\MyName\AppData\Local\Packages\B9ECED6F.ArmouryCrateSE_qmba6cd70vzyy\Loc
   <footer class="entry-footer"><span title='2025-11-01 21:44:47 +0800 CST'>November 1, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 删除ROG奥创中心手柄映射配置" href="https://kyzy540.github.io/post/rog_armory_crate_template/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Mermaid图展示Python类方法重载
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>class GrandParent: @classmethod def show(cls): print(&#34;GrandParent show&#34;) cls.age() @classmethod def age(cls): print(&#34;Age: 60&#34;) class Parent(GrandParent): @classmethod def show(cls): print(&#34;Parent show&#34;) super().show() @classmethod def age(cls): print(&#34;Age: 40&#34;) class Child(Parent): @classmethod def show(cls): print(&#34;Child show&#34;) super().show() @classmethod def age(cls): print(&#34;Age: 20&#34;) if __name__ == &#34;__main__&#34;: Child.show() 上面的python代码输出
-Child show Parent show GrandParent show Age: 20 解释一下。虽然在 GrandParent.show() 中调用的是 cls.age()，但由于是在 Child 上下文中执行，所以实际调用的是 Child.age()，因此最终输出的是 “Age: 20” 而不是 “Age: 60”
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-11-01 10:51:28 +0800 CST'>November 1, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Mermaid图展示Python类方法重载" href="https://kyzy540.github.io/post/python_overload_mermaid/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">iTerm2 &#43; Ollama启用AI功能
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>iTerm2 3.5后提供了AI功能，有2种用法:
-Command &#43; Shift &#43; .打开composer，输入自然语言后Command &#43; y生成shell命令 Command &#43; Shift &#43; y打开AI chat，关联iterm2 session作为上下文，和大模型问答 自然语言生成shell命令挺方便，不用去浏览器打开大模型网站，提问、复制、粘贴。安装步骤不复杂，参考文章:
-《Maximize Productivity with iTerm2 AI Features with Ollama 100% free》
-也有别家文章介绍iTerm2 AI其他配法，例如输入API Key远程调用Dashscope。但我推荐Ollama，重点是数据安全
-Ollama是开源软件，本地运行大模型，数据不会上传云端 Ollama支持多个大模型，如llama、qwen、deepseek等，可自行选择 除下载模型外，不依赖互联网 100%免费 当然，Ollama也非完美，有些功能没法用，例如AI Completion也就是命令自动补全。但我毕竟最优先考虑数据安全和免费，功能缺点也就凑合了。退一步想，如果生成shell命令足够快，自动补没有也罢
-说完有的没的，聊具体安装。我基于上面博文做了些调整
-用brew安装iTerm2 AI Plugin和ollama更方便
-brew install --cask itermai brew install ollama # 开机自启动 brew services start ollama Configure AI Models Manually 重点配置和文章一样，区别是模型选deepseek-coder:1.7b
-API: Llama
-API URL: http://localhost:11434/api/chat
-Model: deepseek-coder:1.7b
-我测试了几个模型: qwen2.5:3b/codellama:7b/qwen2.5-coder:1.5b/qwen3:4b/deepseek-r1:1.5b/deepseek-coder:1.7b。 deepseek-coder:1.7b 最好用。生成命令一般5秒左右，慢也不超过10秒。如上所说，快才好使，不然就开浏览器得了
-次优选是 qwen2.5-coder:1.5b，10~20秒生成命令。deepseek-r1和qwen3默认启用thinking，耗时超过1分钟，iTerm2会超时报错 (我没找到禁用thinking的方法，也许禁用后性能会不一样)
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-28 17:36:04 +0800 CST'>October 28, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to iTerm2 &#43; Ollama启用AI功能" href="https://kyzy540.github.io/post/iterm2_ai_plugin/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="next" href="https://kyzy540.github.io/page/2/">Next&nbsp;&nbsp;»
@@ -372,7 +383,7 @@ Model: deepseek-coder:1.7b
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
+        <span>&copy; 2026 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
 
     <span>
         Powered by

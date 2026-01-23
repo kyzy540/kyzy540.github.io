@@ -134,6 +134,30 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">macOS安装v2ray客户端
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>主要介绍如何安装和配置v2ray，以及思路。如果只想要客户端配置，请跳至末尾
+v2ray介绍和服务端安装 v2ray服务端安装之前写过一篇: 《VPN Setup》。安装后记录关键配置
+serverIp (e.g. 20.163.126.10) serverPort (e.g. 35555) uuid (e.g. e2f30fgk-xxxx-xxxx-xxxx-xxxxxxxxxxxx) alertId (e.g. 42) 安装v2ray客户端 v2ray客户端有很多，V2rayU/V2rayX/V2box等。要么多年无人维护，要么安装繁琐。到底还是开源社区维护的v2fly/v2ray-core最靠谱
+简单说，v2ray是一个支持vmess加密通讯服务。启动两个服务，一个在外网 (server)，一个在mac上 (client)。client向mac提供socket代理服务，和server通过vmess通讯
+注: 技术上说，图中client和server都是网络服务。mac将client的socket服务配置为系统代理才能起效
+brew install v2ray brew是macOS的第三方包管理工具，可以用国内脚本安装 (github链接不稳定)。建议设阿里云镜像源。
+/bin/zsh -c &#34;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&#34; 安装v2ray
+brew install v2ray 全局代理配置 从最简单开始。这是所有流量都走代理的配置，保存到$HOME/config.json
+inbounds: 用socks协议监听127.0.0.1:1080
+outbounds: 用vmess协议转发流量，vnext下是链接服务端的地址和认证
+意味着client会将发往127.0.0.1:1080的流量通过vmess转发到服务端
+{ &#34;inbounds&#34;: [{ &#34;port&#34;: 1080, // v2ray客户端监听端口 &#34;listen&#34;: &#34;127.0.0.1&#34;, // 只允许本电脑链接 &#34;protocol&#34;: &#34;socks&#34;, &#34;settings&#34;: { &#34;auth&#34;: &#34;noauth&#34;, &#34;udp&#34;: true } }], &#34;outbounds&#34;: [{ &#34;protocol&#34;: &#34;vmess&#34;, &#34;settings&#34;: { &#34;vnext&#34;: [{ &#34;address&#34;: &#34;serverIp&#34;, // v2ray服务器IP &#34;port&#34;: serverPort, // 服务端口 &#34;users&#34;: [{ &#34;id&#34;: &#34;uuid&#34;, &#34;alterId&#34;: alertId }] }] } }] } 启动client
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-07-27 07:45:32 +0800 CST'>July 27, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to macOS安装v2ray客户端" href="https://kyzy540.github.io/post/macos_v2ray_client/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">zkcli
     </h2>
   </header>
@@ -266,7 +290,7 @@ rg -tjava Log jq 是个JSON解析工具，对于经常写脚本解析JSON数据�
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
+        <span>&copy; 2026 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
 
     <span>
         Powered by

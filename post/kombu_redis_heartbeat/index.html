@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Kombu &#43; Redis的Worker发现 | 低质量随笔</title>
+<meta name="keywords" content="python">
+<meta name="description" content="分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果
+一种经典解决方案是心跳和注册中心模式：
+
+心路广播: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息
+存活判定（TTL）: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典
+自动剔除: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线
+
+Python中可以基于Kombu和Redis实现：worker.py上报心跳，proxy.py是注册中心（将计算任务代理给worker执行）
+import time
+from kombu import Connection, Exchange
+
+def run_worker():
+    with Connection(&#34;redis://127.0.0.1:6379&#34;) as conn:
+        heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;)
+        producer = conn.Producer()
+        worker_ip = &#34;127.0.0.1&#34;
+        print(f&#34;[*] Worker {worker_ip} started...&#34;)
+        while True:
+            payload = {&#34;ip&#34;: worker_ip, &#34;ts&#34;: time.time()}
+            producer.publish(
+                payload,
+                exchange=heartbeat_exchange,
+                declare=[heartbeat_exchange], # 不加declare proxy收不到消息
+                serializer=&#34;json&#34;,
+            )
+            print(f&#34;[#] Heartbeat sent: {time.ctime()}&#34;)
+            time.sleep (5)
+
+if __name__ == &#34;__main__&#34;:
+    run_worker()
+import time
+import socket
+from kombu import Connection, Exchange, Queue
+
+def start_proxy():
+    active_workers = {}
+    timeout_threshold = 15
+    conn = Connection(&#34;redis://127.0.0.1:6379&#34;)
+    heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;)
+
+    # 注意：如果不指定名字 Kombu 会随机生成一个
+    discovery_queue = Queue(&#34;example&#34;, exchange=heartbeat_exchange, exclusive-True)
+    def process_message(body, message):
+        ip = body.get(&#34;ip&#34;)
+        active_workers[ip] = body.get(&#34;ts&#34;)
+        print(f&#34;[&#43;] Discovered/Updated worker: {ip}&#34;)
+        message.ack()
+
+    print(&#34;[*] Proxy is listening for heartbeats...&#34;)
+    with conn.Consumer(queues=[discovery_queue], callbacks=[process_message]):
+        last_check = time.time()
+        while True:
+            try:
+                conn.drain_events(timeout=1)
+            except socket.timeout:
+                # 即使没有收到消息也定期检查 worker 存活状态
+                pass
+
+            # 每隔 5 秒打印一次当前在线列表
+            if time.time() - last_check &gt; 5:
+                now = time.time()
+                # 清理超时 Worker
+                dead_workers = [
+                    ip
+                    for ip, ts in active workers.items()
+                    if now - ts &gt; timeout_threshold
+                ]
+                for ip in dead_workers:
+                    del active_workers[ip]
+                    print(f&#34;[-] Worker {ip} timed out.&#34;)
+
+                print(f&#34;Current Online: {list(active_workers.keys())}&#34;)
+                last_check = time.time()
+
+if __name__ == &#34;__main__&#34;:
+    try:
+        start_proxy()
+    except KeyboardInterrupt:
+        print(&#34;Exit.&#34;)
+fanout交换机
+Exchange(type=&quot;fanout&quot;)是广播交换机，对应AMOP中topic广播概念，对应《Redis Pub/sub》。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样">
+<meta name="author" content="">
+<link rel="canonical" href="https://kyzy540.github.io/post/kombu_redis_heartbeat/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5c0f21e25c3551fd5c4685517c592eb41f5073118ce154d59fa4fd79f71c15c3.css" integrity="sha256-XA8h4lw1Uf1cRoVRfFkutB9QcxGM4VTVn6T9efccFcM=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://kyzy540.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://kyzy540.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://kyzy540.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://kyzy540.github.io/post/kombu_redis_heartbeat/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://kyzy540.github.io/post/kombu_redis_heartbeat/">
+  <meta property="og:site_name" content="低质量随笔">
+  <meta property="og:title" content="Kombu &#43; Redis的Worker发现">
+  <meta property="og:description" content="分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果
+一种经典解决方案是心跳和注册中心模式：
+心路广播: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息 存活判定（TTL）: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典 自动剔除: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线 Python中可以基于Kombu和Redis实现：worker.py上报心跳，proxy.py是注册中心（将计算任务代理给worker执行）
+import time from kombu import Connection, Exchange def run_worker(): with Connection(&#34;redis://127.0.0.1:6379&#34;) as conn: heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;) producer = conn.Producer() worker_ip = &#34;127.0.0.1&#34; print(f&#34;[*] Worker {worker_ip} started...&#34;) while True: payload = {&#34;ip&#34;: worker_ip, &#34;ts&#34;: time.time()} producer.publish( payload, exchange=heartbeat_exchange, declare=[heartbeat_exchange], # 不加declare proxy收不到消息 serializer=&#34;json&#34;, ) print(f&#34;[#] Heartbeat sent: {time.ctime()}&#34;) time.sleep (5) if __name__ == &#34;__main__&#34;: run_worker() import time import socket from kombu import Connection, Exchange, Queue def start_proxy(): active_workers = {} timeout_threshold = 15 conn = Connection(&#34;redis://127.0.0.1:6379&#34;) heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;) # 注意：如果不指定名字 Kombu 会随机生成一个 discovery_queue = Queue(&#34;example&#34;, exchange=heartbeat_exchange, exclusive-True) def process_message(body, message): ip = body.get(&#34;ip&#34;) active_workers[ip] = body.get(&#34;ts&#34;) print(f&#34;[&#43;] Discovered/Updated worker: {ip}&#34;) message.ack() print(&#34;[*] Proxy is listening for heartbeats...&#34;) with conn.Consumer(queues=[discovery_queue], callbacks=[process_message]): last_check = time.time() while True: try: conn.drain_events(timeout=1) except socket.timeout: # 即使没有收到消息也定期检查 worker 存活状态 pass # 每隔 5 秒打印一次当前在线列表 if time.time() - last_check &gt; 5: now = time.time() # 清理超时 Worker dead_workers = [ ip for ip, ts in active workers.items() if now - ts &gt; timeout_threshold ] for ip in dead_workers: del active_workers[ip] print(f&#34;[-] Worker {ip} timed out.&#34;) print(f&#34;Current Online: {list(active_workers.keys())}&#34;) last_check = time.time() if __name__ == &#34;__main__&#34;: try: start_proxy() except KeyboardInterrupt: print(&#34;Exit.&#34;) fanout交换机 Exchange(type=&#34;fanout&#34;)是广播交换机，对应AMOP中topic广播概念，对应《Redis Pub/sub》。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-01-23T21:35:55+08:00">
+    <meta property="article:modified_time" content="2026-01-23T21:35:55+08:00">
+    <meta property="article:tag" content="It">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kombu &#43; Redis的Worker发现">
+<meta name="twitter:description" content="分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果
+一种经典解决方案是心跳和注册中心模式：
+
+心路广播: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息
+存活判定（TTL）: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典
+自动剔除: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线
+
+Python中可以基于Kombu和Redis实现：worker.py上报心跳，proxy.py是注册中心（将计算任务代理给worker执行）
+import time
+from kombu import Connection, Exchange
+
+def run_worker():
+    with Connection(&#34;redis://127.0.0.1:6379&#34;) as conn:
+        heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;)
+        producer = conn.Producer()
+        worker_ip = &#34;127.0.0.1&#34;
+        print(f&#34;[*] Worker {worker_ip} started...&#34;)
+        while True:
+            payload = {&#34;ip&#34;: worker_ip, &#34;ts&#34;: time.time()}
+            producer.publish(
+                payload,
+                exchange=heartbeat_exchange,
+                declare=[heartbeat_exchange], # 不加declare proxy收不到消息
+                serializer=&#34;json&#34;,
+            )
+            print(f&#34;[#] Heartbeat sent: {time.ctime()}&#34;)
+            time.sleep (5)
+
+if __name__ == &#34;__main__&#34;:
+    run_worker()
+import time
+import socket
+from kombu import Connection, Exchange, Queue
+
+def start_proxy():
+    active_workers = {}
+    timeout_threshold = 15
+    conn = Connection(&#34;redis://127.0.0.1:6379&#34;)
+    heartbeat_exchange = Exchange(&#34;worker_discovery&#34;, type=&#34;fanout&#34;)
+
+    # 注意：如果不指定名字 Kombu 会随机生成一个
+    discovery_queue = Queue(&#34;example&#34;, exchange=heartbeat_exchange, exclusive-True)
+    def process_message(body, message):
+        ip = body.get(&#34;ip&#34;)
+        active_workers[ip] = body.get(&#34;ts&#34;)
+        print(f&#34;[&#43;] Discovered/Updated worker: {ip}&#34;)
+        message.ack()
+
+    print(&#34;[*] Proxy is listening for heartbeats...&#34;)
+    with conn.Consumer(queues=[discovery_queue], callbacks=[process_message]):
+        last_check = time.time()
+        while True:
+            try:
+                conn.drain_events(timeout=1)
+            except socket.timeout:
+                # 即使没有收到消息也定期检查 worker 存活状态
+                pass
+
+            # 每隔 5 秒打印一次当前在线列表
+            if time.time() - last_check &gt; 5:
+                now = time.time()
+                # 清理超时 Worker
+                dead_workers = [
+                    ip
+                    for ip, ts in active workers.items()
+                    if now - ts &gt; timeout_threshold
+                ]
+                for ip in dead_workers:
+                    del active_workers[ip]
+                    print(f&#34;[-] Worker {ip} timed out.&#34;)
+
+                print(f&#34;Current Online: {list(active_workers.keys())}&#34;)
+                last_check = time.time()
+
+if __name__ == &#34;__main__&#34;:
+    try:
+        start_proxy()
+    except KeyboardInterrupt:
+        print(&#34;Exit.&#34;)
+fanout交换机
+Exchange(type=&quot;fanout&quot;)是广播交换机，对应AMOP中topic广播概念，对应《Redis Pub/sub》。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://kyzy540.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Kombu + Redis的Worker发现",
+      "item": "https://kyzy540.github.io/post/kombu_redis_heartbeat/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kombu + Redis的Worker发现",
+  "name": "Kombu \u002b Redis的Worker发现",
+  "description": "分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果\n一种经典解决方案是心跳和注册中心模式：\n心路广播: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息 存活判定（TTL）: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典 自动剔除: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线 Python中可以基于Kombu和Redis实现：worker.py上报心跳，proxy.py是注册中心（将计算任务代理给worker执行）\nimport time from kombu import Connection, Exchange def run_worker(): with Connection(\u0026#34;redis://127.0.0.1:6379\u0026#34;) as conn: heartbeat_exchange = Exchange(\u0026#34;worker_discovery\u0026#34;, type=\u0026#34;fanout\u0026#34;) producer = conn.Producer() worker_ip = \u0026#34;127.0.0.1\u0026#34; print(f\u0026#34;[*] Worker {worker_ip} started...\u0026#34;) while True: payload = {\u0026#34;ip\u0026#34;: worker_ip, \u0026#34;ts\u0026#34;: time.time()} producer.publish( payload, exchange=heartbeat_exchange, declare=[heartbeat_exchange], # 不加declare proxy收不到消息 serializer=\u0026#34;json\u0026#34;, ) print(f\u0026#34;[#] Heartbeat sent: {time.ctime()}\u0026#34;) time.sleep (5) if __name__ == \u0026#34;__main__\u0026#34;: run_worker() import time import socket from kombu import Connection, Exchange, Queue def start_proxy(): active_workers = {} timeout_threshold = 15 conn = Connection(\u0026#34;redis://127.0.0.1:6379\u0026#34;) heartbeat_exchange = Exchange(\u0026#34;worker_discovery\u0026#34;, type=\u0026#34;fanout\u0026#34;) # 注意：如果不指定名字 Kombu 会随机生成一个 discovery_queue = Queue(\u0026#34;example\u0026#34;, exchange=heartbeat_exchange, exclusive-True) def process_message(body, message): ip = body.get(\u0026#34;ip\u0026#34;) active_workers[ip] = body.get(\u0026#34;ts\u0026#34;) print(f\u0026#34;[+] Discovered/Updated worker: {ip}\u0026#34;) message.ack() print(\u0026#34;[*] Proxy is listening for heartbeats...\u0026#34;) with conn.Consumer(queues=[discovery_queue], callbacks=[process_message]): last_check = time.time() while True: try: conn.drain_events(timeout=1) except socket.timeout: # 即使没有收到消息也定期检查 worker 存活状态 pass # 每隔 5 秒打印一次当前在线列表 if time.time() - last_check \u0026gt; 5: now = time.time() # 清理超时 Worker dead_workers = [ ip for ip, ts in active workers.items() if now - ts \u0026gt; timeout_threshold ] for ip in dead_workers: del active_workers[ip] print(f\u0026#34;[-] Worker {ip} timed out.\u0026#34;) print(f\u0026#34;Current Online: {list(active_workers.keys())}\u0026#34;) last_check = time.time() if __name__ == \u0026#34;__main__\u0026#34;: try: start_proxy() except KeyboardInterrupt: print(\u0026#34;Exit.\u0026#34;) fanout交换机 Exchange(type=\u0026quot;fanout\u0026quot;)是广播交换机，对应AMOP中topic广播概念，对应《Redis Pub/sub》。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样\n",
+  "keywords": [
+    "python"
+  ],
+  "articleBody": "分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果\n一种经典解决方案是心跳和注册中心模式：\n心路广播: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息 存活判定（TTL）: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典 自动剔除: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线 Python中可以基于Kombu和Redis实现：worker.py上报心跳，proxy.py是注册中心（将计算任务代理给worker执行）\nimport time from kombu import Connection, Exchange def run_worker(): with Connection(\"redis://127.0.0.1:6379\") as conn: heartbeat_exchange = Exchange(\"worker_discovery\", type=\"fanout\") producer = conn.Producer() worker_ip = \"127.0.0.1\" print(f\"[*] Worker {worker_ip} started...\") while True: payload = {\"ip\": worker_ip, \"ts\": time.time()} producer.publish( payload, exchange=heartbeat_exchange, declare=[heartbeat_exchange], # 不加declare proxy收不到消息 serializer=\"json\", ) print(f\"[#] Heartbeat sent: {time.ctime()}\") time.sleep (5) if __name__ == \"__main__\": run_worker() import time import socket from kombu import Connection, Exchange, Queue def start_proxy(): active_workers = {} timeout_threshold = 15 conn = Connection(\"redis://127.0.0.1:6379\") heartbeat_exchange = Exchange(\"worker_discovery\", type=\"fanout\") # 注意：如果不指定名字 Kombu 会随机生成一个 discovery_queue = Queue(\"example\", exchange=heartbeat_exchange, exclusive-True) def process_message(body, message): ip = body.get(\"ip\") active_workers[ip] = body.get(\"ts\") print(f\"[+] Discovered/Updated worker: {ip}\") message.ack() print(\"[*] Proxy is listening for heartbeats...\") with conn.Consumer(queues=[discovery_queue], callbacks=[process_message]): last_check = time.time() while True: try: conn.drain_events(timeout=1) except socket.timeout: # 即使没有收到消息也定期检查 worker 存活状态 pass # 每隔 5 秒打印一次当前在线列表 if time.time() - last_check \u003e 5: now = time.time() # 清理超时 Worker dead_workers = [ ip for ip, ts in active workers.items() if now - ts \u003e timeout_threshold ] for ip in dead_workers: del active_workers[ip] print(f\"[-] Worker {ip} timed out.\") print(f\"Current Online: {list(active_workers.keys())}\") last_check = time.time() if __name__ == \"__main__\": try: start_proxy() except KeyboardInterrupt: print(\"Exit.\") fanout交换机 Exchange(type=\"fanout\")是广播交换机，对应AMOP中topic广播概念，对应《Redis Pub/sub》。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样\nExchange交换机是Kombu特有的概念，核心是为了解耦生产者与消费者，并提供灵活的路由策略。Exchange可以绑定多个消息队列，配置复杂路由规则。如此，生成者可以只关心“消息怎么发”，把“消息发给谁”的问题留给Exchange\n在例子中，proxy.py启动时会在Redis中创建名为\"worker_discovery\"的set，写入一个key: “example”，并订阅名为\"example\"的channel。worker.py会先读\"worker_discovery\"set，把心跳消息发给set里所有key对应的channel\n这意味着worker和proxy可以是多对多的。通过\"worker_discovery\"确定消息发给谁就是Exchange的作用 如果只启动worker不启动proxy呢？程序也不会报错，在worker看来消息已经发出去了。很健壮\npublish(declare=[heartbeat_exchange], …) worker发心跳消息的代码有另一种写法，比上面简洁，publish少传declare参数\nproducer = conn.Producer(exchange=heartbeat_exchange) producer.publish(payload, serializer=\"json\") 如果publish不传declare会如何？\nproducer = conn.Producer() producer.publish(payload, exchange=heartbeat_exchange, serializer=\"json\") 虽然代码看似语义相同，但功能完全不对。worker会创建名为\"example\"的list，写入心跳消息，而非将消息发到channel。proxy永远收不到心跳\n问题关键在Producer.publish的代码中\nif self.auto_declare and self.exchange.name: if self.exchange not in declare: # XXX declare should be a Set. declare.append(self.exchange) 把exchange作为初始化参数或declare参数传给Producer时，会触发maybe_declare逻辑，自动绑定exchange到channel，从而正确广播消息。否则将执行默认行为: 发到消息队列也就是Redis的list中\n因此，正确代码还有第三种写法，给exchange先绑定channel，然后发消息\nheartbeat_exchange.declare(channel=conn.channel()) producer = conn.Producer() producer.publish(payload, exchange=heartbeat_exchange, serializer=\"json\") 对了，Redis的channel广播不区分数据库，因此链接字符串不用写数据库序号\n",
+  "wordCount" : "261",
+  "inLanguage": "en",
+  "datePublished": "2026-01-23T21:35:55+08:00",
+  "dateModified": "2026-01-23T21:35:55+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kyzy540.github.io/post/kombu_redis_heartbeat/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "低质量随笔",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kyzy540.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kyzy540.github.io/" accesskey="h" title="低质量随笔 (Alt + H)">低质量随笔</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kyzy540.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kyzy540.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kyzy540.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Kombu &#43; Redis的Worker发现
+    </h1>
+    <div class="post-meta"><span title='2026-01-23 21:35:55 +0800 CST'>January 23, 2026</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果</p>
+<p>一种经典解决方案是心跳和注册中心模式：</p>
+<ul>
+<li><strong>心路广播</strong>: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息</li>
+<li><strong>存活判定（TTL）</strong>: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典</li>
+<li><strong>自动剔除</strong>: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线</li>
+</ul>
+<p>Python中可以基于Kombu和Redis实现：<em>worker.py</em>上报心跳，<em>proxy.py</em>是注册中心（将计算任务代理给worker执行）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> kombu <span style="color:#f92672">import</span> Connection, Exchange
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_worker</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> Connection(<span style="color:#e6db74">&#34;redis://127.0.0.1:6379&#34;</span>) <span style="color:#66d9ef">as</span> conn:
+</span></span><span style="display:flex;"><span>        heartbeat_exchange <span style="color:#f92672">=</span> Exchange(<span style="color:#e6db74">&#34;worker_discovery&#34;</span>, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fanout&#34;</span>)
+</span></span><span style="display:flex;"><span>        producer <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>Producer()
+</span></span><span style="display:flex;"><span>        worker_ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[*] Worker </span><span style="color:#e6db74">{</span>worker_ip<span style="color:#e6db74">}</span><span style="color:#e6db74"> started...&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            payload <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;ip&#34;</span>: worker_ip, <span style="color:#e6db74">&#34;ts&#34;</span>: time<span style="color:#f92672">.</span>time()}
+</span></span><span style="display:flex;"><span>            producer<span style="color:#f92672">.</span>publish(
+</span></span><span style="display:flex;"><span>                payload,
+</span></span><span style="display:flex;"><span>                exchange<span style="color:#f92672">=</span>heartbeat_exchange,
+</span></span><span style="display:flex;"><span>                declare<span style="color:#f92672">=</span>[heartbeat_exchange], <span style="color:#75715e"># 不加declare proxy收不到消息</span>
+</span></span><span style="display:flex;"><span>                serializer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;json&#34;</span>,
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[#] Heartbeat sent: </span><span style="color:#e6db74">{</span>time<span style="color:#f92672">.</span>ctime()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            time<span style="color:#f92672">.</span>sleep (<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    run_worker()
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> kombu <span style="color:#f92672">import</span> Connection, Exchange, Queue
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start_proxy</span>():
+</span></span><span style="display:flex;"><span>    active_workers <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    timeout_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>    conn <span style="color:#f92672">=</span> Connection(<span style="color:#e6db74">&#34;redis://127.0.0.1:6379&#34;</span>)
+</span></span><span style="display:flex;"><span>    heartbeat_exchange <span style="color:#f92672">=</span> Exchange(<span style="color:#e6db74">&#34;worker_discovery&#34;</span>, type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fanout&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 注意：如果不指定名字 Kombu 会随机生成一个</span>
+</span></span><span style="display:flex;"><span>    discovery_queue <span style="color:#f92672">=</span> Queue(<span style="color:#e6db74">&#34;example&#34;</span>, exchange<span style="color:#f92672">=</span>heartbeat_exchange, exclusive<span style="color:#f92672">-</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_message</span>(body, message):
+</span></span><span style="display:flex;"><span>        ip <span style="color:#f92672">=</span> body<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;ip&#34;</span>)
+</span></span><span style="display:flex;"><span>        active_workers[ip] <span style="color:#f92672">=</span> body<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;ts&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[+] Discovered/Updated worker: </span><span style="color:#e6db74">{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        message<span style="color:#f92672">.</span>ack()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;[*] Proxy is listening for heartbeats...&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> conn<span style="color:#f92672">.</span>Consumer(queues<span style="color:#f92672">=</span>[discovery_queue], callbacks<span style="color:#f92672">=</span>[process_message]):
+</span></span><span style="display:flex;"><span>        last_check <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                conn<span style="color:#f92672">.</span>drain_events(timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> socket<span style="color:#f92672">.</span>timeout:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 即使没有收到消息也定期检查 worker 存活状态</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 每隔 5 秒打印一次当前在线列表</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> time<span style="color:#f92672">.</span>time() <span style="color:#f92672">-</span> last_check <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>:
+</span></span><span style="display:flex;"><span>                now <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># 清理超时 Worker</span>
+</span></span><span style="display:flex;"><span>                dead_workers <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>                    ip
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">for</span> ip, ts <span style="color:#f92672">in</span> active workers<span style="color:#f92672">.</span>items()
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> now <span style="color:#f92672">-</span> ts <span style="color:#f92672">&gt;</span> timeout_threshold
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> ip <span style="color:#f92672">in</span> dead_workers:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">del</span> active_workers[ip]
+</span></span><span style="display:flex;"><span>                    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[-] Worker </span><span style="color:#e6db74">{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74"> timed out.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Current Online: </span><span style="color:#e6db74">{</span>list(active_workers<span style="color:#f92672">.</span>keys())<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                last_check <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        start_proxy()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyboardInterrupt</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Exit.&#34;</span>)
+</span></span></code></pre></div><h2 id="fanout交换机">fanout交换机<a hidden class="anchor" aria-hidden="true" href="#fanout交换机">#</a></h2>
+<p><code>Exchange(type=&quot;fanout&quot;)</code>是广播交换机，对应AMOP中topic广播概念，对应<a href="https://redis.io/docs/latest/develop/pubsub/">《Redis Pub/sub》</a>。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样</p>
+<p>Exchange交换机是Kombu特有的概念，核心是为了解耦生产者与消费者，并提供灵活的路由策略。Exchange可以绑定多个消息队列，配置复杂路由规则。如此，生成者可以只关心“消息怎么发”，把“消息发给谁”的问题留给Exchange</p>
+<p>在例子中，proxy.py启动时会在Redis中创建名为&quot;worker_discovery&quot;的set，写入一个key: &ldquo;example&rdquo;，并订阅名为&quot;example&quot;的channel。worker.py会先读&quot;worker_discovery&quot;set，把心跳消息发给set里所有key对应的channel</p>
+<p>这意味着worker和proxy可以是多对多的。通过&quot;worker_discovery&quot;确定消息发给谁就是Exchange的作用
+如果只启动worker不启动proxy呢？程序也不会报错，在worker看来消息已经发出去了。很健壮</p>
+<h2 id="publishdeclareheartbeat_exchange-">publish(declare=[heartbeat_exchange], &hellip;)<a hidden class="anchor" aria-hidden="true" href="#publishdeclareheartbeat_exchange-">#</a></h2>
+<p>worker发心跳消息的代码有另一种写法，比上面简洁，publish少传declare参数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>producer <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>Producer(exchange<span style="color:#f92672">=</span>heartbeat_exchange)
+</span></span><span style="display:flex;"><span>producer<span style="color:#f92672">.</span>publish(payload, serializer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;json&#34;</span>)
+</span></span></code></pre></div><p>如果publish不传declare会如何？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>producer <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>Producer()
+</span></span><span style="display:flex;"><span>producer<span style="color:#f92672">.</span>publish(payload, exchange<span style="color:#f92672">=</span>heartbeat_exchange, serializer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;json&#34;</span>)
+</span></span></code></pre></div><p>虽然代码看似语义相同，但功能完全不对。worker会创建名为&quot;example&quot;的list，写入心跳消息，而非将消息发到channel。proxy永远收不到心跳</p>
+<p>问题关键在<a href="https://github.com/celery/kombu/blob/5208431c95bda47c7f422638dd273e086ab34be9/kombu/messaging.py#L182">Producer.publish</a>的代码中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>auto_declare <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>exchange<span style="color:#f92672">.</span>name:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>exchange <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> declare:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># XXX declare should be a Set.</span>
+</span></span><span style="display:flex;"><span>        declare<span style="color:#f92672">.</span>append(self<span style="color:#f92672">.</span>exchange)
+</span></span></code></pre></div><p>把exchange作为初始化参数或declare参数传给Producer时，会触发<code>maybe_declare</code>逻辑，自动绑定exchange到channel，从而正确广播消息。否则将执行默认行为: 发到消息队列也就是Redis的list中</p>
+<p>因此，正确代码还有第三种写法，给exchange先绑定channel，然后发消息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>heartbeat_exchange<span style="color:#f92672">.</span>declare(channel<span style="color:#f92672">=</span>conn<span style="color:#f92672">.</span>channel())
+</span></span><span style="display:flex;"><span>producer <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>Producer()
+</span></span><span style="display:flex;"><span>producer<span style="color:#f92672">.</span>publish(payload, exchange<span style="color:#f92672">=</span>heartbeat_exchange, serializer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;json&#34;</span>)
+</span></span></code></pre></div><p>对了，Redis的channel广播不区分数据库，因此链接字符串不用写数据库序号</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kyzy540.github.io/tags/it/">It</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://kyzy540.github.io/">低质量随笔</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

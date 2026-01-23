@@ -4,10 +4,138 @@
     <title>Posts on 低质量随笔</title>
     <link>https://kyzy540.github.io/post/</link>
     <description>Recent content in Posts on 低质量随笔</description>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.154.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 13 Dec 2025 17:01:10 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Jan 2026 21:35:55 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kombu &#43; Redis的Worker发现</title>
+      <link>https://kyzy540.github.io/post/kombu_redis_heartbeat/</link>
+      <pubDate>Fri, 23 Jan 2026 21:35:55 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/kombu_redis_heartbeat/</guid>
+      <description>&lt;p&gt;分布式系统中，发现远端worker是一种常见需求。例如：一个计算任务需要GPU，而集群中只有少数机器配备。常见思路是让 管控/调度服务 发现GPU机部（worker），并把计算任务代理给worker执行，接收返回结果&lt;/p&gt;
+&lt;p&gt;一种经典解决方案是心跳和注册中心模式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;心路广播&lt;/strong&gt;: Worker 启动后，每隔 N 秒向一个 fanout 交换机发送包含自己IP 的消息&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;存活判定（TTL）&lt;/strong&gt;: 注册中心监听该交换机，将收到的IP 和当前时间存入内存字典&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动剔除&lt;/strong&gt;: 注册中心定期检查字典，如果某个 IP 超过 N*3秒没有更新，则判定该 Worker 已下线&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Python中可以基于Kombu和Redis实现：&lt;em&gt;worker.py&lt;/em&gt;上报心跳，&lt;em&gt;proxy.py&lt;/em&gt;是注册中心（将计算任务代理给worker执行）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; time
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; kombu &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Connection, Exchange
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;run_worker&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; Connection(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;redis://127.0.0.1:6379&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; conn:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        heartbeat_exchange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Exchange(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;worker_discovery&amp;#34;&lt;/span&gt;, type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fanout&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        producer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Producer()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        worker_ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[*] Worker &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;worker_ip&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; started...&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            payload &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ip&amp;#34;&lt;/span&gt;: worker_ip, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;: time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time()}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            producer&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;publish(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                payload,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                exchange&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;heartbeat_exchange,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                declare&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[heartbeat_exchange], &lt;span style=&#34;color:#75715e&#34;&gt;# 不加declare proxy收不到消息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                serializer&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;json&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[#] Heartbeat sent: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ctime()&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sleep (&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    run_worker()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; time
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; socket
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; kombu &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Connection, Exchange, Queue
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;start_proxy&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    active_workers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    timeout_threshold &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Connection(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;redis://127.0.0.1:6379&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    heartbeat_exchange &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Exchange(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;worker_discovery&amp;#34;&lt;/span&gt;, type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fanout&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# 注意：如果不指定名字 Kombu 会随机生成一个&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    discovery_queue &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Queue(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;example&amp;#34;&lt;/span&gt;, exchange&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;heartbeat_exchange, exclusive&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process_message&lt;/span&gt;(body, message):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; body&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ip&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        active_workers[ip] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; body&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ts&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[+] Discovered/Updated worker: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;ip&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        message&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ack()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[*] Proxy is listening for heartbeats...&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Consumer(queues&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[discovery_queue], callbacks&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[process_message]):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        last_check &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;drain_events(timeout&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; socket&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;timeout:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;# 即使没有收到消息也定期检查 worker 存活状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;# 每隔 5 秒打印一次当前在线列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time() &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; last_check &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                now &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;# 清理超时 Worker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                dead_workers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    ip
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ip, ts &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; active workers&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;items()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; now &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; ts &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; timeout_threshold
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ip &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dead_workers:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;del&lt;/span&gt; active_workers[ip]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Worker &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;ip&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; timed out.&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Current Online: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;list(active_workers&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;keys())&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                last_check &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        start_proxy()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;KeyboardInterrupt&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Exit.&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;fanout交换机&#34;&gt;fanout交换机&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Exchange(type=&amp;quot;fanout&amp;quot;)&lt;/code&gt;是广播交换机，对应AMOP中topic广播概念，对应&lt;a href=&#34;https://redis.io/docs/latest/develop/pubsub/&#34;&gt;《Redis Pub/sub》&lt;/a&gt;。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>乱读报告: 2025年11月, 咱还消费低迷吗?</title>
+      <link>https://kyzy540.github.io/post/2025_consuming_report/</link>
+      <pubDate>Sat, 20 Dec 2025 21:15:38 +0800</pubDate>
+      <guid>https://kyzy540.github.io/post/2025_consuming_report/</guid>
+      <description>&lt;p&gt;2025 年 11 月 24 日，美国银行证券 (BofA Securities) 发布了一篇报告: 《China Consumer（H/A）：Is China still under-consuming? Myth vs. truth》。直译是《中国还消费低迷吗? 臆想vs.真相》&lt;/p&gt;
+&lt;p&gt;文章是全英文。大致内容是说中国消费近3年确有下行，但并没有特糟。中国市场的特点是&lt;strong&gt;消量大，价格低&lt;/strong&gt;，只看消费额有失偏颇。食品、日用品、电器、骑车等商品在中国的售价显著低于发达国家。处世界前列。医疗、教育等社会保障也可称优秀&lt;/p&gt;
+&lt;p&gt;另外，作为证券报告，文中还指出中国在文化、体育、娱乐、高端服务等方面还有很大上升空间。还说中国企业当下最好的增长机遇是出海。最后结合前文推荐了几只股票 (泡泡玛特/腾讯/美的/大麦等)&lt;/p&gt;
+&lt;p&gt;总的来说是典型的市场调研和投资建议报告。投资部分我不关心，市场调研部分还挺有意思&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;用“量大价低”定义市场，而非只看总金额，角度新颖&lt;/li&gt;
+&lt;li&gt;文章数据来源于多个权威机构 (联合国粮农组织、世界银行等)，并经过思考整合，有说服力&lt;/li&gt;
+&lt;li&gt;报告结论大致上跟生活观察吻合，合情合理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;想看更多报告翻译的 ，B站上有人做了视频 (也没原文)
+&lt;a href=&#34;https://www.bilibili.com/video/BV1QkU4BEEaA/?share_source=copy_web&amp;amp;vd_source=24b9548cc4159506bc478709fee25105&#34;&gt;美国银行证券解读中国真的在“低消费”吗？迷思与真相&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;我只想写点我感兴趣的&lt;/p&gt;
+&lt;h2 id=&#34;用物本位调整视角&#34;&gt;用&amp;quot;物本位&amp;quot;调整视角&lt;/h2&gt;
+&lt;p&gt;这是报告的最大亮点。核心观点是别看中国人均消费总额低，那是低物价导致的假象。世界工厂的低成本低物价是特殊国情。如果从物本位观察，中国的人均消费实际超过部分发达国家水平&lt;/p&gt;
+&lt;p&gt;例如，中国的粮食消费高于美国，包括肉、卡路里、蔬菜。同时，中国的粮食、服装、餐饮、交通、水电、网络都比美国低50%以上。人均居住面积比法国和英国大。&lt;/p&gt;
+&lt;p&gt;生活观察和数字吻合。一线城市的生活质量已不落后发达国家。同样商品国内比日韩便宜得多。餐饮行业冠绝全球。许多去西方一线城市留学生也表示租房比国内昂贵得多&lt;/p&gt;
+&lt;p&gt;但数字和观察一致就代表真相吗？在我看来不完全是。转换的不是真相，而是视角。“钱本位”视角也很重要。想对齐账还得算钱。如果说中国一年总产值100亿，国内消费20亿。那意味着另外80亿产值必须由出口消化掉。否则就得通缩&lt;/p&gt;
+&lt;p&gt;所以物本位看，国内消费水平够得上发达国家。但按钱本位看，消费确实低迷。但没完全进入通缩周期&lt;/p&gt;
+&lt;h2 id=&#34;2022-2024我国经济在通缩线上下徘徊&#34;&gt;2022-2024我国经济在通缩线上下徘徊&lt;/h2&gt;
+&lt;p&gt;2022年疫情放开后，消费经历了短暂的报复性增长，随后开始下滑。但，是不是逐年递减，已至通缩了呢？是缩了，但没一路下坡&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPI(消费者价格指数)衡量消费品价格变动，2025年12月CPI同比上涨0.8%&lt;/li&gt;
+&lt;li&gt;PPI(生产者价格指数)衡量企业产品价格变动，2025年12月PPI同比下降1.9%&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;“CPI强, PPI弱”意味着消费有需求，但企业商品价格受制于产能或外需，有通缩压力&lt;/p&gt;
+&lt;p&gt;还不算太糟。国补没白贴&lt;/p&gt;
+&lt;h2 id=&#34;企业内卷和出海谋生&#34;&gt;企业内卷和出海谋生&lt;/h2&gt;
+&lt;p&gt;报告提供的出路是企业应积极开展出口贸易&lt;/p&gt;
+&lt;p&gt;中国是世界工厂，有独特的成本优势。同时也指出相同产品在国内售价低廉。对消费者来说是好事，商品物美价廉。但对企业来说很惨，市场竞争激烈，成本上涨，却难以提高售价&lt;/p&gt;
+&lt;p&gt;企业利润降低，裁员。消费者愈发谨慎消费，对售价更加敏感。这也符合生活观察&lt;/p&gt;
+&lt;p&gt;出海是企业谋求更高利润的机会。很多国货即使抬高价格，到海外依然有很强竞争力。所幸很多企业有远见，很早就采取行动，甚至已经收获一定成果。TODO: 2025第三季度我国出口上涨6.6%，该成绩令国内外都感到惊喜&lt;/p&gt;
+&lt;p&gt;这也和生活观察吻合。世博会期间去日本，杨国福麻辣烫一碗卖60多门口还排大队&lt;/p&gt;
+&lt;p&gt;游戏行业也是。从《原神》到《黑猴》，到2025年的《鸣潮》、《烟云十六声》，国产游戏不缺国际市场名利双收的案例&lt;/p&gt;
+&lt;p&gt;还有泡泡玛特的拉布布，开到纽约的雪王，去日本竞争k-car的比亚迪，等等&lt;/p&gt;
+&lt;p&gt;就写这么多吧。读市场调研报告很有趣。数字对照生活，看得才真切。澡堂子里人人都是经济学家，风言风语，扑朔迷离。当有些印象被反复提及，总会让人纳闷，是已经达成了广泛认同，还是仅仅是谣言传播效果好？其中又有哪些是被夸大的？还是得拿数字照一照，比较明了&lt;/p&gt;</description>
+    </item>
     <item>
       <title>《黑猫侦探: 深入本质》</title>
       <link>https://kyzy540.github.io/post/blacksad_under_the_skin/</link>
@@ -1124,8 +1252,8 @@ Age: 20
       <description>&lt;p&gt;前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下&lt;/p&gt;
 &lt;p&gt;先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-autosuggestions &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-syntax-highlighting
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  git clone https://github.com/zsh-users/zsh-autosuggestions &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-autosuggestions &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/plugins/zsh-syntax-highlighting
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再来个Dracula主题&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/dracula/zsh.git
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mv zsh/dracula.zsh-theme &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;ZSH_CUSTOM&lt;span style=&#34;color:#66d9ef&#34;&gt;:-&lt;/span&gt;~/.oh-my-zsh/custom&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;/themes
@@ -1221,8 +1349,8 @@ Age: 20
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;inbounds&amp;#34;&lt;/span&gt;: [{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1080&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// v2ray客户端监听端口
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;listen&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 只允许本电脑链接
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;protocol&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;socks&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;listen&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 只允许本电脑链接
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;protocol&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;socks&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;settings&amp;#34;&lt;/span&gt;: {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;auth&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;noauth&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;udp&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
@@ -1233,8 +1361,8 @@ Age: 20
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;settings&amp;#34;&lt;/span&gt;: {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;vnext&amp;#34;&lt;/span&gt;: [{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;address&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;serverIp&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// v2ray服务器IP
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;serverPort&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 服务端口
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;users&amp;#34;&lt;/span&gt;: [{
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;serverPort&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 服务端口
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;users&amp;#34;&lt;/span&gt;: [{
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;uuid&amp;#34;&lt;/span&gt;,
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;alterId&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;alertId&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                }]
