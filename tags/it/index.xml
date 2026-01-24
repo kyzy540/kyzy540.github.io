@@ -93,7 +93,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;KeyboardInterrupt&lt;/span&gt;:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Exit.&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;fanout交换机&#34;&gt;fanout交换机&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;Exchange(type=&amp;quot;fanout&amp;quot;)&lt;/code&gt;是广播交换机，对应AMOP中topic广播概念，对应&lt;a href=&#34;https://redis.io/docs/latest/develop/pubsub/&#34;&gt;《Redis Pub/sub》&lt;/a&gt;。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样&lt;/p&gt;</description>
+&lt;p&gt;&lt;code&gt;Exchange(type=&amp;quot;fanout&amp;quot;)&lt;/code&gt;是广播交换机，对应AMQP中topic广播概念，对应&lt;a href=&#34;https://redis.io/docs/latest/develop/pubsub/&#34;&gt;《Redis Pub/sub》&lt;/a&gt;。广播消息指生产者向topic发一次消息，此时订阅topic的所有消费者都会收到消息。但对于发消息时没订阅topic的消费者，没法收到历史消息。Redis的channel机制和topic一样&lt;/p&gt;</description>
     </item>
     <item>
       <title>如何中断Taskflow工作流</title>
