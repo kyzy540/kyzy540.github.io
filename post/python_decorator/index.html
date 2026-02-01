@@ -270,7 +270,7 @@ def decorator(fn):
 </div>
   </header> 
   <div class="post-content"><p>在读MongoEngine文档时候看到了一段很牛逼的嵌套装饰器 <a href="https://github.com/MongoEngine/mongoengine/blob/master/docs/guide/signals.rst">@update_modified.apply</a> ，核心代码如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handler</span>(event):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handler</span>(event):
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Signal decorator to allow use of callback functions as class decorators.&#34;&#34;&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(fn):
@@ -291,7 +291,7 @@ def decorator(fn):
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Record</span>(Document):
 </span></span><span style="display:flex;"><span>    modified <span style="color:#f92672">=</span> DateTimeField()
 </span></span></code></pre></div><p>上述代码实现等同如下代码的功能，核心目的是让 <code>event/fn/cls</code> 都可以组装。但……这个嵌套装饰器具体是如何生效的?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>signals<span style="color:#f92672">.</span>pre_save<span style="color:#f92672">.</span>connect(update_modified, sender<span style="color:#f92672">=</span>Record)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>signals<span style="color:#f92672">.</span>pre_save<span style="color:#f92672">.</span>connect(update_modified, sender<span style="color:#f92672">=</span>Record)
 </span></span></code></pre></div><p>参考 <a href="https://www.zhihu.com/question/26930016">《如何理解python装饰器》</a> 可知道如下关系:</p>
 <ul>
 <li>cls = Record</li>
@@ -299,7 +299,7 @@ def decorator(fn):
 <li>event = signals.pre_save</li>
 </ul>
 <p>用 <code>handler</code> 装饰 <code>update_modified</code> 返回了装饰器<code>decorator</code>，即一个组装的函数定义。将嵌套装饰器转换成单层装饰器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(fn):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(fn):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">apply</span>(cls):
 </span></span><span style="display:flex;"><span>        signals<span style="color:#f92672">.</span>pre_save<span style="color:#f92672">.</span>connect(fn, sender<span style="color:#f92672">=</span>cls)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cls

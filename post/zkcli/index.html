@@ -227,7 +227,7 @@ P.S. 这是本人第一次写go代码，如有问题还请见谅🙏">
 <p>一个zookeeper cli客户端工具。基于<code>let-us-go/zkcli</code>改进。原版地址 (内附安装教程): <a href="https://github.com/let-us-go/zkcli">https://github.com/let-us-go/zkcli</a></p>
 <p>原版有个问题: <code>deleteall</code>子命令不能递归删除zookeeper node。原因是 <a href="https://github.com/let-us-go/zkcli/blob/master/core/cmd.go#L160">代码</a> 没实现递归删除</p>
 <p>鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了<code>deleteall</code>的递归逻辑。安装命令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go install github.com/kyzy540/zkcli@latest
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go install github.com/kyzy540/zkcli@latest
 </span></span></code></pre></div><p>相较于zookeeper自带的cli工具 <code>zkCli.sh</code>，这个go版本有3点优势</p>
 <ul>
 <li>交互模式支持 <code>tab</code> 自动提示</li>

@@ -314,11 +314,11 @@ direnv方便自动设环境变量 (如PYTHONPATH)，写在.envrc里即可。pyth
 <ol>
 <li>安装uv，在macos下用brew</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install uv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install uv
 </span></span></code></pre></div><ol start="2">
 <li>进入项目目录，初始化项目</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv init
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv init
 </span></span></code></pre></div><p>此时，uv会创建<code>.python-version</code>、<code>main.py</code>、<code>pyproject.toml</code>等文件，和<code>.venv</code>目录，对应未初始化的虚拟环境。对于已有项目的迁移，程序入口和 Python 版本通常已经明确，可以保留 <code>pyproject.toml</code> 和 <code>.venv</code>，其余删除</p>
 <ol start="4">
 <li>
@@ -328,19 +328,19 @@ direnv方便自动设环境变量 (如PYTHONPATH)，写在.envrc里即可。pyth
 <p>导入依赖包</p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv add -r requirements.txt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv add -r requirements.txt
 </span></span></code></pre></div><p>虽然导依赖只有一行命令，但它其实做了3件事: 用指定python版本真正初始化<code>.venv</code>虚拟环境 -&gt; 修改<code>pyproject.toml</code>文件添加依赖 -&gt; 安装依赖包。如果第一次运行且依赖多。这里可能会多花些时间</p>
 <p>顺带一提，uv是多线程装包，速度比pyenv+pip快得多</p>
 <ol start="6">
 <li>删除pyenv初始化配置，通常在<code>.zshrc</code>等地方。记得 <strong>重启shell</strong>。否则<code>source .venv/bin/activate</code>可能会失效。这也是我放弃pyenv的原因之一。它可能引入冲突，难以排查</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#eval &#34;$(pyenv init -)&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#eval &#34;$(pyenv init -)&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#eval &#34;$(pyenv virtualenv-init -)&#34;</span>
 </span></span></code></pre></div><p>到这其实迁移已完成。为了方便，可以加点佐料</p>
 <p><em>7. 安装direnv</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install direnv
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install direnv
 </span></span></code></pre></div><p><em>8. 启用direnv和python的oh-my-zsh插件</em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># vi ~/.zshrc</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># vi ~/.zshrc</span>
 </span></span><span style="display:flex;"><span>plugins<span style="color:#f92672">=(</span>... python direnv<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>PYTHON_VENV_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;.venv&#34;</span>
 </span></span><span style="display:flex;"><span>PYTHON_AUTO_VRUN<span style="color:#f92672">=</span>true
@@ -350,7 +350,7 @@ direnv方便自动设环境变量 (如PYTHONPATH)，写在.envrc里即可。pyth
 <p>由于以上插件都目录相关，推荐使用zsh和<a href="https://github.com/wting/autojump">autojump</a>，方便跳转</p>
 <h2 id="可能遇到的问题">可能遇到的问题<a hidden class="anchor" aria-hidden="true" href="#可能遇到的问题">#</a></h2>
 <p>最后补充一点工具无关的。如果在ARM架构上装grpcio包，可能会遇到变异报错<code>distutils.compilers.C.errors.CompileError</code>。导包前加下面环境变量可解决</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export LDFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-L/opt/homebrew/opt/openssl@3/lib&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export LDFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-L/opt/homebrew/opt/openssl@3/lib&#34;</span>
 </span></span><span style="display:flex;"><span>export CPPFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-I/opt/homebrew/opt/openssl@3/include&#34;</span>
 </span></span><span style="display:flex;"><span>export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>export GRPC_PYTHON_BUILD_SYSTEM_ZLIB<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>

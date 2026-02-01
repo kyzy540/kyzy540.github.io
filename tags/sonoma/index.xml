@@ -4,7 +4,7 @@
     <title>Sonoma on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/sonoma/</link>
     <description>Recent content in Sonoma on 低质量随笔</description>
-    <generator>Hugo -- 0.154.5</generator>
+    <generator>Hugo -- 0.155.1</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 12 Oct 2023 11:00:52 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/sonoma/index.xml" rel="self" type="application/rss+xml" />
@@ -14,7 +14,7 @@
       <pubDate>Thu, 12 Oct 2023 11:00:52 +0800</pubDate>
       <guid>https://kyzy540.github.io/post/disable_input_indicator/</guid>
       <description>&lt;p&gt;Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了&lt;code&gt;AltTab&lt;/code&gt;的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo /usr/libexec/PlistBuddy -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Add &amp;#39;redesigned_text_cursor:Enabled&amp;#39; bool false&amp;#34;&lt;/span&gt; /Library/Preferences/FeatureFlags/Domain/UIKit.plist
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参考: &lt;a href=&#34;https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator&#34;&gt;https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator&lt;/a&gt;&lt;/p&gt;</description>
     </item>

@@ -232,14 +232,14 @@ python http.server (或者SimpleHTTPServer)没法以串流形式播放mp4，还�
   <div class="post-content"><p>Android可以玩花活儿，这是我一直很喜欢它的原因。最近有个想法: 能不能将手机上的mp4串流到其他设备上播放？现在的电影都很大，动辄3、5G，拷贝很麻烦。而且有些设备不一定适合拷贝，要是能直接像流媒体一样直接播放手机里的mp4那该多爽</p>
 <p>办法其实不复杂，<a href="https://www.npmjs.com/package/http-server">http-server</a> 就能胜任这项工作。我要做的就是把它在手机上跑起来，步骤如下</p>
 <p>第一步，安装 <a href="https://f-droid.org/packages/com.termux/">Termux</a>。进入终端，启用并授权访问存储设备</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>termux-setup-storage
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>termux-setup-storage
 </span></span></code></pre></div><p>第二步，更新pkg源，安装nodejs和http-server。nodejs-lts是LTS版本，要装current版本可以<code>pkg install nodejs</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkg update
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkg update
 </span></span><span style="display:flex;"><span>pkg install nodejs-lts
 </span></span><span style="display:flex;"><span>npm install -g http-server
 </span></span></code></pre></div><p>如果嫌默认源访问速度慢，可以考虑换用<code>termux-change-repo</code>切换到清华源。<a href="https://wiki.termux.com/wiki/Package_Management">参考链接</a></p>
 <p>第三步，启动http-server。这里<code>storage/dcim/Camera</code>是服务对外开放的路径。如果写<code>storage/shared</code>可以开放整个手机存储</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http-server storage/dcim/Camera
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http-server storage/dcim/Camera
 </span></span></code></pre></div><p>可以看到服务启动，监听<code>http://30.43.99.138:8080</code>
 <img loading="lazy" src="/img/android_httpserver/android_httpserver.png"></p>
 <p>同局域网内的其他设备就可以直接访问这个地址浏览文件了。找到想看的mp4，点开直接播放

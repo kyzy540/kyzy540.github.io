@@ -4,10 +4,17 @@
     <title>Tags on 低质量随笔</title>
     <link>https://kyzy540.github.io/tags/</link>
     <description>Recent content in Tags on 低质量随笔</description>
-    <generator>Hugo -- 0.154.5</generator>
+    <generator>Hugo -- 0.155.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Jan 2026 21:35:55 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 31 Jan 2026 09:04:21 +0800</lastBuildDate>
     <atom:link href="https://kyzy540.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>游戏</title>
+      <link>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Sat, 31 Jan 2026 09:04:21 +0800</pubDate>
+      <guid>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</guid>
+      <description></description>
+    </item>
     <item>
       <title>It</title>
       <link>https://kyzy540.github.io/tags/it/</link>
@@ -20,13 +27,6 @@
       <link>https://kyzy540.github.io/tags/%E7%94%9F%E6%B4%BB/</link>
       <pubDate>Sat, 20 Dec 2025 21:15:38 +0800</pubDate>
       <guid>https://kyzy540.github.io/tags/%E7%94%9F%E6%B4%BB/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>游戏</title>
-      <link>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</link>
-      <pubDate>Sat, 13 Dec 2025 17:01:10 +0800</pubDate>
-      <guid>https://kyzy540.github.io/tags/%E6%B8%B8%E6%88%8F/</guid>
       <description></description>
     </item>
     <item>
@@ -44,7 +44,7 @@
       <description></description>
     </item>
     <item>
-      <title>Iphone</title>
+      <title>IPhone</title>
       <link>https://kyzy540.github.io/tags/iphone/</link>
       <pubDate>Wed, 12 Nov 2025 10:58:24 +0800</pubDate>
       <guid>https://kyzy540.github.io/tags/iphone/</guid>

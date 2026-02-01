@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.154.5"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.155.1"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -141,6 +141,21 @@
     </nav>
 </header>
 <main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">brew 降级
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考: Homebrew install specific version of formula?
+以alt-tab为例，从7.20.0 (有bug会崩溃) 降级到7.19.1
+打开 https://formulae.brew.sh/cask/alt-tab 跳转 Cask code on GitHub 点开 alt-tab.rb History 找到要目标版本 (要降低到的版本)，点View code at this point 下载 alt-tab.rb 7.19.1 控制台进alt-tab.rb所在目录，执行brew rnstall alt-tab.rb 该方法虽然麻烦，但通用。如果软件预备了多版本，例如 mysql-client，可以通过brew install mysql-client@8.4切版本，相对方便
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-02-20 14:05:23 +0800 CST'>February 20, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to brew 降级" href="https://kyzy540.github.io/post/brew_downgrade/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -384,26 +399,6 @@ ROG Ally检测插播 🙋提问：如何在不激活Windows 11的情况下检测
   </div>
   <footer class="entry-footer"><span title='2024-08-26 16:30:20 +0800 CST'>August 26, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 《名侦探的献祭》——我想把作者和“磨铁听书”献祭了" href="https://kyzy540.github.io/post/the_detective_massacre/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Zsh on macOS
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前些日换Mac电脑，发现迁移zsh的配置有点繁琐，整了好一阵才顺手。索性写个文档记录下
-先安装oh-my-zsh，和俩爱用的插件 (自动补全和高亮)
-sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34; &amp;&amp; \ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &amp;&amp; \ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 再来个Dracula主题
-git clone https://github.com/dracula/zsh.git mv zsh/dracula.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes mv zsh/lib ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes 改~/.zshrc，启用主题和插件，禁用自动更新 (自动更新影响shell启动速度)
-ZSH_THEME=&#34;dracula&#34; zstyle &#39;:omz:update&#39; mode disabled # disable automatic updates plugins=(git history zsh-autosuggestions zsh-syntax-highlighting) 对于常用的alias，参考.zshrc备注，写到${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/aliases.zsh
-同理，在custom目录下写pyenv.zsh初始化pyenv (omz的pyenv插件不好使)。写auth.zsh export 常用认证相关环境变量
-希望对每个命令都奏效的环境变量写到~/.zshenv
-# read even when Zsh is launched to run a single command export COPYFILE_DISABLE=1 # go export GOPATH=&#34;$HOME/go&#34; export PATH=&#34;$GOPATH/bin:$PATH&#34; 参考: What should/shouldn’t go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout?
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-08-19 10:18:44 +0800 CST'>August 19, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Zsh on macOS" href="https://kyzy540.github.io/post/zsh_on_mac/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

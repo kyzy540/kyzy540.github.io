@@ -201,7 +201,7 @@ sudo /usr/libexec/PlistBuddy -c &#34;Add &#39;redesigned_text_cursor:Enabled&#39
 </div>
   </header> 
   <div class="post-content"><p>Sonoma在每次切换输入法时都会在光标下跳一个提示框。如果装了<code>AltTab</code>的话，输入法提示会时不时自动蹦出来，很烦人。可以用如下命令禁用提示框。执行完需要重启系统才能生效</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 </span></span><span style="display:flex;"><span>sudo /usr/libexec/PlistBuddy -c <span style="color:#e6db74">&#34;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&#34;</span> /Library/Preferences/FeatureFlags/Domain/UIKit.plist
 </span></span></code></pre></div><p>参考: <a href="https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator">https://stackoverflow.com/questions/77248249/disable-macos-sonoma-text-insertion-point-cursor-caps-lock-indicator</a></p>
 
