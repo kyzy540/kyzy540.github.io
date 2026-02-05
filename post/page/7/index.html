@@ -149,6 +149,25 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">zkcli
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2023-09-16
+一个zookeeper cli客户端工具。基于let-us-go/zkcli改进。原版地址 (内附安装教程): https://github.com/let-us-go/zkcli
+原版有个问题: deleteall子命令不能递归删除zookeeper node。原因是 代码 没实现递归删除
+鉴于仓库已超过1年不更新 (最后一次commit在2022-08-16)，我只好自己fork代码，增加了deleteall的递归逻辑。安装命令
+go install github.com/kyzy540/zkcli@latest 相较于zookeeper自带的cli工具 zkCli.sh，这个go版本有3点优势
+交互模式支持 tab 自动提示 支持 batch 模式执行命令 方便安装配置，不依赖java zkcli默认会读配置文件$HOME/.config/zkcli.conf，可以避免每条命了都要输入冗长参数。配置文件参考 zkcli.conf。个人常用配置如下
+s 127.0.0.1:2181 P.S. 这是本人第一次写go代码，如有问题还请见谅🙏
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-16 21:06:11 +0800 CST'>September 16, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to zkcli" href="https://kyzy540.github.io/post/zkcli/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">分析一个Python MongoEngine的多层装饰器
     </h2>
   </header>
@@ -331,20 +350,6 @@ bower angular-spectrum-colorpicker#~1.3.5 ECMDERR Failed to execute “git ls-re
   </div>
   <footer class="entry-footer"><span title='2023-02-23 14:29:14 +0800 CST'>February 23, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 小米随手吸尘器清不掉网易云音乐的广告" href="https://kyzy540.github.io/post/bad_mi_nemusic_exp/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">《灵魂摆渡人》吊了一口长气
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>游戏好是好，就是太长了。How Long to Beat网站显示主流程耗时25小时，加支线接近30小时。对于一款主打艺术气质的休闲游戏，如此时长反而让我有点负担
-但撇开这点，这是款优秀的休闲游戏。宽容、治愈、舒适。整个流程中不乏令人感动的桥段。制作组选了一个沉重题材，能做出这般效果，令人钦佩
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-02-14 16:43:58 +0800 CST'>February 14, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to 《灵魂摆渡人》吊了一口长气" href="https://kyzy540.github.io/post/spiritfarer/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

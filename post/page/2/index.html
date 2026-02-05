@@ -149,6 +149,28 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Siri接大模型唠嗑
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简介 创建一个快捷指令供Siri使用。快捷指令会循环听用户问题，通过API发给大模型，后朗读回答。可以多轮问答，包含上下文
+API使用阿里云，可以改成其他兼容OpenAI标准的
+必须提供API Key。不免费
+用法 下载快捷指令: 唠嗑
+将Bearer sk-xxx替换成有效的 API Key 就可以使用了。获取key方法参考官方文档
+DeepSeek Moonshot AI (Kimi) 阿里云 以下参数可以按需调整
+model_name: 模型名，默认qwen-flash。用 DeepSeek API 改成 deepseek-chat URL: 兼容OpenAI API标准的base_url。DeepSeek是https://api.deepseek.com 重复3次: 控制问答轮次，默认最多3轮。控制轮次是为了节约Token。由于问答包含上下文，轮次越多携带上下文越多，Token消耗越多 enable_search: True: 允许模型推理过程中联网，默认开启。模型更好回答时效性问题。代价是会多消耗些许Token prompt Answer briefly, under 40 words: 提示词。限制回答字数。提示词也算Token，其本身不建议写长 费用 价格请以服务商官网实时报价为准。这里介绍算法。以2025-11-12阿里云qwen-flash报价为例
+单次请求的输入Token数 输入单价（每千Token） 输出单价（每千Token） 0&lt;Token≤128K 0.00015元 0.00015元 128K&lt;Token≤256K 0.0006元 0.006元 256K&lt;Token≤1M 0.0012元 0.012元 1个Token通常对应一个汉字，或一个英语单词。看起来不贵，但实际计费不仅按问题的字数算，还有提示词、搜索网络等其他计费项
+如果觉得不好算，实践更直观。为了确保不少算，我把提示词限制升到80: Answer briefly, under 80 words
+3轮问答消耗消耗11K Tokens。输出10.5K, 输入0.5K。请求Token数匹配最低档位，花费 0.0015 * 10.5 &#43; 0.00015 * 0.5 = 0.015825元
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-12 10:58:24 +0800 CST'>November 12, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Siri接大模型唠嗑" href="https://kyzy540.github.io/post/ios_shortcut_chatai/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">删除ROG奥创中心手柄映射配置
     </h2>
   </header>
@@ -417,25 +439,6 @@ DLC当然是个不坏的选择，但此时此刻，我们更想先做一款黑�
   </div>
   <footer class="entry-footer"><span title='2025-08-23 08:59:58 +0800 CST'>August 23, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 钟馗或许是最稳妥的选择" href="https://kyzy540.github.io/post/why_zhongkui/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">《漫长的季节》
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-截止2025，《漫长的季节》配得上中国电视剧史桂冠
-很久没看节奏这么慢的影视作品，花了2周才看完。要没4倍速快进，恐怕会更慢。叙事节奏慢是这剧的特点，必要，不可妥协。只有慢节奏和长镜头，才能表现时代感，让人沉浸。才有空间给演员发挥演技，让情绪缓缓晕开。才有时间让观众感慨命运不可抗
-范伟老师饰演的王响太真。中年自信果敢。老年时期举手投足间多了一分迟缓。根本不像演的
-昨晚刚看完，媳妇儿问我故事讲了啥，我没回答。还惹得她有点不高兴。不是懒得搭理，而是答不上来。我可以敷衍地说“是讲破案的”，但心里明白远不止如此。复述剧情就想捋线头，只要一个愿问，一个愿答，就能一直捋。但我不想提供这个线头，聊不明白。甚至不想回答“不好说”，不给她机会追问“为什么聊不明白”
-这是最优秀的电视剧之一。不能通过说小说或其他任意其他艺术方式转译。藏在镜头下的情感，只有自己观看才能感受到
-往广了说，《漫长的季节》是属于中国的宝玉。它可能不像珍珠、黄金那样容易被世界接受。但其璀璨瑰丽，足以在世界影视留下浓墨重彩的一笔
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-08-14 15:50:07 +0800 CST'>August 14, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 《漫长的季节》" href="https://kyzy540.github.io/post/the_long_season/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
