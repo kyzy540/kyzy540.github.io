@@ -144,6 +144,24 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">高中清晨的闹铃
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>我高中时过了2年住校生活。每天早上6点半，宿舍喇叭会准时放闹铃。不知道其他学校是否如此，我们高中的闹铃是歌曲串烧。歌单不知道是谁定的。有2首给我留下了印象
+胆小鬼 城市泪痕 说来惭愧，那会儿不咋听歌。这两首我头一次听就是在学校清晨的闹铃。那会儿的广播杂音多，听不清歌词。《城市泪痕》我是在近二十年后才搜到了原曲。袁娟都改名袁娅维重现火了一把。唏嘘光阴荏苒
+当然，能记住这两首歌的主要原因还是好听，杂音都盖不住的好听
+每当听到熟悉的旋律，脑海里都会浮现出往昔画面。上铺的室友神采奕奕地猴窜下来，摇醒宁死不起的我。起床在我，如舍身取义，万般痛苦。但苦味已经被时光冲逝，留下的只有室友灿烂的笑容和柔软的日光
+高中的生活辛苦，每天都要榨干脑力和精力。甚至为了课间补觉，不惜憋一泡45分钟的尿。倘若当年没有身边那些可爱的同学，高中给我留下的回忆不会美好
+感谢他们，感谢有缘相遇，带给我朝阳般的青春
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-09-07 07:16:31 +0800 CST'>September 7, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 高中清晨的闹铃" href="https://kyzy540.github.io/post/high_school_ringtone/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">《名侦探的献祭》——我想把作者和“磨铁听书”献祭了
     </h2>
   </header>
@@ -344,30 +362,6 @@ Epic总裁 Tim Sweeney 曾讲过3A系列《战争机器》的成本故事。初�
   </div>
   <footer class="entry-footer"><span title='2024-06-27 10:22:39 +0800 CST'>June 27, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 二游迷思" href="https://kyzy540.github.io/post/thoughts_of_service_games/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">macOS 录屏配字幕
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我想做个简短的软件演示视频
-如果有条件安装iMovie，可能很方便。但我的电脑因特殊原因没法登录App Store，下不了iMovie。只能拿来系统录屏功能&#43;ffmpeg凑合
-我先准备srt字幕再录视频。srt内容很简单，可以当大纲用
-1 00:00:00,000 --&gt; 00:00:04,000 hello 2 00:00:04,000 --&gt; 00:00:07,000 world 准备好后，按下 Shift-Command-5 打开“截屏”工具，开始录制
-录制好的文件会被保存城.mov格式，可以用ffmpeg转换成mp4
-ffmpeg -i input.mov -c:v libx264 -c:a aac -strict experimental output.mp4 最后根据视频调整srt字幕，合入视频。大功告成
-ffmpeg -i output.mp4 -vf subtitles=subtitle.srt -y output_with_sub.mp4 一点小思考:
-视频时长应该尽量短，短视频平台限制14秒时长是有道理的 一行字幕尽量短；驻留时间应该 &gt;3秒。易读 字幕驻留 &gt;6秒读起来很轻松。如果字数允许可以考虑将多行字合并 参考:
-Mac OS中利用ffmpeg为视频添加字幕
-在 Mac 上截屏或录屏
-ffmpeg将mov转换为mp4
-基于ffmpeg给视频添加时间字幕
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-06-06 14:59:51 +0800 CST'>June 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to macOS 录屏配字幕" href="https://kyzy540.github.io/post/screen_record_macos/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
