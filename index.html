@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.157.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.159.1"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="kyzy540">
 <link rel="canonical" href="https://kyzy540.github.io/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5c0f21e25c3551fd5c4685517c592eb41f5073118ce154d59fa4fd79f71c15c3.css" integrity="sha256-XA8h4lw1Uf1cRoVRfFkutB9QcxGM4VTVn6T9efccFcM=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b456ef0631a35946bdc78473c93749b7185a2c3e1f0d91ebaa5868e8aa06d127.css" integrity="sha256-tFbvBjGjWUa9x4RzyTdJtxhaLD4fDZHrqlho6KoG0Sc=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -153,6 +153,20 @@
 </div>
 
     </footer>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">《关于约会的一切》
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+开头有点尴尬，别急，先再看会儿，慢慢就有趣起来了。就像约会。当《Somebody in Love》响起的时候，给我逗笑出声。真好
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-29 07:49:25 +0800 CST'>March 29, 2026</span>&nbsp;·&nbsp;kyzy540</footer>
+  <a class="entry-link" aria-label="post link to 《关于约会的一切》" href="https://kyzy540.github.io/post/follemente/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -368,28 +382,6 @@ from threading import Event from taskflow import task cancel_event = Event() cla
   </div>
   <footer class="entry-footer"><span title='2025-12-03 16:55:28 +0800 CST'>December 3, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
   <a class="entry-link" aria-label="post link to 如何中断Taskflow工作流" href="https://kyzy540.github.io/post/taskflow_stop_a_flow/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Taskflow自定义Conductor
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor
-什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job
-过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job
-from taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(&#34;gpu&#34;) if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml
-[project.entry-points.&#34;taskflow.conductors&#34;] gpu = &#34;custom_conductor.gpu_conductor:GpuConductor&#34; 编辑安装包
-pip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到
-安装验证
-from stevedore.extension import ExtensionManager em = ExtensionManager(&#34;taskflow.conductors&#34;) print([e.name for e in em.extensions]) # 应包含 &#34;gpu&#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装
-Job post 发布Job时，需要指定details
-job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) 补充 额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-12-03 13:44:42 +0800 CST'>December 3, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
-  <a class="entry-link" aria-label="post link to Taskflow自定义Conductor" href="https://kyzy540.github.io/post/taskflow_inherit_conductor/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

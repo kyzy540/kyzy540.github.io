@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - 低质量随笔">
 <meta name="author" content="kyzy540">
 <link rel="canonical" href="https://kyzy540.github.io/post/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.5c0f21e25c3551fd5c4685517c592eb41f5073118ce154d59fa4fd79f71c15c3.css" integrity="sha256-XA8h4lw1Uf1cRoVRfFkutB9QcxGM4VTVn6T9efccFcM=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b456ef0631a35946bdc78473c93749b7185a2c3e1f0d91ebaa5868e8aa06d127.css" integrity="sha256-tFbvBjGjWUa9x4RzyTdJtxhaLD4fDZHrqlho6KoG0Sc=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kyzy540.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kyzy540.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kyzy540.github.io/favicon-32x32.png">
@@ -146,6 +146,28 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Taskflow自定义Conductor
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Taskflow原生的 blocking/nonblocking Conductor不支持Job过滤，也就是无差别消费所有Job。如果要实现特殊Job特殊Conductor处理，需要自定义Conductor
+什么Job算特殊？例如有某个工作流需要GPU资源，而Conductor集群里只有个别机器有GPU。此时最好的调度策略是有GPU的机器运行GPU Job。如果GPU机器空闲且其他机器忙，也可以运行不需要GPU的Job
+过滤Job Conductor重载_can_claim_more_jobs即可过滤Job。下面代码的has_gpu没实现，仅用于说明逻辑: 无GPU的机器不会执行需要GPU的Job；有GPU的机器会执行所有Job
+from taskflow.conductors.backends.impl_nonblocking import NonBlockingConductor class GpuConductor(NonBlockingConductor): def has_gpu(self): pass # TODO 获取GPU状态 def _can_claim_more_jobs(self, job): if not super()._can_claim_more_jobs(job): return False gpu = job.details.get(&#34;gpu&#34;) if gpu and not self.has_gpu(): return False return True stevedore Taskflow实例化Conductor依赖 stevedore.driver.DriverManager，其基于命名空间和entry point在运行时加载Conductor。因此GpuConductor必须添加到taskflow.conductors命名空间下。推荐写pyproject.toml
+[project.entry-points.&#34;taskflow.conductors&#34;] gpu = &#34;custom_conductor.gpu_conductor:GpuConductor&#34; 编辑安装包
+pip install -e . 注意，必须安装后stevedore才能在环境的分发元数据里发现新的entry point。直接跑源代码而不安装，stevedore看不到
+安装验证
+from stevedore.extension import ExtensionManager em = ExtensionManager(&#34;taskflow.conductors&#34;) print([e.name for e in em.extensions]) # 应包含 &#34;gpu&#34; 注册entry point不影响修改源代码，即修改GpuConductor代码不需要重新安装
+Job post 发布Job时，需要指定details
+job_backend = job_backends.fetch(name, conf, persistence=persist_backend) details = {&#34;gpu&#34;: True} job_backend.post(flow_name, logbook, details) 补充 额外补充，Conductor提供的notifier callback接口不能用于过滤job。用法类似conductor.notifier.register(cond.notifier.ANY, callback)。关键在于callback不能中断运行job的流程。notifier既不返回值，也不出异常。核心代码如下
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-03 13:44:42 +0800 CST'>December 3, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
+  <a class="entry-link" aria-label="post link to Taskflow自定义Conductor" href="https://kyzy540.github.io/post/taskflow_inherit_conductor/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -343,34 +365,6 @@ Model: deepseek-coder:1.7b
   </div>
   <footer class="entry-footer"><span title='2025-10-10 10:14:45 +0800 CST'>October 10, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
   <a class="entry-link" aria-label="post link to 大阪流水账" href="https://kyzy540.github.io/post/travel_of_osaka/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">直播有没可能是小餐馆的出路？
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>本文是《西贝垃圾话》的后续随想，随便唠唠
-上文书说到餐饮业想赚钱，连锁预制菜比较靠谱。其核心是在中央厨房流水线生产，保品质下限。又因大批量而降低成本。科技成就物美价廉
-反观小餐馆，虽然有“烟火气”，但相应要付出诸多代价：服务、环境还有最重要的利润
-消费者的需求其实很无赖——全都要。小餐馆如果要同时保障品质、服务和就餐环境，必须提高成本。为服务员提供有竞争力的薪资，做时尚店面装潢。潜心修炼厨艺的人很难同时精通人事管理和建筑设计。哪怕有那心，也没那力。一天炒几十分菜就够累人了，哪还有功夫搞其他
-为啥有“烟火气”的往往都是苍蝇小馆？一家小店，两人张罗，确保食物好吃就是他们的极限了。其他部分能省则省，才能维系利润。买卖才能延续。当然，某些店极具特色，无法复制，可以改走精致路线，让消费者买单。但这种店太少，门槛高不可攀，不多讨论
-那有没一种可能，让小餐馆只付出较少的精力，就能提高利润，从而让他们从苍蝇小馆再往前进化点？
-也许直播和外卖是条出路
-这不是我原创的想法。当下已经有些人在实践了。模式说来简单，还是俩人张罗小店，只不过在旁边架上手机，开直播，获取一些网络流量。只不过这品类很小众，做的人少，还缺一个成功案例
-说回赚钱，小店走的都是薄利多销路线，必须牺牲除餐食外其他元素。上面也说了，没得选，为的是保住利润。直播的商业价值是什么？——流量和利润 (打赏)。正是小店最需要的
-不做全职直播，设备投入成本几乎为零。如果只是架手机拍摄厨房，运营成本几乎也是零。当下做这类直播的店现状如此。有收益，但不高
-如果小店主们能更进一步呢？——为观众提供情绪价值。忙完手头厨活儿，坐下来，拿手机对着脸，跟网友唠唠嗑。不用长篇大论，整点儿类似吃播的家常里短就行。聊聊对厨艺的理解，店铺经营，主打一个真诚，陪伴感
-或者反过来，有能说会道的新时代青年，本来就懂点直播门道儿，但没绝活儿。找不到工作可以学厨啊，好歹餐馆能带来基本收入，保个下限
-试想，同样是养成系，看小年轻朴实无华，艰苦奋斗，诚信经营，匠人精神，独立创业，多正能量啊。再能聊两句，拉近距离，赚点观众打赏是有可能的
-这样，小店就可以不被成本定价两头堵的难题困死，用第三条路，直播，创收。有收益，有人气，实体经济就能走下去
-到这，额，差一嘴，有外卖什么事儿？说实话，不搞外卖也行。只是外卖餐饮有几个优点
-能结合直播形式，观众情绪到了不必人肉跑到线下店，可以外卖下单 直播看着自己的订餐一步步从原材料变到成品，再送到自己手上。观众安心。同时可以观看劳动有成果的过程，有第一层娱乐。成果收获到自己手里，虚拟联系现实，是第二层娱乐 观众吃着开心，直播里发个弹幕夸一嘴，是最好的广告，还免费 降低实体店门槛。仅做外卖的店面比主打堂食的要便宜的多，更适合小买卖 最后最后，我得再次声明，这是我脑子一热想出的点子。不成熟，但感觉至少自洽。如果有兴趣尝试的朋友，祝好运🍀
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-08 16:10:25 +0800 CST'>October 8, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
-  <a class="entry-link" aria-label="post link to 直播有没可能是小餐馆的出路？" href="https://kyzy540.github.io/post/cooking_broadcast/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
