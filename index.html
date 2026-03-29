@@ -157,6 +157,21 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">《尘埃终须落定》不赖
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>¥20.30，3.6小时全成就。没有拖沓，界面高度归纳玩法，一次畅快的探案体验。steam 好评率 96%(9349) 实至名归
+从一开始杂乱无章，云里雾里，到逐渐理出头绪，抽丝剥茧。当线索如拼图般拼合时，成就感和故事转折的惊喜同时袭来。最棒的是，玩法和叙事还有结合，妙哉
+睡前玩一会儿，醒来玩一会儿，就通关了。快乐
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-29 20:44:15 +0800 CST'>March 29, 2026</span>&nbsp;·&nbsp;kyzy540</footer>
+  <a class="entry-link" aria-label="post link to 《尘埃终须落定》不赖" href="https://kyzy540.github.io/post/no_case_should_remain_unsolved/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">《关于约会的一切》
     </h2>
   </header>
@@ -359,29 +374,6 @@ CPI(消费者价格指数)衡量消费品价格变动，2025年12月同比上涨
   </div>
   <footer class="entry-footer"><span title='2025-12-13 17:01:10 +0800 CST'>December 13, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
   <a class="entry-link" aria-label="post link to 《黑猫侦探: 深入本质》" href="https://kyzy540.github.io/post/blacksad_under_the_skin/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">如何中断Taskflow工作流
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>taskflow的poster&#43;conductor架构下，conductor以多线程并发运行job。线程池被封装在内部。因此一旦conductor开始执行任务，想中断它就很麻烦。通常要重启整个conductor线程池
-是否有更优雅的办法中断conductor正在执行的任务？
-不可行——JobBoard.abandon()/trash() JobBoard的abandon和trash方法不能终止job。前者只删除job.lock，后者会把job数据拷贝到/taskflow/.trash/下再删除job node。二者都没解决核心问题: 阻止工作流继续执行下一步骤。
-不推荐——修改数据库atomdetails状态 设想: 修改taskflow persistence数据库(如postresql) flowdetails和atomdetails表。把RUNNING和PENDING的步骤都UPDATE成REVERTED。期望工作流在进入下一个task时会异常自动中断
-测试结果: taskflow会检查任务状态 合法性。一个步骤SUCCESS，但后续步骤状态是FAILURE或REVERTED会被识别为状态非法。这会导致conductor异常退出，影响其他线程。此外，taskflow会将失败任务的failure字段转换成dict。写入的数据结构必须也合法，否则任务无法被重试
-同理state设为REVERT_FAILURE或SUCCESS可以中断工作流，但也会报错状态非法
-总之方案可行，但不高效
-可行——kill conductor进程 每个conductor都只维护一个线程，在更上层用 进程 维护多个conductor。这样就可通过kill conductor进程。但代价是任务的revert方法不会被执行。如果所有任务完全幂等，没有资源泄漏风险，是可行的
-但不推荐这个方案。它实际上提高了任务设计难度，也不符合taskflow的设计理念
-推荐——execute()装饰器 示例代码如下
-from threading import Event from taskflow import task cancel_event = Event() class CancelableTask(task.Task): def __init_subclass__(cls, **kwargs): super().__init_subclass__(**kwargs) if hasattr(cls, &#34;execute&#34;) and callable(cls.execute): original_execute = cls.execute def wrapped_execute(self, *args, **kwargs): if cancel_event and cancel_event.is_set(): raise Exception(&#34;Flow cancelled at start&#34;) result = original_execute(self, *args, **kwargs) if cancel_event and cancel_event.is_set(): raise Exception(&#34;Flow cancelled after execution&#34;) return result cls.execute = wrapped_execute class DownloadTask(CancelableTask): def execute(self, url, **kwargs): print(f&#34;Downloading {url}...&#34;) for i in range(10): print(f&#34;Progress: {i*10}%&#34;) return f&#34;Downloaded {url}&#34; def revert(self, result, *args, **kwargs): pass # TODO 清理工作 __init_subclass__是Python 3.6引入的特性，在子类初始化时执行。赋予父类修改子类方法的能力。示例代码中，DownloadTask继承了CancelableTask，它的execute方法被 透明 地封装了一层装饰器。如果检测到cancel_event会抛出异常。这种抛异常方式是taskflow可以处理的，DownloadTask的revert方法随后会被调用，完成清理工作
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-12-03 16:55:28 +0800 CST'>December 3, 2025</span>&nbsp;·&nbsp;kyzy540</footer>
-  <a class="entry-link" aria-label="post link to 如何中断Taskflow工作流" href="https://kyzy540.github.io/post/taskflow_stop_a_flow/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
